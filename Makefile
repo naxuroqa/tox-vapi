@@ -13,13 +13,15 @@ bot:
 debug: bot
 	gdb -ex run ./Bot
 
+clean:
+	rm -f ./Bot
+
 style:
-	astyle \
-		--style=attach \
-		--indent=spaces=4 \
-		--indent-namespaces \
-		--indent-switches \
-		--add-one-line-brackets \
+	uncrustify \
+	  -c uncrustify.cfg \
+		-l VALA \
+		--replace \
+		--no-backup \
 		vapi/libtoxcore.vapi \
-		vapi/toxav.vapi \
+		vapi/libtoxav.vapi \
 		Bot.vala
