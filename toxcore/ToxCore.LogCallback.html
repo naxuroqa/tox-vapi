@@ -24,7 +24,6 @@
         <hr class="navi_hr"/>
         <ul class="navi_main">
           <li class="namespace"><a href="ToxCore.Version.html">Version</a></li>
-          <li class="enum"><a href="ToxCore.ConferenceStateChange.html">ConferenceStateChange</a></li>
           <li class="enum"><a href="ToxCore.ConferenceType.html">ConferenceType</a></li>
           <li class="enum"><a href="ToxCore.Connection.html">Connection</a></li>
           <li class="enum"><a href="ToxCore.ErrBootstrap.html">ErrBootstrap</a></li>
@@ -95,6 +94,52 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><span class="delegate">LogCallback</span></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_type"><a href="ToxCore.LogLevel.html" class="enum">LogLevel</a></span> level, <span class="main_basic_type"><span class="class">string</span></span> file, <span class="main_basic_type"><span class="struct">uint32</span></span> line, <span class="main_basic_type"><span class="class">string</span></span> func, <span class="main_basic_type"><span class="class">string</span></span> message)
+        </div>
+        <div class="description">
+          <p>This event is triggered when the toxcore library logs an internal message. This is mostly useful for debugging. This callback can be 
+            called from any function, not just tox_iterate. This means the user data lifetime must at least extend between registering and 
+            unregistering it or tox_kill.</p>
+          <p>Other toxcore modules such as toxav may concurrently call this callback at any time. Thus, user code must make sure it is equipped to 
+            handle concurrent execution, e.g. by employing appropriate mutex locking.</p>
+          <h2 class="main_title">Parameters:</h2>
+          <table class="main_parameter_table">
+            <tr>
+              <td class="main_parameter_table_name">level</td>
+              <td>
+                <p>The severity of the log message. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">file</td>
+              <td>
+                <p>The source file from which the message originated. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">line</td>
+              <td>
+                <p>The source line from which the message originated. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">func</td>
+              <td>
+                <p>The function from which the message originated. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">message</td>
+              <td>
+                <p>The log message. </p>
+              </td>
+            </tr>
+            <tr class="main_parameter_table_unknown_parameter">
+              <td class="main_parameter_table_name">user_data</td>
+              <td>
+                <p>The user data pointer passed to tox_new in options. </p>
+              </td>
+            </tr>
+          </table>
         </div><br/>
         <div class="namespace_note"><b>Namespace:</b> <a href="ToxCore.html">ToxCore</a>
         </div>

@@ -31,7 +31,8 @@
           <li class="property"><a href="ToxCore.Tox.user_status.html">user_status</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
-          <li class="delegate"><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html">ConferenceNamelistChangeCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerNameCallback.html">ConferencePeerNameCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceTitleCallback.html">ConferenceTitleCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileChunkRequestCallback.html">FileChunkRequestCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileRecvCallback.html">FileRecvCallback</a></li>
@@ -55,7 +56,8 @@
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_message.html">callback_conference_message</a></li>
-          <li class="method"><a href="ToxCore.Tox.callback_conference_namelist_change.html">callback_conference_namelist_change</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_list_changed.html">callback_conference_peer_list_changed</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_name.html">callback_conference_peer_name</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_title.html">callback_conference_title</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_chunk_request.html">callback_file_chunk_request</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_recv.html">callback_file_recv</a></li>
@@ -129,6 +131,22 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><span class="method">self_get_dht_id</span></b> ()
+        </div>
+        <div class="description">
+          <p>Writes the temporary DHT public key of this instance to a byte array.</p>
+          <p>This can be used in combination with an externally accessible IP address and the bound port (from tox_self_get_udp_port) to run a 
+            temporary bootstrap node.</p>
+          <p>Be aware that every time a new instance is created, the DHT public key changes, meaning this cannot be used to run a permanent bootstrap 
+            node.</p>
+          <h2 class="main_title">Parameters:</h2>
+          <table class="main_parameter_table">
+            <tr class="main_parameter_table_unknown_parameter">
+              <td class="main_parameter_table_name">dht_id</td>
+              <td>
+                <p>A memory region of at least TOX_PUBLIC_KEY_SIZE bytes. If this parameter is NULL, this function has no effect. </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div><br/>

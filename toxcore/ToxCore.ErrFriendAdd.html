@@ -51,15 +51,24 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Enum values:</h3>
         <ul class="navi_inline">
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.OK.html">OK</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.NULL.html">NULL</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.TOO_LONG.html">TOO_LONG</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.NO_MESSAGE.html">NO_MESSAGE</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.OWN_KEY.html">OWN_KEY</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.ALREADY_SENT.html">ALREADY_SENT</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.BAD_CHECKSUM.html">BAD_CHECKSUM</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.SET_NEW_NOSPAM.html">SET_NEW_NOSPAM</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.MALLOC.html">MALLOC</a></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.OK.html">OK</a> - <span class="brief_description">The function returned successfully.
+            </span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.NULL.html">NULL</a> - <span class="brief_description">One of the arguments to the 
+              function was NULL when it was not expected.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.TOO_LONG.html">TOO_LONG</a> - <span class="brief_description">The length of the friend 
+              request message exceeded TOX_MAX_FRIEND_REQUEST_LENGTH.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.NO_MESSAGE.html">NO_MESSAGE</a> - <span class="brief_description">The friend request 
+              message was empty. This, and the TOO_LONG code will never be returned from tox_friend_add_norequest.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.OWN_KEY.html">OWN_KEY</a> - <span class="brief_description">The friend address belongs 
+              to the sending client.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.ALREADY_SENT.html">ALREADY_SENT</a> - <span class="brief_description">A friend request 
+              has already been sent, or the address belongs to a friend that is already on the friend list.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.BAD_CHECKSUM.html">BAD_CHECKSUM</a> - <span class="brief_description">The friend address
+              checksum failed.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.SET_NEW_NOSPAM.html">SET_NEW_NOSPAM</a> - <span class="brief_description">The friend was
+              already there, but the nospam value was different.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendAdd.MALLOC.html">MALLOC</a> - <span class="brief_description">A memory allocation failed 
+              when trying to increase the friend list size.</span></li>
         </ul>
       </div>
     </div><br/>

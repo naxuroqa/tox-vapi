@@ -51,15 +51,26 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Enum values:</h3>
         <ul class="navi_inline">
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.OK.html">OK</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.NULL.html">NULL</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.FRIEND_NOT_FOUND.html">FRIEND_NOT_FOUND</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.FRIEND_NOT_CONNECTED.html">FRIEND_NOT_CONNECTED</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.NOT_FOUND.html">NOT_FOUND</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.NOT_TRANSFERRING.html">NOT_TRANSFERRING</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.INVALID_LENGTH.html">INVALID_LENGTH</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.SENDQ.html">SENDQ</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.WRONG_POSITION.html">WRONG_POSITION</a></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.OK.html">OK</a> - <span class="brief_description">The function returned 
+              successfully.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.NULL.html">NULL</a> - <span class="brief_description">The length parameter was non-
+              zero, but data was NULL.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.FRIEND_NOT_FOUND.html">FRIEND_NOT_FOUND</a> - <span class="brief_description">The 
+              friend_number passed did not designate a valid friend.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.FRIEND_NOT_CONNECTED.html">FRIEND_NOT_CONNECTED</a> - 
+            <span class="brief_description">This client is currently not connected to the friend.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.NOT_FOUND.html">NOT_FOUND</a> - <span class="brief_description">No file transfer 
+              with the given file number was found for the given friend.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.NOT_TRANSFERRING.html">NOT_TRANSFERRING</a> - <span class="brief_description">File 
+              transfer was found but isn't in a transferring state: (paused, done, broken, etc...) (happens only when not called from the request 
+              chunk callback).</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.INVALID_LENGTH.html">INVALID_LENGTH</a> - <span class="brief_description">Attempted 
+              to send more or less data than requested. The requested data size is adjusted according to maximum transmission unit and the expected 
+              end of the file. Trying to send less or more than requested will return this error.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.SENDQ.html">SENDQ</a> - <span class="brief_description">Packet queue is full.</span>
+          </li>
+          <li class="enumvalue"><a href="ToxCore.ErrFileSendChunk.WRONG_POSITION.html">WRONG_POSITION</a> - <span class="brief_description">Position 
+              parameter was wrong.</span></li>
         </ul>
       </div>
     </div><br/>

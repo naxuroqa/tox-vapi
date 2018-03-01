@@ -31,7 +31,8 @@
           <li class="property"><a href="ToxCore.Tox.user_status.html">user_status</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
-          <li class="delegate"><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html">ConferenceNamelistChangeCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerNameCallback.html">ConferencePeerNameCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceTitleCallback.html">ConferenceTitleCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileChunkRequestCallback.html">FileChunkRequestCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileRecvCallback.html">FileRecvCallback</a></li>
@@ -55,7 +56,8 @@
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_message.html">callback_conference_message</a></li>
-          <li class="method"><a href="ToxCore.Tox.callback_conference_namelist_change.html">callback_conference_namelist_change</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_list_changed.html">callback_conference_peer_list_changed</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_name.html">callback_conference_peer_name</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_title.html">callback_conference_title</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_chunk_request.html">callback_file_chunk_request</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_recv.html">callback_file_recv</a></li>
@@ -129,6 +131,38 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><span class="method">friend_add</span></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] address, <span class="main_basic_type"><span class="class">string</span></span> message, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendAdd.html" class="enum">ErrFriendAdd</a></span> error)
+        </div>
+        <div class="description">
+          <p>Add a friend to the friend list and send a friend request.</p>
+          <p>A friend request message must be at least 1 byte long and at most TOX_MAX_FRIEND_REQUEST_LENGTH.</p>
+          <p>Friend numbers are unique identifiers used in all functions that operate on friends. Once added, a friend number is stable for the 
+            lifetime of the Tox object. After saving the state and reloading it, the friend numbers may not be the same as before. Deleting a friend 
+            creates a gap in the friend number set, which is filled by the next adding of a friend. Any pattern in friend numbers should not be relied
+            on.</p>
+          <p>If more than INT32_MAX friends are added, this function causes undefined behaviour.</p>
+          <h2 class="main_title">Parameters:</h2>
+          <table class="main_parameter_table">
+            <tr>
+              <td class="main_parameter_table_name">address</td>
+              <td>
+                <p>The address of the friend (returned by tox_self_get_address of the friend you wish to add) it must be TOX_ADDRESS_SIZE bytes. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">message</td>
+              <td>
+                <p>The message that will be sent along with the friend request. </p>
+              </td>
+            </tr>
+          </table>
+          <h2 class="main_title">Returns:</h2>
+          <table class="main_parameter_table">
+            <tr>
+              <td>
+                <p>the friend number on success, UINT32_MAX on failure. </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div><br/>

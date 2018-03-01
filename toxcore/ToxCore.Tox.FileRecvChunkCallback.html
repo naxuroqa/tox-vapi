@@ -31,7 +31,8 @@
           <li class="property"><a href="ToxCore.Tox.user_status.html">user_status</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
-          <li class="delegate"><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html">ConferenceNamelistChangeCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerNameCallback.html">ConferencePeerNameCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceTitleCallback.html">ConferenceTitleCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileChunkRequestCallback.html">FileChunkRequestCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileRecvCallback.html">FileRecvCallback</a></li>
@@ -55,7 +56,8 @@
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_message.html">callback_conference_message</a></li>
-          <li class="method"><a href="ToxCore.Tox.callback_conference_namelist_change.html">callback_conference_namelist_change</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_list_changed.html">callback_conference_peer_list_changed</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_name.html">callback_conference_peer_name</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_title.html">callback_conference_title</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_chunk_request.html">callback_file_chunk_request</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_recv.html">callback_file_recv</a></li>
@@ -129,6 +131,45 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition">[ <span class="main_type">CCode</span> ( has_target = <span class="main_literal">false</span> ) ]<br/><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><span class="delegate">FileRecvChunkCallback</span></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint64</span></span> position, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">void</span>* user_data)
+        </div>
+        <div class="description">
+          <p>When length is 0, the transfer is finished and the client should release the resources it acquired for the transfer. After a call with 
+            length = 0, the file number can be reused for new file transfers.</p>
+          <p>If position is equal to file_size (received in the file_receive callback) when the transfer finishes, the file was received completely. 
+            Otherwise, if file_size was UINT64_MAX, streaming ended successfully when length is 0.</p>
+          <h2 class="main_title">Parameters:</h2>
+          <table class="main_parameter_table">
+            <tr>
+              <td class="main_parameter_table_name">friend_number</td>
+              <td>
+                <p>The friend number of the friend who is sending the file. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">file_number</td>
+              <td>
+                <p>The friend-specific file number the data received is associated with. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">position</td>
+              <td>
+                <p>The file position of the first byte in data. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">data</td>
+              <td>
+                <p>A byte array containing the received chunk. </p>
+              </td>
+            </tr>
+            <tr class="main_parameter_table_unknown_parameter">
+              <td class="main_parameter_table_name">length</td>
+              <td>
+                <p>The length of the received chunk. </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div><br/>

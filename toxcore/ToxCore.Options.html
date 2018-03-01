@@ -57,6 +57,15 @@
 
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition">[ <span class="main_type">Compact</span> ]<br/><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">Options</span></b>
+        </div>
+        <div class="description">
+          <p class="main_title"><b>Deprecated: </b>
+            <p>The memory layout of this struct (size, alignment, and field order) is not part of the ABI. To remain compatible, prefer to use 
+              tox_options_new to allocate the object and accessor functions to set the members. The struct will become opaque (i.e. the definition 
+              will become private) in v0.3.0. </p></p>
+          <p>This struct contains all the startup options for Tox. You must tox_options_new to allocate an object of this type.</p>
+          <p>WARNING: Although this struct happens to be visible in the API, it is effectively private. Do not allocate this yourself or access 
+            members directly, as it *will* break binary compatibility frequently.</p>
         </div><br/>
         <div class="namespace_note"><b>Namespace:</b> <a href="ToxCore.html">ToxCore</a>
         </div>
@@ -67,54 +76,58 @@
         <ul class="navi_inline">
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Options.ipv6_enabled.html" class="property">ipv6_enabled</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The type of socket to create.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Options.udp_enabled.html" class="property">udp_enabled</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Enable the use of UDP communication when available.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Options.local_discovery_enabled.html" class="property">local_discovery_enabled</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Enable local network peer discovery.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.ProxyType.html" class="enum">ProxyType</a></span> <b><a href="ToxCore.Options.proxy_type.html" class="property">proxy_type</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Pass communications through a proxy.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span>? <b><a href="ToxCore.Options.proxy_host.html" class="property">proxy_host</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The IP address or DNS name of the proxy to be used.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint16</span></span> <b><a href="ToxCore.Options.proxy_port.html" class="property">proxy_port</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The port to use to connect to the proxy server.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint16</span></span> <b><a href="ToxCore.Options.start_port.html" class="property">start_port</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The start port of the inclusive port range to attempt to use.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint16</span></span> <b><a href="ToxCore.Options.end_port.html" class="property">end_port</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The end port of the inclusive port range to attempt to use.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint16</span></span> <b><a href="ToxCore.Options.tcp_port.html" class="property">tcp_port</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The port to use for the TCP server (relay). If 0, the TCP server is 
+                disabled.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Options.hole_punching_enabled.html" class="property">hole_punching_enabled</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Enables or disables UDP hole-punching in toxcore. (Default: enabled).
+              </span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.SaveDataType.html" class="enum">SaveDataType</a></span> <b><a href="ToxCore.Options.savedata_type.html" class="property">savedata_type</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The type of savedata to load from.</span>
             </div></li>
         </ul>
         <h3 class="main_title">Creation methods:</h3>
         <ul class="navi_inline">
           <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="ToxCore.Options.Options.html" class="creation_method">Options</a></b> (<span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrOptionsNew.html" class="enum">ErrOptionsNew</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Allocates a new Tox_Options object and initialises it with the default
+                options. This function can be used to preserve long term ABI compatibility by giving the responsibility of allocation and deallocation
+                to the Tox library.</span>
             </div></li>
         </ul>
         <h3 class="main_title">Methods:</h3>
@@ -129,14 +142,14 @@
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Options.@default.html" class="method">@default</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Initialises a Tox_Options object with the default options.</span>
             </div></li>
         </ul>
         <h3 class="main_title">Fields:</h3>
         <ul class="navi_inline">
           <li class="field"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">weak</span> <span class="main_type"><a href="ToxCore.LogCallback.html" class="delegate">LogCallback</a></span> <b><a href="ToxCore.Options.log_callback.html" class="field">log_callback</a></b>
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Logging callback for the new tox instance.</span>
             </div></li>
         </ul>
       </div>

@@ -37,6 +37,9 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">enum</span> <b><span class="enum">Connection</span></b>
+        </div>
+        <div class="description">
+          <p>Protocols that can be used to connect to the network or friends.</p>
         </div><br/>
         <div class="namespace_note"><b>Namespace:</b> <a href="ToxCore.html">ToxCore</a>
         </div>
@@ -45,9 +48,14 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Enum values:</h3>
         <ul class="navi_inline">
-          <li class="enumvalue"><a href="ToxCore.Connection.NONE.html">NONE</a></li>
-          <li class="enumvalue"><a href="ToxCore.Connection.TCP.html">TCP</a></li>
-          <li class="enumvalue"><a href="ToxCore.Connection.UDP.html">UDP</a></li>
+          <li class="enumvalue"><a href="ToxCore.Connection.NONE.html">NONE</a> - <span class="brief_description">There is no connection. This 
+              instance, or the friend the state change is about, is now offline.</span></li>
+          <li class="enumvalue"><a href="ToxCore.Connection.TCP.html">TCP</a> - <span class="brief_description">A TCP connection has been established.
+              For the own instance, this means it is connected through a TCP relay, only. For a friend, this means that the connection to that 
+              particular friend goes through a TCP relay.</span></li>
+          <li class="enumvalue"><a href="ToxCore.Connection.UDP.html">UDP</a> - <span class="brief_description">A UDP connection has been established.
+              For the own instance, this means it is able to send UDP packets to DHT nodes, but may still be connected to a TCP relay. For a friend, 
+              this means that the connection to that particular friend was built using direct UDP packets.</span></li>
         </ul>
       </div>
     </div><br/>

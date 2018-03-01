@@ -2,12 +2,12 @@
 <html>
   <head>
     <meta charset="UTF-8"/>
-    <title>ToxCore.Tox._self_get_dht_id &ndash; toxcore &ndash; Vala Binding Reference</title>
+    <title>ToxCore.Tox.ConferencePeerNameCallback &ndash; toxcore &ndash; Vala Binding Reference</title>
     <link href="../style.css" rel="stylesheet" type="text/css"/><script src="../scripts.js" type="text/javascript">
     </script>
   </head>
   <body>
-    <div class="site_header">ToxCore.Tox._self_get_dht_id &ndash; toxcore Reference Manual</div>
+    <div class="site_header">ToxCore.Tox.ConferencePeerNameCallback &ndash; toxcore Reference Manual</div>
     <div class="site_body">
       <div class="site_navigation">
         <ul class="navi_main">
@@ -32,7 +32,7 @@
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
-          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerNameCallback.html">ConferencePeerNameCallback</a></li>
+          <li class="delegate">ConferencePeerNameCallback</li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceTitleCallback.html">ConferenceTitleCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileChunkRequestCallback.html">FileChunkRequestCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileRecvCallback.html">FileRecvCallback</a></li>
@@ -51,7 +51,7 @@
           <li class="delegate"><a href="ToxCore.Tox.SelfConnectionStatusCallback.html">SelfConnectionStatusCallback</a></li>
           <li class="static_method"><a href="ToxCore.Tox.hash.html">hash</a></li>
           <li class="creation_method"><a href="ToxCore.Tox.Tox.html">Tox</a></li>
-          <li class="method">_self_get_dht_id</li>
+          <li class="method"><a href="ToxCore.Tox._self_get_dht_id.html">_self_get_dht_id</a></li>
           <li class="method"><a href="ToxCore.Tox.add_tcp_relay.html">add_tcp_relay</a></li>
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
@@ -127,10 +127,39 @@
         </ul>
       </div>
       <div class="site_content">
-        <h1 class="main_title">_self_get_dht_id</h1>
+        <h1 class="main_title">ConferencePeerNameCallback</h1>
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
-        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><span class="method">_self_get_dht_id</span></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] dht_id)
+        <div class="main_code_definition">[ <span class="main_type">CCode</span> ( has_target = <span class="main_literal">false</span> ) ]<br/><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><span class="delegate">ConferencePeerNameCallback</span></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] name, <span class="main_keyword">void</span>* user_data)
+        </div>
+        <div class="description">
+          <h2 class="main_title">Parameters:</h2>
+          <table class="main_parameter_table">
+            <tr>
+              <td class="main_parameter_table_name">conference_number</td>
+              <td>
+                <p>The conference number of the conference the peer is in. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">peer_number</td>
+              <td>
+                <p>The ID of the peer who changed their nickname. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">name</td>
+              <td>
+                <p>A byte array containing the new nickname. </p>
+              </td>
+            </tr>
+            <tr class="main_parameter_table_unknown_parameter">
+              <td class="main_parameter_table_name">length</td>
+              <td>
+                <p>The size of the name byte array. </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div><br/>

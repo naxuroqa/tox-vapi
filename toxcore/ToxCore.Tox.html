@@ -31,7 +31,8 @@
           <li class="property"><a href="ToxCore.Tox.user_status.html">user_status</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
-          <li class="delegate"><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html">ConferenceNamelistChangeCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerNameCallback.html">ConferencePeerNameCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceTitleCallback.html">ConferenceTitleCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileChunkRequestCallback.html">FileChunkRequestCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileRecvCallback.html">FileRecvCallback</a></li>
@@ -55,7 +56,8 @@
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_message.html">callback_conference_message</a></li>
-          <li class="method"><a href="ToxCore.Tox.callback_conference_namelist_change.html">callback_conference_namelist_change</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_list_changed.html">callback_conference_peer_list_changed</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_name.html">callback_conference_peer_name</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_title.html">callback_conference_title</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_chunk_request.html">callback_file_chunk_request</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_recv.html">callback_file_recv</a></li>
@@ -136,6 +138,11 @@
 
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition">[ <span class="main_type">Compact</span> ]<br/><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">Tox</span></b>
+        </div>
+        <div class="description">
+          <p>The Tox instance type. All the state associated with a connection is held within the instance. Multiple instances can exist and operate 
+            concurrently. The maximum number of Tox instances that can exist on a single network device is limited. Note that this is not just a per-
+            process limit, since the limiting factor is the number of usable ports on a device.</p>
         </div><br/>
         <div class="namespace_note"><b>Namespace:</b> <a href="ToxCore.html">ToxCore</a>
         </div>
@@ -146,11 +153,12 @@
         <ul class="navi_inline">
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.nospam.html" class="property">nospam</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The 4-byte nospam part of the address. This value is expected in host 
+                byte order. I.e. 0x12345678 will form the bytes [12, 34, 56, 78] in the nospam part of the Tox friend address.</span>
             </div></li>
           <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.UserStatus.html" class="enum">UserStatus</a></span> <b><a href="ToxCore.Tox.user_status.html" class="property">user_status</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The client's user status.</span>
             </div></li>
         </ul>
         <h3 class="main_title">Delegates:</h3>
@@ -193,23 +201,32 @@
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.FileRecvControlCallback.html" class="delegate">FileRecvControlCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_type"><a href="ToxCore.FileControl.html" class="enum">FileControl</a></span> control, <span class="main_keyword">void</span>* user_data)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">When receiving TOX_FILE_CONTROL_CANCEL, the client should release the 
+                resources associated with the file number and consider the transfer failed.</span>
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.FileChunkRequestCallback.html" class="delegate">FileChunkRequestCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint64</span></span> position, <span class="main_basic_type"><span class="struct">size_t</span></span> length, <span class="main_keyword">void</span>* user_data)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">If the length parameter is 0, the file transfer is finished, and the 
+                client's resources associated with the file number should be released. After a call with zero length, the file number can be reused 
+                for future file transfers.</span>
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.FileRecvCallback.html" class="delegate">FileRecvCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint32</span></span> kind, <span class="main_basic_type"><span class="struct">uint64</span></span> file_size, <span class="main_basic_type"><span class="struct">uint8</span></span>[] filename, <span class="main_keyword">void</span>* user_data)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The client should acquire resources to be associated with the file 
+                transfer. Incoming file transfers start in the PAUSED state. After this callback returns, a transfer can be rejected by sending a 
+                TOX_FILE_CONTROL_CANCEL control command before any other control commands. It can be accepted by sending TOX_FILE_CONTROL_RESUME.
+              </span>
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.FileRecvChunkCallback.html" class="delegate">FileRecvChunkCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint64</span></span> position, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">void</span>* user_data)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">When length is 0, the transfer is finished and the client should 
+                release the resources it acquired for the transfer. After a call with length = 0, the file number can be reused for new file 
+                transfers.</span>
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.ConferenceInviteCallback.html" class="delegate">ConferenceInviteCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxCore.ConferenceType.html" class="enum">ConferenceType</a></span> type, <span class="main_basic_type"><span class="struct">uint8</span></span>[] cookie, <span class="main_keyword">void</span>* user_data)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The invitation will remain valid until the inviting friend goes 
+                offline or exits the conference.</span>
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.ConferenceMessageCallback.html" class="delegate">ConferenceMessageCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_type"><a href="ToxCore.MessageType.html" class="enum">MessageType</a></span> type, <span class="main_basic_type"><span class="struct">uint8</span></span>[] message, <span class="main_keyword">void</span>* user_data)
             </span>
@@ -219,7 +236,11 @@
             </span>
             <div class="leaf_brief_description">
             </div></li>
-          <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html" class="delegate">ConferenceNamelistChangeCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_type"><a href="ToxCore.ConferenceStateChange.html" class="enum">ConferenceStateChange</a></span> change, <span class="main_keyword">void</span>* user_data)
+          <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.ConferencePeerNameCallback.html" class="delegate">ConferencePeerNameCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] name, <span class="main_keyword">void</span>* user_data)
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+          <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html" class="delegate">ConferencePeerListChangedCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_keyword">void</span>* user_data)
             </span>
             <div class="leaf_brief_description">
             </div></li>
@@ -236,285 +257,327 @@
         <ul class="navi_inline">
           <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxCore.Tox.hash.html" class="static_method">hash</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] data)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Generates a cryptographic hash of the given data.</span>
             </div></li>
         </ul>
         <h3 class="main_title">Creation methods:</h3>
         <ul class="navi_inline">
           <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="ToxCore.Tox.Tox.html" class="creation_method">Tox</a></b> (<span class="main_type"><a href="ToxCore.Options.html" class="class">Options</a></span>? options = <span class="main_literal">null</span>, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrNew.html" class="enum">ErrNew</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Creates and initialises a new Tox instance with the options passed.
+              </span>
             </div></li>
         </ul>
         <h3 class="main_title">Methods:</h3>
         <ul class="navi_inline">
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.get_savedata.html" class="method">get_savedata</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Store all information associated with the tox instance to a byte 
+                array.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.bootstrap.html" class="method">bootstrap</a></b> (<span class="main_basic_type"><span class="class">string</span></span> address, <span class="main_basic_type"><span class="struct">uint16</span></span> port, <span class="main_basic_type"><span class="struct">uint8</span></span>[] public_key, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrBootstrap.html" class="enum">ErrBootstrap</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Sends a "get nodes" request to the given bootstrap node with IP, port,
+                and public key to setup connections.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.add_tcp_relay.html" class="method">add_tcp_relay</a></b> (<span class="main_basic_type"><span class="class">string</span></span> address, <span class="main_basic_type"><span class="struct">uint16</span></span> port, <span class="main_basic_type"><span class="struct">uint8</span></span>[] public_key, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrBootstrap.html" class="enum">ErrBootstrap</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Adds additional host:port pair as TCP relay.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.Connection.html" class="enum">Connection</a></span> <b><a href="ToxCore.Tox.self_get_connection_status.html" class="method">self_get_connection_status</a></b> ()
               </span></span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return whether we are connected to the DHT. The return value is equal 
+                to the last value received through the `self_connection_status` callback.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_self_connection_status.html" class="method">callback_self_connection_status</a></b> (<span class="main_type"><a href="ToxCore.Tox.SelfConnectionStatusCallback.html" class="delegate">SelfConnectionStatusCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `self_connection_status` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.iteration_interval.html" class="method">iteration_interval</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the time in milliseconds before tox_iterate() should be called 
+                again for optimal performance.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.iterate.html" class="method">iterate</a></b>&lt;<b><span>T</span></b>&gt; (<span class="main_type"><span>T</span></span> user_data = <span class="main_literal">null</span>)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">The main loop that needs to be run in intervals of 
+                tox_iteration_interval() milliseconds.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.self_get_address.html" class="method">self_get_address</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Writes the Tox friend address of the client to a byte array. The 
+                address is not in human-readable format. If a client wants to display the address, formatting is required.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.self_get_public_key.html" class="method">self_get_public_key</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Copy the Tox Public Key (long term) from the Tox object.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.self_get_secret_key.html" class="method">self_get_secret_key</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Copy the Tox Secret Key from the Tox object.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.self_set_name.html" class="method">self_set_name</a></b> (<span class="main_basic_type"><span class="class">string</span></span> name, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrSetInfo.html" class="enum">ErrSetInfo</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the nickname for the Tox client.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="ToxCore.Tox.self_get_name.html" class="method">self_get_name</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Write the nickname set by tox_self_set_name to a byte array.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.self_set_status_message.html" class="method">self_set_status_message</a></b> (<span class="main_basic_type"><span class="class">string</span></span> message, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrSetInfo.html" class="enum">ErrSetInfo</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the client's status message.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="ToxCore.Tox.self_get_status_message.html" class="method">self_get_status_message</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Write the status message set by tox_self_set_status_message to a byte 
+                array.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.friend_add.html" class="method">friend_add</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] address, <span class="main_basic_type"><span class="class">string</span></span> message, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendAdd.html" class="enum">ErrFriendAdd</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Add a friend to the friend list and send a friend request.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.friend_add_norequest.html" class="method">friend_add_norequest</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] public_key, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendAdd.html" class="enum">ErrFriendAdd</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Add a friend without sending a friend request.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.friend_delete.html" class="method">friend_delete</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendDelete.html" class="enum">ErrFriendDelete</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Remove a friend from the friend list.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.friend_by_public_key.html" class="method">friend_by_public_key</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] public_key, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendByPublicKey.html" class="enum">ErrFriendByPublicKey</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the friend number associated with that Public Key.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.friend_exists.html" class="method">friend_exists</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Checks if a friend with the given friend number exists and returns 
+                true if it does.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span>[] <b><a href="ToxCore.Tox.self_get_friend_list.html" class="method">self_get_friend_list</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Copy a list of valid friend numbers into an array.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.friend_get_public_key.html" class="method">friend_get_public_key</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendGetPublicKey.html" class="enum">ErrFriendGetPublicKey</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Returns the Public Key associated with a given friend number.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint64</span></span> <b><a href="ToxCore.Tox.friend_get_last_online.html" class="method">friend_get_last_online</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendGetLastOnline.html" class="enum">ErrFriendGetLastOnline</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return a unix-time timestamp of the last time the friend associated 
+                with a given friend number was seen online. This function will return UINT64_MAX on error.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span>? <b><a href="ToxCore.Tox.friend_get_name.html" class="method">friend_get_name</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendQuery.html" class="enum">ErrFriendQuery</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the name of the friend designated by the given friend number.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_name.html" class="method">callback_friend_name</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendNameCallback.html" class="delegate">FriendNameCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_name` event. Pass NULL to unset.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span>? <b><a href="ToxCore.Tox.friend_get_status_message.html" class="method">friend_get_status_message</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendQuery.html" class="enum">ErrFriendQuery</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the status message of the friend designated by the given friend
+                number.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_status_message.html" class="method">callback_friend_status_message</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendStatusMessageCallback.html" class="delegate">FriendStatusMessageCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_status_message` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.UserStatus.html" class="enum">UserStatus</a></span> <b><a href="ToxCore.Tox.friend_get_status.html" class="method">friend_get_status</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendQuery.html" class="enum">ErrFriendQuery</a></span> error)
               </span></span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the friend's user status (away/busy/...). If the friend number 
+                is invalid, the return value is unspecified.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_status.html" class="method">callback_friend_status</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendStatusCallback.html" class="delegate">FriendStatusCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_status` event. Pass NULL to unset.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.Connection.html" class="enum">Connection</a></span> <b><a href="ToxCore.Tox.friend_get_connection_status.html" class="method">friend_get_connection_status</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendQuery.html" class="enum">ErrFriendQuery</a></span> error)
               </span></span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Check whether a friend is currently connected to this client.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_connection_status.html" class="method">callback_friend_connection_status</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendConnectionStatusCallback.html" class="delegate">FriendConnectionStatusCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_connection_status` event. Pass NULL 
+                to unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.friend_get_typing.html" class="method">friend_get_typing</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendQuery.html" class="enum">ErrFriendQuery</a></span> error)
               </span></span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Check whether a friend is currently typing a message.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_typing.html" class="method">callback_friend_typing</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendTypingCallback.html" class="delegate">FriendTypingCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_typing` event. Pass NULL to unset.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.self_set_typing.html" class="method">self_set_typing</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">bool</span></span> typing, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrSetTyping.html" class="enum">ErrSetTyping</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the client's typing status for a friend.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.friend_send_message.html" class="method">friend_send_message</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxCore.MessageType.html" class="enum">MessageType</a></span> type, <span class="main_basic_type"><span class="class">string</span></span> message, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendSendMessage.html" class="enum">ErrFriendSendMessage</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Send a text chat message to an online friend.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_read_receipt.html" class="method">callback_friend_read_receipt</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendReadReceptCallback.html" class="delegate">FriendReadReceptCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_read_receipt` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_request.html" class="method">callback_friend_request</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendRequestCallback.html" class="delegate">FriendRequestCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_request` event. Pass NULL to unset.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_message.html" class="method">callback_friend_message</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendMessageCallback.html" class="delegate">FriendMessageCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_message` event. Pass NULL to unset.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.file_control.html" class="method">file_control</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_type"><a href="ToxCore.FileControl.html" class="enum">FileControl</a></span> control, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFileControl.html" class="enum">ErrFileControl</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Sends a file control command to a friend for a given file transfer.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_file_recv_control.html" class="method">callback_file_recv_control</a></b> (<span class="main_type"><a href="ToxCore.Tox.FileRecvControlCallback.html" class="delegate">FileRecvControlCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `file_recv_control` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.file_seek.html" class="method">file_seek</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint64</span></span> position, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFileSeek.html" class="enum">ErrFileSeek</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Sends a file seek control command to a friend for a given file 
+                transfer.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxCore.Tox.file_get_file_id.html" class="method">file_get_file_id</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFileGet.html" class="enum">ErrFileGet</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Copy the file id associated to the file transfer to a byte array.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.file_send.html" class="method">file_send</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> kind, <span class="main_basic_type"><span class="struct">uint64</span></span> file_size, <span class="main_basic_type"><span class="struct">uint8</span></span>[] file_id, <span class="main_basic_type"><span class="struct">uint8</span></span>[] filename, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFileSeek.html" class="enum">ErrFileSeek</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Send a file transmission request.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.file_send_chunk.html" class="method">file_send_chunk</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint64</span></span> position, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFileSendChunk.html" class="enum">ErrFileSendChunk</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Send a chunk of file data to a friend.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_file_chunk_request.html" class="method">callback_file_chunk_request</a></b> (<span class="main_type"><a href="ToxCore.Tox.FileChunkRequestCallback.html" class="delegate">FileChunkRequestCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `file_chunk_request` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_file_recv.html" class="method">callback_file_recv</a></b> (<span class="main_type"><a href="ToxCore.Tox.FileRecvCallback.html" class="delegate">FileRecvCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `file_recv` event. Pass NULL to unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_file_recv_chunk.html" class="method">callback_file_recv_chunk</a></b> (<span class="main_type"><a href="ToxCore.Tox.FileRecvChunkCallback.html" class="delegate">FileRecvChunkCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `file_recv_chunk` event. Pass NULL to unset.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_conference_invite.html" class="method">callback_conference_invite</a></b> (<span class="main_type"><a href="ToxCore.Tox.ConferenceInviteCallback.html" class="delegate">ConferenceInviteCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `conference_invite` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_conference_message.html" class="method">callback_conference_message</a></b> (<span class="main_type"><a href="ToxCore.Tox.ConferenceMessageCallback.html" class="delegate">ConferenceMessageCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `conference_message` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_conference_title.html" class="method">callback_conference_title</a></b> (<span class="main_type"><a href="ToxCore.Tox.ConferenceTitleCallback.html" class="delegate">ConferenceTitleCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `conference_title` event. Pass NULL to unset.
+              </span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_conference_namelist_change.html" class="method">callback_conference_namelist_change</a></b> (<span class="main_type"><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html" class="delegate">ConferenceNamelistChangeCallback</a></span> callback)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_conference_peer_name.html" class="method">callback_conference_peer_name</a></b> (<span class="main_type"><a href="ToxCore.Tox.ConferencePeerNameCallback.html" class="delegate">ConferencePeerNameCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `conference_peer_name` event. Pass NULL to 
+                unset.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_conference_peer_list_changed.html" class="method">callback_conference_peer_list_changed</a></b> (<span class="main_type"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html" class="delegate">ConferencePeerListChangedCallback</a></span> callback)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `conference_peer_list_changed` event. Pass 
+                NULL to unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.conference_new.html" class="method">conference_new</a></b> (<span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceNew.html" class="enum">ErrConferenceNew</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Creates a new conference.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.conference_delete.html" class="method">conference_delete</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceDelete.html" class="enum">ErrConferenceDelete</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">This function deletes a conference.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.conference_peer_count.html" class="method">conference_peer_count</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferencePeerQuery.html" class="enum">ErrConferencePeerQuery</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the number of peers in the conference. Return value is 
+                unspecified on failure.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span>? <b><a href="ToxCore.Tox.conference_peer_get_name.html" class="method">conference_peer_get_name</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferencePeerQuery.html" class="enum">ErrConferencePeerQuery</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the name of peer_number who is in conference_number.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.conference_peer_get_public_key.html" class="method">conference_peer_get_public_key</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferencePeerQuery.html" class="enum">ErrConferencePeerQuery</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxCore.Tox.conference_peer_get_public_key.html" class="method">conference_peer_get_public_key</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferencePeerQuery.html" class="enum">ErrConferencePeerQuery</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the public key of peer_number who is in conference_number.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.conference_peer_number_is_ours.html" class="method">conference_peer_number_is_ours</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferencePeerQuery.html" class="enum">ErrConferencePeerQuery</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return true if passed peer_number corresponds to our own.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.conference_invite.html" class="method">conference_invite</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceInvite.html" class="enum">ErrConferenceInvite</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Invites a friend to a conference.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.conference_join.html" class="method">conference_join</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] cookie, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceJoin.html" class="enum">ErrConferenceJoin</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Joins a conference that the client has been invited to.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.conference_send_message.html" class="method">conference_send_message</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_type"><a href="ToxCore.MessageType.html" class="enum">MessageType</a></span> type, <span class="main_basic_type"><span class="class">string</span></span> message, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceSendMessage.html" class="enum">ErrConferenceSendMessage</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Send a text chat message to the conference.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span>? <b><a href="ToxCore.Tox.conference_get_title.html" class="method">conference_get_title</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceTitle.html" class="enum">ErrConferenceTitle</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the title designated by the given conference number.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.conference_set_title.html" class="method">conference_set_title</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="class">string</span></span> title, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceTitle.html" class="enum">ErrConferenceTitle</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the conference title and broadcast it to the rest of the 
+                conference.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span>[] <b><a href="ToxCore.Tox.conference_get_chatlist.html" class="method">conference_get_chatlist</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return a list of valid conference IDs.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.ConferenceType.html" class="enum">ConferenceType</a></span> <b><a href="ToxCore.Tox.conference_get_type.html" class="method">conference_get_type</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrConferenceGetType.html" class="enum">ErrConferenceGetType</a></span> error)
             </span>
             <div class="leaf_brief_description">
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.friend_send_lossy_packet.html" class="method">friend_send_lossy_packet</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendCustomPacket.html" class="enum">ErrFriendCustomPacket</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.friend_send_lossy_packet.html" class="method">friend_send_lossy_packet</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendCustomPacket.html" class="enum">ErrFriendCustomPacket</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Send a custom lossy packet to a friend.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.friend_send_lossless_packet.html" class="method">friend_send_lossless_packet</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendCustomPacket.html" class="enum">ErrFriendCustomPacket</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.friend_send_lossless_packet.html" class="method">friend_send_lossless_packet</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendCustomPacket.html" class="enum">ErrFriendCustomPacket</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Send a custom lossless packet to a friend.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_lossy_packet.html" class="method">callback_friend_lossy_packet</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendLossyPacketCallback.html" class="delegate">FriendLossyPacketCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_lossy_packet` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.callback_friend_lossless_packet.html" class="method">callback_friend_lossless_packet</a></b> (<span class="main_type"><a href="ToxCore.Tox.FriendLosslessPacketCallback.html" class="delegate">FriendLosslessPacketCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_lossless_packet` event. Pass NULL to 
+                unset.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox._self_get_dht_id.html" class="method">_self_get_dht_id</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] dht_id)
             </span>
@@ -522,15 +585,17 @@
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.self_get_dht_id.html" class="method">self_get_dht_id</a></b> ()
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Writes the temporary DHT public key of this instance to a byte array.
+              </span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint16</span></span> <b><a href="ToxCore.Tox.self_get_udp_port.html" class="method">self_get_udp_port</a></b> (<span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrGetPort.html" class="enum">ErrGetPort</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the UDP port this Tox instance is bound to.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint16</span></span> <b><a href="ToxCore.Tox.self_get_tcp_port.html" class="method">self_get_tcp_port</a></b> (<span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrGetPort.html" class="enum">ErrGetPort</a></span> error)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Return the TCP port this Tox instance is bound to. This is only 
+                relevant if the instance is acting as a TCP relay.</span>
             </div></li>
         </ul>
       </div>

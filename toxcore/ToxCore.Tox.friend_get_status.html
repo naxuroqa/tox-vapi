@@ -31,7 +31,8 @@
           <li class="property"><a href="ToxCore.Tox.user_status.html">user_status</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
-          <li class="delegate"><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html">ConferenceNamelistChangeCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerNameCallback.html">ConferencePeerNameCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceTitleCallback.html">ConferenceTitleCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileChunkRequestCallback.html">FileChunkRequestCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileRecvCallback.html">FileRecvCallback</a></li>
@@ -55,7 +56,8 @@
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_message.html">callback_conference_message</a></li>
-          <li class="method"><a href="ToxCore.Tox.callback_conference_namelist_change.html">callback_conference_namelist_change</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_list_changed.html">callback_conference_peer_list_changed</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_name.html">callback_conference_peer_name</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_title.html">callback_conference_title</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_chunk_request.html">callback_file_chunk_request</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_recv.html">callback_file_recv</a></li>
@@ -133,6 +135,10 @@
         <div class="description">
           <p><b>Warning:</b> friend_get_status is deprecated since "0.2.0". Use <a href="ToxCore.Tox.friend_get_status.html" class="method">
               ToxCore.Tox.friend_get_status</a>.</p>
+          <p class="main_title"><b>Deprecated: </b>
+            <p>This getter is deprecated. Use the event and store the status in the client state. </p></p>
+          <p>Return the friend's user status (away/busy/...). If the friend number is invalid, the return value is unspecified.</p>
+          <p>The status returned is equal to the last status received through the `friend_status` callback.</p>
         </div>
       </div>
     </div><br/>

@@ -37,6 +37,9 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">enum</span> <b><span class="enum">ErrFriendQuery</span></b>
+        </div>
+        <div class="description">
+          <p>Common error codes for friend state query functions.</p>
         </div><br/>
         <div class="namespace_note"><b>Namespace:</b> <a href="ToxCore.html">ToxCore</a>
         </div>
@@ -45,9 +48,13 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Enum values:</h3>
         <ul class="navi_inline">
-          <li class="enumvalue"><a href="ToxCore.ErrFriendQuery.OK.html">OK</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendQuery.NULL.html">NULL</a></li>
-          <li class="enumvalue"><a href="ToxCore.ErrFriendQuery.FRIEND_NOT_FOUND.html">FRIEND_NOT_FOUND</a></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendQuery.OK.html">OK</a> - <span class="brief_description">The function returned successfully.
+            </span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendQuery.NULL.html">NULL</a> - <span class="brief_description">The pointer parameter for 
+              storing the query result (name, message) was NULL. Unlike the `_self_` variants of these functions, which have no effect when a 
+              parameter is NULL, these functions return an error in that case.</span></li>
+          <li class="enumvalue"><a href="ToxCore.ErrFriendQuery.FRIEND_NOT_FOUND.html">FRIEND_NOT_FOUND</a> - <span class="brief_description">The 
+              friend_number did not designate a valid friend.</span></li>
         </ul>
       </div>
     </div><br/>

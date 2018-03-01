@@ -31,7 +31,8 @@
           <li class="property"><a href="ToxCore.Tox.user_status.html">user_status</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
-          <li class="delegate"><a href="ToxCore.Tox.ConferenceNamelistChangeCallback.html">ConferenceNamelistChangeCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
+          <li class="delegate"><a href="ToxCore.Tox.ConferencePeerNameCallback.html">ConferencePeerNameCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceTitleCallback.html">ConferenceTitleCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.FileChunkRequestCallback.html">FileChunkRequestCallback</a></li>
           <li class="delegate">FileRecvCallback</li>
@@ -55,7 +56,8 @@
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_message.html">callback_conference_message</a></li>
-          <li class="method"><a href="ToxCore.Tox.callback_conference_namelist_change.html">callback_conference_namelist_change</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_list_changed.html">callback_conference_peer_list_changed</a></li>
+          <li class="method"><a href="ToxCore.Tox.callback_conference_peer_name.html">callback_conference_peer_name</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_title.html">callback_conference_title</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_chunk_request.html">callback_file_chunk_request</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_file_recv.html">callback_file_recv</a></li>
@@ -129,6 +131,50 @@
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
         <div class="main_code_definition">[ <span class="main_type">CCode</span> ( has_target = <span class="main_literal">false</span> ) ]<br/><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><span class="delegate">FileRecvCallback</span></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint32</span></span> kind, <span class="main_basic_type"><span class="struct">uint64</span></span> file_size, <span class="main_basic_type"><span class="struct">uint8</span></span>[] filename, <span class="main_keyword">void</span>* user_data)
+        </div>
+        <div class="description">
+          <p>The client should acquire resources to be associated with the file transfer. Incoming file transfers start in the PAUSED state. After 
+            this callback returns, a transfer can be rejected by sending a TOX_FILE_CONTROL_CANCEL control command before any other control commands. 
+            It can be accepted by sending TOX_FILE_CONTROL_RESUME.</p>
+          <h2 class="main_title">Parameters:</h2>
+          <table class="main_parameter_table">
+            <tr>
+              <td class="main_parameter_table_name">friend_number</td>
+              <td>
+                <p>The friend number of the friend who is sending the file transfer request. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">file_number</td>
+              <td>
+                <p>The friend-specific file number the data received is associated with. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">kind</td>
+              <td>
+                <p>The meaning of the file to be sent. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">file_size</td>
+              <td>
+                <p>Size in bytes of the file the client wants to send, UINT64_MAX if unknown or streaming. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="main_parameter_table_name">filename</td>
+              <td>
+                <p>Name of the file. Does not need to be the actual name. This name will be sent along with the file send request. </p>
+              </td>
+            </tr>
+            <tr class="main_parameter_table_unknown_parameter">
+              <td class="main_parameter_table_name">filename_length</td>
+              <td>
+                <p>Size in bytes of the filename. </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div><br/>
