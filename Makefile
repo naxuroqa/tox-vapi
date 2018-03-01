@@ -4,8 +4,9 @@ bot:
 		--pkg=gio-2.0 \
 		--pkg=libsoup-2.4 \
 		--pkg=json-glib-1.0 \
-		--pkg=libtoxcore \
-		--pkg=libtoxav \
+		--pkg=toxcore \
+		--pkg=toxav \
+		--pkg=toxencryptsave \
 		--target-glib=2.32 \
 		-g \
 		Bot.vala
@@ -23,14 +24,15 @@ style:
 		-l VALA \
 		--replace \
 		--no-backup \
-		vapi/libtoxcore.vapi \
-		vapi/libtoxav.vapi \
+		vapi/toxcore.vapi \
+		vapi/toxav.vapi \
+		vapi/toxencryptsave.vapi \
 		Bot.vala
 
 docs:
 	valadoc \
 		--directory docs \
-		--package-name libtoxcore \
-		vapi/libtoxcore.vapi \
-		vapi/libtoxav.vapi \
+		--package-name toxcore \
+		vapi/toxcore.vapi \
+		vapi/toxav.vapi \
 		vapi/toxencryptsave.vapi
