@@ -25,8 +25,10 @@ namespace ToxVapi {
       options.proxy_type = ProxyType.NONE;
 
       if (FileUtils.test(TOX_SAVE, FileTest.EXISTS)) {
-        FileUtils.get_data(TOX_SAVE, out options.savedata_data);
+        uint8[] savedata;
+        FileUtils.get_data(TOX_SAVE, out savedata);
         options.savedata_type = SaveDataType.TOX_SAVE;
+        options.set_savedata_data(savedata);
       }
 
       var err_new = ErrNew.OK;
