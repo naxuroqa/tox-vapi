@@ -18,20 +18,26 @@ namespace ToxCore {
   public static uint32 nospam_size();
   public const uint32 ADDRESS_SIZE;
   public static uint32 address_size();
+  [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "max_name_length")]
   public const uint32 MAX_NAME_LENGTH;
   public static uint32 max_name_length();
+  [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "max_status_message_length")]
   public const uint32 MAX_STATUS_MESSAGE_LENGTH;
   public static uint32 max_status_message_length();
+  [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "max_friend_request_length")]
   public const uint32 MAX_FRIEND_REQUEST_LENGTH;
   public static uint32 max_friend_request_length();
+  [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "max_message_length")]
   public const uint32 MAX_MESSAGE_LENGTH;
   public static uint32 max_message_length();
+  [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "max_custom_packet_size")]
   public const uint32 MAX_CUSTOM_PACKET_SIZE;
   public static uint32 max_custom_packet_size();
   public const uint32 HASH_LENGTH;
   public static uint32 hash_length();
   public const uint32 FILE_ID_LENGTH;
   public static uint32 file_id_length();
+  [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "max_filename_length")]
   public const uint32 MAX_FILENAME_LENGTH;
   public static uint32 max_filename_length();
 
@@ -78,19 +84,63 @@ namespace ToxCore {
   [Compact]
   public class Options {
     public Options(ref ErrOptionsNew error);
-    public bool ipv6_enabled;
-    public bool udp_enabled;
-    public bool local_discovery_enabled;
-    public ProxyType proxy_type;
-    public string? proxy_host;
-    public uint16 proxy_port;
-    public uint16 start_port;
-    public uint16 end_port;
-    public uint16 tcp_port;
-    public bool hole_punching_enabled;
-    public SaveDataType savedata_type;
-    [CCode(array_length_cname = "savedata_length", array_length_type = "size_t")]
-    public uint8[] savedata_data;
+    public bool ipv6_enabled {
+      [CCode(cname = "tox_options_get_ipv6_enabled")] get;
+      [CCode(cname = "tox_options_set_ipv6_enabled")] set;
+    }
+    public bool udp_enabled {
+      [CCode(cname = "tox_options_get_udp_enabled")] get;
+      [CCode(cname = "tox_options_set_udp_enabled")] set;
+    }
+    public bool local_discovery_enabled {
+      [CCode(cname = "tox_options_get_local_discovery_enabled")] get;
+      [CCode(cname = "tox_options_set_local_discovery_enabled")] set;
+    }
+    public ProxyType proxy_type {
+      [CCode(cname = "tox_options_get_proxy_type")] get;
+      [CCode(cname = "tox_options_set_proxy_type")] set;
+    }
+    public string? proxy_host {
+      [CCode(cname = "tox_options_get_proxy_host")] get;
+      [CCode(cname = "tox_options_set_proxy_host")] set;
+    }
+    public uint16 proxy_port {
+      [CCode(cname = "tox_options_get_proxy_port")] get;
+      [CCode(cname = "tox_options_set_proxy_port")] set;
+    }
+    public uint16 start_port {
+      [CCode(cname = "tox_options_get_start_port")] get;
+      [CCode(cname = "tox_options_set_start_port")] set;
+    }
+    public uint16 end_port {
+      [CCode(cname = "tox_options_get_end_port")] get;
+      [CCode(cname = "tox_options_set_end_port")] set;
+    }
+    public uint16 tcp_port {
+      [CCode(cname = "tox_options_get_tcp_port")] get;
+      [CCode(cname = "tox_options_set_tcp_port")] set;
+    }
+    public bool hole_punching_enabled {
+      [CCode(cname = "tox_options_get_hole_punching_enabled")] get;
+      [CCode(cname = "tox_options_set_hole_punching_enabled")] set;
+    }
+    public SaveDataType savedata_type {
+      [CCode(cname = "tox_options_get_savedata_type")] get;
+      [CCode(cname = "tox_options_set_savedata_type")] set;
+    }
+    [CCode(cname = "tox_options_get_savedata_length")]
+    private size_t _get_savedata_length();
+    [CCode(cname = "tox_options_get_savedata_data", array_length = false)]
+    private uint8[] _get_savedata_data();
+    [CCode(cname = "vala_tox_options_get_savedata_data")]
+    public uint8[] get_savedata_data() {
+      var t = new uint8[_get_savedata_length()];
+      GLib.Memory.copy(t, _get_savedata_data(), t.length);
+      return t;
+    }
+    public void set_savedata_data(uint8[] data);
+
+    //FIXME either report this upstream or find some awkard means to fix this until 0.3.0
     [CCode(delegate_target_cname = "log_user_data")]
     public unowned LogCallback log_callback;
 
@@ -381,6 +431,7 @@ namespace ToxCore {
 
     public bool add_tcp_relay(string address, uint16 port, [CCode(array_length = false)] uint8[] public_key, ref ErrBootstrap error);
 
+    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
     public Connection self_get_connection_status();
 
     [CCode(cname = "tox_self_connection_status_cb", has_target = false, has_type_id = false)]
@@ -540,18 +591,21 @@ namespace ToxCore {
     public delegate void FriendStatusMessageCallback (Tox self, uint32 friend_number, uint8[] message, void *user_data);
     public void callback_friend_status_message(FriendStatusMessageCallback callback);
 
+    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
     public UserStatus friend_get_status(uint32 friend_number, ref ErrFriendQuery error);
 
     [CCode(cname = "tox_friend_status_cb", has_target = false, has_type_id = false)]
     public delegate void FriendStatusCallback (Tox self, uint32 friend_number, UserStatus status, void *user_data);
     public void callback_friend_status(FriendStatusCallback callback);
 
+    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
     public Connection friend_get_connection_status(uint32 friend_number, ref ErrFriendQuery error);
 
     [CCode(cname = "tox_friend_connection_status_cb", has_target = false, has_type_id = false)]
     public delegate void FriendConnectionStatusCallback (Tox self, uint32 friend_number, Connection connection_status, void* userdata);
     public void callback_friend_connection_status(FriendConnectionStatusCallback callback);
 
+    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
     public bool friend_get_typing(uint32 friend_number, ref ErrFriendQuery error);
 
     [CCode(cname = "tox_friend_typing_cb", has_target = false, has_type_id = false)]
