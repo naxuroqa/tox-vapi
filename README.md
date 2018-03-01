@@ -1,4 +1,7 @@
-Tox VAPI
-====
+# Tox VAPI
 
-https://wiki.gnome.org/action/show/Projects/Vala/LegacyBindings
+[Binding documentation](https://naxuroqa.github.io/tox-vapi/)
+
+## References
+
+https://wiki.gnome.org/Projects/Vala/LegacyBindings

@@ -15,13 +15,22 @@ debug: bot
 
 clean:
 	rm -f ./Bot
+	rm -rf ./docs
 
 style:
 	uncrustify \
-	  -c uncrustify.cfg \
+		-c uncrustify.cfg \
 		-l VALA \
 		--replace \
 		--no-backup \
 		vapi/libtoxcore.vapi \
 		vapi/libtoxav.vapi \
 		Bot.vala
+
+docs:
+	valadoc \
+		--directory docs \
+		--package-name libtoxcore \
+		vapi/libtoxcore.vapi \
+		vapi/libtoxav.vapi \
+		vapi/toxencryptsave.vapi
