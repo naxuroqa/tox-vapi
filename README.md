@@ -1,6 +1,6 @@
 # Tox VAPI
 
-[Binding documentation](https://naxuroqa.github.io/tox-vapi/)
+[Binding documentation](https://naxuroqa.github.io/vala-toxcore-c/)
 
 ## References
 
