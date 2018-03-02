@@ -161,9 +161,6 @@ namespace ToxEncrypt {
    * by the user in plain text. A pass-key is the generated symmetric key used
    * for encryption and decryption. It is derived from a salt and the user-
    * provided password.
-   *
-   * The Tox_Pass_Key structure is hidden in the implementation. It can be created
-   * using tox_pass_key_derive or tox_pass_key_derive_with_salt and must be deallocated using tox_pass_key_free.
    */
   [CCode(cname = "Tox_Pass_Key", destroy_function = "tox_pass_key_free", cprefix = "tox_pass_key_", has_type_id = false)]
   [Compact]
@@ -178,8 +175,11 @@ namespace ToxEncrypt {
      * a password, you also must know the random salt that was used. A
      * deterministic version of this function is tox_pass_key_derive_with_salt.
      *
+     * @since 0.2.0
+     *
      * @param passphrase The user-provided password. Can be empty.
      */
+    [Version(since = "0.2.0")]
     [CCode(cname = "tox_pass_key_derive")]
     public PassKey.derive(uint8[] passphrase, ref ErrKeyDerivation error);
 
@@ -189,8 +189,11 @@ namespace ToxEncrypt {
      * @param passphrase The user-provided password. Can be empty.
      * @param salt An array of at least TOX_PASS_SALT_LENGTH bytes.
      *
+     * @since 0.2.0
+     *
      * @return true on success.
      */
+    [Version(since = "0.2.0")]
     [CCode(cname = "tox_pass_key_derive_with_salt")]
     public PassKey.derive_with_salt(uint8[] passphrase, [CCode(array_length = false)] uint8[] salt, ref ErrKeyDerivation error);
 

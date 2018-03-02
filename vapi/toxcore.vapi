@@ -279,7 +279,6 @@ namespace ToxCore {
    * @param line The source line from which the message originated.
    * @param func The function from which the message originated.
    * @param message The log message.
-   * @param user_data The user data pointer passed to tox_new in options.
    */
   [CCode(cname = "tox_log_cb")]
   public delegate void LogCallback(Tox self, LogLevel level, string file, uint32 line, string func, string message);
@@ -291,11 +290,6 @@ namespace ToxCore {
    * WARNING: Although this struct happens to be visible in the API, it is
    * effectively private. Do not allocate this yourself or access members
    * directly, as it *will* break binary compatibility frequently.
-   *
-   * @deprecated The memory layout of this struct (size, alignment, and field
-   * order) is not part of the ABI. To remain compatible, prefer to use tox_options_new to
-   * allocate the object and accessor functions to set the members. The struct
-   * will become opaque (i.e. the definition will become private) in v0.3.0.
    */
   [CCode(cname = "struct Tox_Options", destroy_function = "tox_options_free", has_type_id = false)]
   [Compact]
@@ -459,10 +453,6 @@ namespace ToxCore {
      * The result of this function is independent of the original options. All
      * values will be overwritten, no values will be read (so it is permissible
      * to pass an uninitialised object).
-     *
-     * If options is NULL, this function has no effect.
-     *
-     * @param options An options object to be filled with default options.
      */
     public void default ();
   }
@@ -1269,11 +1259,8 @@ namespace ToxCore {
     /**
      * Return whether we are connected to the DHT. The return value is equal to the
      * last value received through the `self_connection_status` callback.
-     *
-     * @deprecated This getter is deprecated. Use the event and store the status
-     * in the client state.
      */
-    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
+    [Version(deprecated = true, deprecated_since = "0.2.0")]
     public Connection self_get_connection_status();
 
     /**
@@ -1327,8 +1314,6 @@ namespace ToxCore {
      * The 4-byte nospam part of the address. This value is expected in host
      * byte order. I.e. 0x12345678 will form the bytes [12, 34, 56, 78] in the
      * nospam part of the Tox friend address.
-     *
-     * @param nospam Any 32 bit unsigned integer.
      */
     public uint32 nospam {
       [CCode(cname = "tox_self_get_nospam")] get;
@@ -1371,7 +1356,6 @@ namespace ToxCore {
      * parameter is ignored (it can be NULL), and the nickname is set back to empty.
      *
      * @param name A string containing the new nickname.
-     * @param length The size of the name byte array.
      *
      * @return true on success.
      */
@@ -1638,11 +1622,8 @@ namespace ToxCore {
      *
      * The status returned is equal to the last status received through the
      * `friend_status` callback.
-     *
-     * @deprecated This getter is deprecated. Use the event and store the status
-     *   in the client state.
      */
-    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
+    [Version(deprecated = true, deprecated_since = "0.2.0")]
     public UserStatus friend_get_status(uint32 friend_number, ref ErrFriendQuery error);
 
     /**
@@ -1671,11 +1652,8 @@ namespace ToxCore {
      *
      * @return the friend's connection status as it was received through the
      *   `friend_connection_status` event.
-     *
-     * @deprecated This getter is deprecated. Use the event and store the status
-     *   in the client state.
      */
-    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
+    [Version(deprecated = true, deprecated_since = "0.2.0")]
     public Connection friend_get_connection_status(uint32 friend_number, ref ErrFriendQuery error);
 
     /**
@@ -1706,11 +1684,8 @@ namespace ToxCore {
      * @return true if the friend is typing.
      * @return false if the friend is not typing, or the friend number was
      *   invalid. Inspect the error code to determine which case it is.
-     *
-     * @deprecated This getter is deprecated. Use the event and store the status
-     *   in the client state.
      */
-    [Version(deprecated = true, deprecated_since = "0.2.0", replacement = "")]
+    [Version(deprecated = true, deprecated_since = "0.2.0")]
     public bool friend_get_typing(uint32 friend_number, ref ErrFriendQuery error);
 
     /**
@@ -1790,10 +1765,9 @@ namespace ToxCore {
     /**
      * @param public_key The Public Key of the user who sent the friend request.
      * @param message The message they sent along with the request.
-     * @param length The size of the message byte array.
      */
     [CCode(cname = "tox_friend_request_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendRequestCallback(Tox self, [CCode(array_length = "public_key_size()")] uint8[] key, uint8[] message, void *user_data);
+    public delegate void FriendRequestCallback(Tox self, [CCode(array_length = "public_key_size()")] uint8[] public_key, uint8[] message, void *user_data);
 
     /**
      * Set the callback for the `friend_request` event. Pass NULL to unset.
@@ -1805,7 +1779,6 @@ namespace ToxCore {
     /**
      * @param friend_number The friend number of the friend who sent the message.
      * @param message The message data they sent.
-     * @param length The size of the message byte array.
      */
     [CCode(cname = "tox_friend_message_cb", has_target = false, has_type_id = false)]
     public delegate void FriendMessageCallback(Tox self, uint32 friend_number, MessageType type, uint8[] message, void *user_data);
@@ -2028,7 +2001,6 @@ namespace ToxCore {
      *   UINT64_MAX if unknown or streaming.
      * @param filename Name of the file. Does not need to be the actual name. This
      *   name will be sent along with the file send request.
-     * @param filename_length Size in bytes of the filename.
      */
     [CCode(cname = "tox_file_recv_cb", has_target = false, has_type_id = false)]
     public delegate void FileRecvCallback(Tox self, uint32 friend_number, uint32 file_number, uint32 kind, uint64 file_size, [CCode(array_length_type = "size_t")] uint8[] filename, void *user_data);
@@ -2054,7 +2026,6 @@ namespace ToxCore {
      *   associated with.
      * @param position The file position of the first byte in data.
      * @param data A byte array containing the received chunk.
-     * @param length The length of the received chunk.
      */
     [CCode(cname = "tox_file_recv_chunk_cb", has_target = false, has_type_id = false)]
     public delegate void FileRecvChunkCallback(Tox self, uint32 friend_number, uint32 file_number, uint64 position, [CCode(array_length_type = "size_t")] uint8[] data, void* user_data);
@@ -2075,7 +2046,6 @@ namespace ToxCore {
      * @param type The conference type (text only or audio/video).
      * @param cookie A piece of data of variable length required to join the
      *   conference.
-     * @param length The length of the cookie.
      */
     [CCode(cname = "tox_conference_invite_cb", has_target = false, has_type_id = false)]
     public delegate void ConferenceInviteCallback (Tox self, uint32 friend_number, ConferenceType type, uint8[] cookie, void *user_data);
@@ -2092,7 +2062,6 @@ namespace ToxCore {
      * @param peer_number The ID of the peer who sent the message.
      * @param type The type of message (normal, action, ...).
      * @param message The message data.
-     * @param length The length of the message.
      */
     [CCode(cname = "tox_conference_message_cb", has_target = false, has_type_id = false)]
     public delegate void ConferenceMessageCallback (Tox self, uint32 conference_number, uint32 peer_number, MessageType type, uint8[] message, void *user_data);
@@ -2108,7 +2077,6 @@ namespace ToxCore {
      * @param conference_number The conference number of the conference the title change is intended for.
      * @param peer_number The ID of the peer who changed the title.
      * @param title The title data.
-     * @param length The title length.
      */
     [CCode(cname = "tox_conference_title_cb", has_target = false, has_type_id = false)]
     public delegate void ConferenceTitleCallback (Tox self, uint32 conference_number, uint32 peer_number, uint8[] title, void *user_data);
@@ -2123,12 +2091,13 @@ namespace ToxCore {
     public void callback_conference_title(ConferenceTitleCallback callback);
 
     /**
+     * @since 0.2.0
      * @param conference_number The conference number of the conference the
      *   peer is in.
      * @param peer_number The ID of the peer who changed their nickname.
      * @param name A byte array containing the new nickname.
-     * @param length The size of the name byte array.
      */
+    [Version(since = "0.2.0")]
     [CCode(cname = "tox_conference_peer_name_cb", has_target = false, has_type_id = false)]
     public delegate void ConferencePeerNameCallback(Tox self, uint32 conference_number, uint32 peer_number, uint8[] name, void* user_data);
 
@@ -2136,13 +2105,18 @@ namespace ToxCore {
      * Set the callback for the `conference_peer_name` event. Pass NULL to unset.
      *
      * This event is triggered when a peer changes their name.
+     *
+     * @since 0.2.0
      */
+    [Version(since = "0.2.0")]
     public void callback_conference_peer_name(ConferencePeerNameCallback callback);
 
     /**
+     * @since 0.2.0
      * @param conference_number The conference number of the conference the
      *   peer is in.
      */
+    [Version(since = "0.2.0")]
     [CCode(cname = "tox_conference_peer_list_changed_cb", has_target = false, has_type_id = false)]
     public delegate void ConferencePeerListChangedCallback(Tox self, uint32 conference_number, void* user_data);
 
@@ -2150,7 +2124,10 @@ namespace ToxCore {
      * Set the callback for the `conference_peer_list_changed` event. Pass NULL to unset.
      *
      * This event is triggered when a peer joins or leaves the conference.
+     *
+     * @since 0.2.0
      */
+    [Version(since = "0.2.0")]
     public void callback_conference_peer_list_changed(ConferencePeerListChangedCallback callback);
 
     /**
@@ -2230,7 +2207,6 @@ namespace ToxCore {
      *
      * @param friend_number The friend number of the friend who sent the invite.
      * @param cookie Received via the `conference_invite` event.
-     * @param length The size of cookie.
      *
      * @return conference number on success, UINT32_MAX on failure.
      */
@@ -2253,7 +2229,6 @@ namespace ToxCore {
      * @param type Message type (normal, action, ...).
      * @param message A non-NULL pointer to the first element of a byte array
      *   containing the message text.
-     * @param length Length of the message to be sent.
      *
      * @return true on success.
      */
@@ -2383,16 +2358,13 @@ namespace ToxCore {
     public void _self_get_dht_id([CCode(array_length = false)] uint8[] dht_id);
 
     /**
-     * Writes the temporary DHT public key of this instance to a byte array.
+     * Returns the temporary DHT public key of this instance.
      *
      * This can be used in combination with an externally accessible IP address and
      * the bound port (from tox_self_get_udp_port) to run a temporary bootstrap node.
      *
      * Be aware that every time a new instance is created, the DHT public key
      * changes, meaning this cannot be used to run a permanent bootstrap node.
-     *
-     * @param dht_id A memory region of at least TOX_PUBLIC_KEY_SIZE bytes. If this
-     *   parameter is NULL, this function has no effect.
      */
     [CCode(cname = "vala_tox_self_get_dht_id")]
     public uint8[] self_get_dht_id() {

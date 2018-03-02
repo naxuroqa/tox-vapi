@@ -278,10 +278,13 @@ namespace ToxAV {
    * when the network becomes too saturated for current bit rates at which
    * point core suggests new bit rates.
    *
+   * @since 0.2.0
+   *
    * @param friend_number The friend number of the friend for which to set the
    * bit rate.
    * @param audio_bit_rate Suggested maximum audio bit rate in Kb/sec.
    */
+  [Version(since = "0.2.0")]
   [CCode(cname = "toxav_audio_bit_rate_cb")]
   public delegate void AudioBitRateCallback(ToxAV self, uint32 friend_number, uint32 audio_bit_rate);
 
@@ -290,10 +293,13 @@ namespace ToxAV {
    * when the network becomes too saturated for current bit rates at which
    * point core suggests new bit rates.
    *
+   * @since 0.2.0
+   *
    * @param friend_number The friend number of the friend for which to set the
    * bit rate.
    * @param video_bit_rate Suggested maximum video bit rate in Kb/sec.
    */
+  [Version(since = "0.2.0")]
   [CCode(cname = "toxav_video_bit_rate_cb")]
   public delegate void VideoBitRateCallback(ToxAV self, uint32 friend_number, uint32 video_bit_rate);
 
@@ -310,7 +316,7 @@ namespace ToxAV {
    *
    */
   [CCode(cname = "toxav_audio_receive_frame_cb")]
-  public delegate void AudioReceiveFrameCallback(ToxAV self, uint32 friend_number, [CCode(array_length_type = "size_t")] int16[] pcm, uint8 channels, uint32 sampling_rate);
+  public delegate void AudioReceiveFrameCallback(ToxAV self, uint32 friend_number, [CCode(array_length = false)] int16[] pcm, size_t sample_count, uint8 channels, uint32 sampling_rate);
 
   /**
    * The function type for the video_receive_frame callback.
@@ -448,10 +454,12 @@ namespace ToxAV {
      * @param sampling_rate Audio sampling rate used in this frame. Valid sampling
      * rates are 8000, 12000, 16000, 24000, or 48000.
      */
-    public bool audio_send_frame(uint32 friend_number, int16[] pcm, uint8 channels, uint32 sampling_rate, ref ErrSendFrame error);
+    public bool audio_send_frame(uint32 friend_number, [CCode(array_length = false)] int16[] pcm, size_t sample_count, uint8 channels, uint32 sampling_rate, ref ErrSendFrame error);
 
     /**
      * Set the bit rate to be used in subsequent video frames.
+     *
+     * @since 0.2.0
      *
      * @param friend_number The friend number of the friend for which to set the
      * bit rate.
@@ -459,12 +467,14 @@ namespace ToxAV {
      *
      * @return true on success.
      */
+    [Version(since = "0.2.0")]
     public bool audio_set_bitrate(uint32 friend_number, uint32 bit_rate, ref ErrBitRateSet error);
 
     /**
      * Set the callback for the `audio_bit_rate` event. Pass NULL to unset.
-     *
+     * @since 0.2.0
      */
+    [Version(since = "0.2.0")]
     public void callback_audio_bit_rate(AudioBitRateCallback callback);
 
     /**
@@ -488,18 +498,22 @@ namespace ToxAV {
     /**
      * Set the bit rate to be used in subsequent video frames.
      *
+     * @since 0.2.0
+     *
      * @param friend_number The friend number of the friend for which to set the
      * bit rate.
      * @param bit_rate The new video bit rate in Kb/sec. Set to 0 to disable.
      *
      * @return true on success.
      */
+    [Version(since = "0.2.0")]
     public bool video_set_bit_rate(uint32 friend_number, uint32 bit_rate, ref ErrBitRateSet error);
 
     /**
      * Set the callback for the `video_bit_rate` event. Pass NULL to unset.
-     *
+     * @since 0.2.0
      */
+    [Version(since = "0.2.0")]
     public void callback_video_bit_rate(VideoBitRateCallback callback);
 
     /**
