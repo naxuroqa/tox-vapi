@@ -59,10 +59,6 @@
         <div class="main_code_definition">[ <span class="main_type">Compact</span> ]<br/><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">Options</span></b>
         </div>
         <div class="description">
-          <p class="main_title"><b>Deprecated: </b>
-            <p>The memory layout of this struct (size, alignment, and field order) is not part of the ABI. To remain compatible, prefer to use 
-              tox_options_new to allocate the object and accessor functions to set the members. The struct will become opaque (i.e. the definition 
-              will become private) in v0.3.0. </p></p>
           <p>This struct contains all the startup options for Tox. You must tox_options_new to allocate an object of this type.</p>
           <p>WARNING: Although this struct happens to be visible in the API, it is effectively private. Do not allocate this yourself or access 
             members directly, as it *will* break binary compatibility frequently.</p>

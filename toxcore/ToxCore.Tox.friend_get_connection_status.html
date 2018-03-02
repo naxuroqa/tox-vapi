@@ -129,13 +129,10 @@
         <h1 class="main_title">friend_get_connection_status</h1>
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
-        <div class="main_code_definition">[ <span class="main_type">Version</span> ( deprecated = <span class="main_literal">true</span> ,  deprecated_since = <span class="main_literal">"0.2.0"</span> ,  replacement = <span class="main_literal">""</span> ) ]<br/><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.Connection.html" class="enum">Connection</a></span> <b><span class="method">friend_get_connection_status</span></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendQuery.html" class="enum">ErrFriendQuery</a></span> error)
+        <div class="main_code_definition">[ <span class="main_type">Version</span> ( deprecated = <span class="main_literal">true</span> ,  deprecated_since = <span class="main_literal">"0.2.0"</span> ) ]<br/><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.Connection.html" class="enum">Connection</a></span> <b><span class="method">friend_get_connection_status</span></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendQuery.html" class="enum">ErrFriendQuery</a></span> error)
         </div>
         <div class="description">
-          <p><b>Warning:</b> friend_get_connection_status is deprecated since "0.2.0". Use 
-            <a href="ToxCore.Tox.friend_get_connection_status.html" class="method">ToxCore.Tox.friend_get_connection_status</a>.</p>
-          <p class="main_title"><b>Deprecated: </b>
-            <p>This getter is deprecated. Use the event and store the status in the client state. </p></p>
+          <p><b>Warning:</b> friend_get_connection_status is deprecated since "0.2.0".</p>
           <p>Check whether a friend is currently connected to this client.</p>
           <p>The result of this function is equal to the last value received by the `friend_connection_status` callback.</p>
           <h2 class="main_title">Parameters:</h2>

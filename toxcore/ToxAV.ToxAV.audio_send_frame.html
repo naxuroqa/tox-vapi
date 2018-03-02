@@ -50,7 +50,7 @@
         <h1 class="main_title">audio_send_frame</h1>
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
-        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><span class="method">audio_send_frame</span></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxAV.ErrSendFrame.html" class="enum">ErrSendFrame</a></span> error)
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><span class="method">audio_send_frame</span></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">size_t</span></span> sample_count, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxAV.ErrSendFrame.html" class="enum">ErrSendFrame</a></span> error)
         </div>
         <div class="description">
           <p>Send an audio frame to a friend.</p>
@@ -72,6 +72,13 @@
               </td>
             </tr>
             <tr>
+              <td class="main_parameter_table_name">sample_count</td>
+              <td>
+                <p>Number of samples in this frame. Valid numbers here are ((sample rate) * (audio length) / 1000), where audio length can be 2.5, 5, 
+                  10, 20, 40 or 60 millseconds. </p>
+              </td>
+            </tr>
+            <tr>
               <td class="main_parameter_table_name">channels</td>
               <td>
                 <p>Number of audio channels. Supported values are 1 and 2. </p>
@@ -81,13 +88,6 @@
               <td class="main_parameter_table_name">sampling_rate</td>
               <td>
                 <p>Audio sampling rate used in this frame. Valid sampling rates are 8000, 12000, 16000, 24000, or 48000. </p>
-              </td>
-            </tr>
-            <tr class="main_parameter_table_unknown_parameter">
-              <td class="main_parameter_table_name">sample_count</td>
-              <td>
-                <p>Number of samples in this frame. Valid numbers here are ((sample rate) * (audio length) / 1000), where audio length can be 2.5, 5, 
-                  10, 20, 40 or 60 millseconds. </p>
               </td>
             </tr>
           </table>

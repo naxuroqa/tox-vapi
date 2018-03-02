@@ -130,7 +130,7 @@
         <h1 class="main_title">ConferencePeerNameCallback</h1>
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
-        <div class="main_code_definition">[ <span class="main_type">CCode</span> ( has_target = <span class="main_literal">false</span> ) ]<br/><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><span class="delegate">ConferencePeerNameCallback</span></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] name, <span class="main_keyword">void</span>* user_data)
+        <div class="main_code_definition">[ <span class="main_type">Version</span> ( since = <span class="main_literal">"0.2.0"</span> ) ]<br/>[ <span class="main_type">CCode</span> ( has_target = <span class="main_literal">false</span> ) ]<br/><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><span class="delegate">ConferencePeerNameCallback</span></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> conference_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] name, <span class="main_keyword">void</span>* user_data)
         </div>
         <div class="description">
           <h2 class="main_title">Parameters:</h2>
@@ -153,13 +153,9 @@
                 <p>A byte array containing the new nickname. </p>
               </td>
             </tr>
-            <tr class="main_parameter_table_unknown_parameter">
-              <td class="main_parameter_table_name">length</td>
-              <td>
-                <p>The size of the name byte array. </p>
-              </td>
-            </tr>
           </table>
+          <h2 class="main_title">Since:</h2>
+          <p>0.2.0</p>
         </div>
       </div>
     </div><br/>
