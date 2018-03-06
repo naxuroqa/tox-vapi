@@ -70,6 +70,7 @@ namespace ToxCore {
   public const uint32 NOSPAM_SIZE;
   /**
    * The size of the nospam in bytes when written in a Tox address.
+   * @since 0.2.0
    */
   public static uint32 nospam_size();
   /**
@@ -1142,7 +1143,7 @@ namespace ToxCore {
     /**
      * The friend number did not designate a valid friend.
      */
-    NOT_FOUND,
+    FRIEND_NOT_FOUND,
     /**
      * This client is currently not connected to the friend.
      */
@@ -1315,7 +1316,7 @@ namespace ToxCore {
      * byte order. I.e. 0x12345678 will form the bytes [12, 34, 56, 78] in the
      * nospam part of the Tox friend address.
      */
-    public uint32 nospam {
+    public uint32 self_nospam {
       [CCode(cname = "tox_self_get_nospam")] get;
       [CCode(cname = "tox_self_set_nospam")] set;
     }
@@ -1421,7 +1422,7 @@ namespace ToxCore {
     /**
      * The client's user status.
      */
-    public UserStatus user_status {
+    public UserStatus self_status {
       [CCode(cname = "tox_self_get_status")] get;
       [CCode(cname = "tox_self_set_status")] set;
     }
@@ -1875,6 +1876,9 @@ namespace ToxCore {
       return _file_get_file_id(friend_number, file_number, buf, ref error) ? buf : null;
     }
 
+    [CCode(cname = "tox_file_send")]
+    private uint32 _file_send(uint32 friend_number, uint32 kind, uint64 file_size, [CCode(array_length = false)] uint8[] ? file_id, uint8[] filename, ref ErrFileSend error);
+
     /**
      * Send a file transmission request.
      *
@@ -1933,8 +1937,11 @@ namespace ToxCore {
      *   On failure, this function returns UINT32_MAX. Any pattern in file numbers
      *   should not be relied on.
      */
-    public uint32 file_send(uint32 friend_number, uint32 kind, uint64 file_size, [CCode(array_length = false)] uint8[] file_id, uint8[] filename, ref ErrFileSeek error);
-
+    [CCode(cname = "vala_tox_file_send")]
+    public uint32 file_send(uint32 friend_number, FileKind kind, uint64 file_size, uint8[] ? file_id, string filename, ref ErrFileSend error) {
+      GLib.assert(file_id == null || file_id.length == file_id_length());
+      return _file_send(friend_number, kind, file_size, file_id, filename.data, ref error);
+    }
     /**
      * Send a chunk of file data to a friend.
      *
@@ -2355,7 +2362,7 @@ namespace ToxCore {
     public void callback_friend_lossless_packet(FriendLosslessPacketCallback callback);
 
     [CCode(cname = "tox_self_get_dht_id")]
-    public void _self_get_dht_id([CCode(array_length = false)] uint8[] dht_id);
+    private void _self_get_dht_id([CCode(array_length = false)] uint8[] dht_id);
 
     /**
      * Returns the temporary DHT public key of this instance.

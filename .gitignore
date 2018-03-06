@@ -3,6 +3,8 @@
 
 # binary
 Bot
+ToxCoreTest
+ToxOptionsTest
 
 # GOuput
 .goutputstream-*
