@@ -5,6 +5,8 @@
 Bot
 ToxCoreTest
 ToxOptionsTest
+ToxAVTest
+ToxEncryptTest
 
 # GOuput
 .goutputstream-*

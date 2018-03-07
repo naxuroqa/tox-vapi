@@ -2,7 +2,7 @@
 using ToxCore;
 namespace Tests {
   public class ToxCoreTest {
-    private const string PREFIX = "/toxcoretest/";
+    private const string PREFIX = "/toxcore/";
 
     private static void test_constants() {
       assert(public_key_size() != 0);

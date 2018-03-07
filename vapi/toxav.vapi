@@ -87,7 +87,7 @@ namespace ToxAV {
   }
 
   [Flags]
-  [CCode(cname = "int", cprefix = "enum TOXAV_FRIEND_CALL_STATE_", has_type_id = false)]
+  [CCode(cname = "int", cprefix = "TOXAV_FRIEND_CALL_STATE_", has_type_id = false)]
   public enum FriendCallState {
     /**
      * The empty bit mask. None of the bits specified below are set.
@@ -226,7 +226,7 @@ namespace ToxAV {
     /**
      * The friend_number passed did not designate a valid friend.
      */
-    NOT_FOUND,
+    FRIEND_NOT_FOUND,
     /**
      * This client is currently not in a call with the friend.
      */
@@ -259,7 +259,7 @@ namespace ToxAV {
    * @param video_enabled True if friend is sending video.
    */
   [CCode(cname = "toxav_call_cb")]
-  public delegate void CallCallback(ToxAV self, uint32 friend_number, bool audio_enabled, bool video_enabled);
+  public delegate void CallCallback(ToxAV av, uint32 friend_number, bool audio_enabled, bool video_enabled);
 
   /**
    * The function type for the call_state callback.
@@ -271,7 +271,7 @@ namespace ToxAV {
    * friend.
    */
   [CCode(cname = "toxav_call_state_cb")]
-  public delegate void CallStateCallback(ToxAV self, uint32 friend_number, FriendCallState state);
+  public delegate void CallStateCallback(ToxAV av, uint32 friend_number, FriendCallState state);
 
   /**
    * The function type for the audio_bit_rate callback. The event is triggered
@@ -286,7 +286,7 @@ namespace ToxAV {
    */
   [Version(since = "0.2.0")]
   [CCode(cname = "toxav_audio_bit_rate_cb")]
-  public delegate void AudioBitRateCallback(ToxAV self, uint32 friend_number, uint32 audio_bit_rate);
+  public delegate void AudioBitRateCallback(ToxAV av, uint32 friend_number, uint32 audio_bit_rate);
 
   /**
    * The function type for the video_bit_rate callback. The event is triggered
@@ -301,7 +301,7 @@ namespace ToxAV {
    */
   [Version(since = "0.2.0")]
   [CCode(cname = "toxav_video_bit_rate_cb")]
-  public delegate void VideoBitRateCallback(ToxAV self, uint32 friend_number, uint32 video_bit_rate);
+  public delegate void VideoBitRateCallback(ToxAV av, uint32 friend_number, uint32 video_bit_rate);
 
   /**
    * The function type for the audio_receive_frame callback. The callback can be
@@ -316,7 +316,12 @@ namespace ToxAV {
    *
    */
   [CCode(cname = "toxav_audio_receive_frame_cb")]
-  public delegate void AudioReceiveFrameCallback(ToxAV self, uint32 friend_number, [CCode(array_length = false)] int16[] pcm, size_t sample_count, uint8 channels, uint32 sampling_rate);
+  public delegate void AudioReceiveFrameCallback(ToxAV av,
+                                                 uint32 friend_number,
+                                                 [CCode(array_length = false)] int16[] pcm,
+                                                 size_t sample_count,
+                                                 uint8 channels,
+                                                 uint32 sampling_rate);
 
   /**
    * The function type for the video_receive_frame callback.
@@ -341,7 +346,16 @@ namespace ToxAV {
    * @param vstride V chroma plane stride.
    */
   [CCode(cname = "toxav_video_receive_frame_cb")]
-  public delegate void VideoReceiveFrameCallback(ToxAV self, uint32 friend_number, uint16 width, uint16 height, [CCode(array_length = false)] uint8[] y, [CCode(array_length = false)] uint8[] u, [CCode(array_length = false)] uint8[] v, int32 ystride, int32 ustride, int32 vstride);
+  public delegate void VideoReceiveFrameCallback(ToxAV av,
+                                                 uint32 friend_number,
+                                                 uint16 width,
+                                                 uint16 height,
+                                                 [CCode(array_length = false)] uint8[] y,
+                                                 [CCode(array_length = false)] uint8[] u,
+                                                 [CCode(array_length = false)] uint8[] v,
+                                                 int32 ystride,
+                                                 int32 ustride,
+                                                 int32 vstride);
 
   /**
    * The ToxAV instance type. Each ToxAV instance can be bound to only one Tox
@@ -468,7 +482,7 @@ namespace ToxAV {
      * @return true on success.
      */
     [Version(since = "0.2.0")]
-    public bool audio_set_bitrate(uint32 friend_number, uint32 bit_rate, ref ErrBitRateSet error);
+    public bool audio_set_bit_rate(uint32 friend_number, uint32 bit_rate, ref ErrBitRateSet error);
 
     /**
      * Set the callback for the `audio_bit_rate` event. Pass NULL to unset.
@@ -493,7 +507,7 @@ namespace ToxAV {
      * @param v V (Chroma) plane data.
      */
     public bool video_send_frame(uint32 friend_number, uint16 width, uint16 height, [CCode(array_length = false)] uint8[] y,
-                                 [CCode(array_length = false)] uint8[] u, [CCode(array_length = false)] uint8 v, ref ErrSendFrame error);
+                                 [CCode(array_length = false)] uint8[] u, [CCode(array_length = false)] uint8[] v, ref ErrSendFrame error);
 
     /**
      * Set the bit rate to be used in subsequent video frames.

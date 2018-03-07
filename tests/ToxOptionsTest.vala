@@ -2,7 +2,7 @@
 using ToxCore;
 namespace Tests {
   public class ToxOptionsTest {
-    private const string PREFIX = "/toxoptionstest/";
+    private const string PREFIX = "/toxoptions/";
 
     private static void test_create() {
       var err_options_new = ErrOptionsNew.OK;
