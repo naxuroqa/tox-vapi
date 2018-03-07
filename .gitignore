@@ -13,3 +13,6 @@ ToxEncryptTest
 
 # Tox profiles
 *.tox
+
+# valadoc output
+docs/

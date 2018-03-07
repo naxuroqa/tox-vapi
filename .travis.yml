@@ -1,0 +1,17 @@
+language: c
+
+before_install:
+    - sudo apt-add-repository --yes ppa:vala-team
+    - sudo add-apt-repository --yes ppa:chris-lea/libsodium
+    - sudo apt-get update --quiet
+    - sudo apt-get install --yes libsodium-dev libconfig-dev libopus-dev libvpx-dev cmake
+    - sudo apt-get install --yes valac libglib2.0-dev
+
+script:
+    - wget https://github.com/TokTok/c-toxcore/archive/v0.2.0.tar.gz
+    - tar -xzf v0.2.0.tar.gz
+    - pushd c-toxcore-0.2.0/build
+    - cmake -D BUILD_AV_TEST=OFF -D CMAKE_INSTALL_PREFIX=/usr -D DEBUG=ON ..
+    - make && sudo make install
+    - popd
+    - make test
