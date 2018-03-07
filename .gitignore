@@ -3,9 +3,16 @@
 
 # binary
 Bot
+ToxCoreTest
+ToxOptionsTest
+ToxAVTest
+ToxEncryptTest
 
 # GOuput
 .goutputstream-*
 
 # Tox profiles
 *.tox
+
+# valadoc output
+docs/

@@ -1,5 +1,5 @@
 [CCode(cheader_filename = "tox/toxencryptsave.h", cprefix = "Tox", lower_case_cprefix = "tox_")]
-namespace ToxEncrypt {
+namespace ToxEncryptSave {
   /**
    * The size of the salt part of a pass-key.
    */
@@ -296,5 +296,5 @@ namespace ToxEncrypt {
    *
    * @return true if the data is encrypted by this module.
    */
-  public bool data_is_encrypted([CCode(array_length = false)] uint8[] data);
+  public bool is_data_encrypted([CCode(array_length = false)] uint8[] data);
 }
