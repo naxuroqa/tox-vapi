@@ -22,7 +22,7 @@
           <li class="namespace"><a href="ToxAV.html">ToxAV</a></li>
           <li class="namespace"><a href="ToxCore.html">ToxCore</a></li>
           <li class="namespace"><a href="ToxCore.Version.html">ToxCore.Version</a></li>
-          <li class="namespace"><a href="ToxEncrypt.html">ToxEncrypt</a></li>
+          <li class="namespace"><a href="ToxEncryptSave.html">ToxEncryptSave</a></li>
         </ul>
       </div>
       <div class="site_content">
@@ -53,31 +53,31 @@
           </ul>
           <h3 class="main_title">Delegates:</h3>
           <ul class="navi_inline">
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallCallback.html" class="delegate">CallCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">bool</span></span> audio_enabled, <span class="main_basic_type"><span class="struct">bool</span></span> video_enabled)
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallCallback.html" class="delegate">CallCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">bool</span></span> audio_enabled, <span class="main_basic_type"><span class="struct">bool</span></span> video_enabled)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The function type for the call callback.</span>
               </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallStateCallback.html" class="delegate">CallStateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxAV.FriendCallState.html" class="enum">FriendCallState</a></span> state)
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallStateCallback.html" class="delegate">CallStateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxAV.FriendCallState.html" class="enum">FriendCallState</a></span> state)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The function type for the call_state callback.</span>
               </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.AudioBitRateCallback.html" class="delegate">AudioBitRateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate)
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.AudioBitRateCallback.html" class="delegate">AudioBitRateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The function type for the audio_bit_rate callback. The event is 
                   triggered when the network becomes too saturated for current bit rates at which point core suggests new bit rates.</span>
               </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoBitRateCallback.html" class="delegate">VideoBitRateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate)
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoBitRateCallback.html" class="delegate">VideoBitRateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The function type for the video_bit_rate callback. The event is 
                   triggered when the network becomes too saturated for current bit rates at which point core suggests new bit rates.</span>
               </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.AudioReceiveFrameCallback.html" class="delegate">AudioReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">size_t</span></span> sample_count, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate)
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.AudioReceiveFrameCallback.html" class="delegate">AudioReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">size_t</span></span> sample_count, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The function type for the audio_receive_frame callback. The callback
                   can be called multiple times per single iteration depending on the amount of queued frames in the buffer. The received format is the
                   same as in send function.</span>
               </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoReceiveFrameCallback.html" class="delegate">VideoReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint16</span></span> width, <span class="main_basic_type"><span class="struct">uint16</span></span> height, <span class="main_basic_type"><span class="struct">uint8</span></span>[] y, <span class="main_basic_type"><span class="struct">uint8</span></span>[] u, <span class="main_basic_type"><span class="struct">uint8</span></span>[] v, <span class="main_basic_type"><span class="struct">int32</span></span> ystride, <span class="main_basic_type"><span class="struct">int32</span></span> ustride, <span class="main_basic_type"><span class="struct">int32</span></span> vstride)
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoReceiveFrameCallback.html" class="delegate">VideoReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint16</span></span> width, <span class="main_basic_type"><span class="struct">uint16</span></span> height, <span class="main_basic_type"><span class="struct">uint8</span></span>[] y, <span class="main_basic_type"><span class="struct">uint8</span></span>[] u, <span class="main_basic_type"><span class="struct">uint8</span></span>[] v, <span class="main_basic_type"><span class="struct">int32</span></span> ystride, <span class="main_basic_type"><span class="struct">int32</span></span> ustride, <span class="main_basic_type"><span class="struct">int32</span></span> vstride)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The function type for the video_receive_frame callback.</span>
               </div></li>
@@ -303,30 +303,30 @@
                   passed version numbers.</span>
               </div></li>
           </ul>
-          <li class="namespace"><a href="ToxEncrypt.html">ToxEncrypt</a></li>
+          <li class="namespace"><a href="ToxEncryptSave.html">ToxEncryptSave</a></li>
           <h3 class="main_title">Classes:</h3>
           <ul class="navi_inline">
-            <li class="class"><a href="ToxEncrypt.PassKey.html">PassKey</a> - <span class="brief_description">This type represents a pass-key.</span>
-            </li>
+            <li class="class"><a href="ToxEncryptSave.PassKey.html">PassKey</a> - <span class="brief_description">This type represents a pass-key.
+              </span></li>
           </ul>
           <h3 class="main_title">Enums:</h3>
           <ul class="navi_inline">
-            <li class="enum"><a href="ToxEncrypt.ErrKeyDerivation.html">ErrKeyDerivation</a></li>
-            <li class="enum"><a href="ToxEncrypt.ErrEncryption.html">ErrEncryption</a></li>
-            <li class="enum"><a href="ToxEncrypt.ErrDecryption.html">ErrDecryption</a></li>
-            <li class="enum"><a href="ToxEncrypt.ErrGetSalt.html">ErrGetSalt</a></li>
+            <li class="enum"><a href="ToxEncryptSave.ErrKeyDerivation.html">ErrKeyDerivation</a></li>
+            <li class="enum"><a href="ToxEncryptSave.ErrEncryption.html">ErrEncryption</a></li>
+            <li class="enum"><a href="ToxEncryptSave.ErrDecryption.html">ErrDecryption</a></li>
+            <li class="enum"><a href="ToxEncryptSave.ErrGetSalt.html">ErrGetSalt</a></li>
           </ul>
           <h3 class="main_title">Constants:</h3>
           <ul class="navi_inline">
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncrypt.PASS_SALT_LENGTH.html" class="constant">PASS_SALT_LENGTH</a></b>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_SALT_LENGTH.html" class="constant">PASS_SALT_LENGTH</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The size of the salt part of a pass-key.</span>
               </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncrypt.PASS_KEY_LENGTH.html" class="constant">PASS_KEY_LENGTH</a></b>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_KEY_LENGTH.html" class="constant">PASS_KEY_LENGTH</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The size of the key part of a pass-key.</span>
               </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH.html" class="constant">PASS_ENCRYPTION_EXTRA_LENGTH</a></b>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_ENCRYPTION_EXTRA_LENGTH.html" class="constant">PASS_ENCRYPTION_EXTRA_LENGTH</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The amount of additional data required to store any encrypted byte 
                   array. Encrypting an array of N bytes requires N + TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes in the encrypted byte array.</span>
@@ -334,32 +334,32 @@
           </ul>
           <h3 class="main_title">Methods:</h3>
           <ul class="navi_inline">
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncrypt.pass_salt_length.html" class="method">pass_salt_length</a></b> ()
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_salt_length.html" class="method">pass_salt_length</a></b> ()
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The size of the salt part of a pass-key.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncrypt.pass_key_length.html" class="method">pass_key_length</a></b> ()
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_key_length.html" class="method">pass_key_length</a></b> ()
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The size of the key part of a pass-key.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncrypt.pass_encryption_extra_length.html" class="method">pass_encryption_extra_length</a></b> ()
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_encryption_extra_length.html" class="method">pass_encryption_extra_length</a></b> ()
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The amount of additional data required to store any encrypted byte 
                   array. Encrypting an array of N bytes requires N + TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes in the encrypted byte array.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncrypt.pass_encrypt.html" class="method">pass_encrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] plaintext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxEncrypt.ErrEncryption.html" class="enum">ErrEncryption</a></span> error)
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.pass_encrypt.html" class="method">pass_encrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] plaintext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxEncryptSave.ErrEncryption.html" class="enum">ErrEncryption</a></span> error)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Encrypts the given data with the given passphrase.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncrypt.pass_decrypt.html" class="method">pass_decrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxEncrypt.ErrDecryption.html" class="enum">ErrDecryption</a></span> error)
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.pass_decrypt.html" class="method">pass_decrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxEncryptSave.ErrDecryption.html" class="enum">ErrDecryption</a></span> error)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Decrypts the given data with the given passphrase.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncrypt.get_salt.html" class="method">get_salt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxEncrypt.ErrGetSalt.html" class="enum">ErrGetSalt</a></span> error)
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.get_salt.html" class="method">get_salt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxEncryptSave.ErrGetSalt.html" class="enum">ErrGetSalt</a></span> error)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Retrieves the salt used to encrypt the given data.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxEncrypt.data_is_encrypted.html" class="method">data_is_encrypted</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] data)
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxEncryptSave.is_data_encrypted.html" class="method">is_data_encrypted</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] data)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Determines whether or not the given data is encrypted by this 
                   module.</span>

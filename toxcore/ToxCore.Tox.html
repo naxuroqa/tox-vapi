@@ -27,8 +27,8 @@
         </ul>
         <hr class="navi_hr"/>
         <ul class="navi_main">
-          <li class="property"><a href="ToxCore.Tox.nospam.html">nospam</a></li>
-          <li class="property"><a href="ToxCore.Tox.user_status.html">user_status</a></li>
+          <li class="property"><a href="ToxCore.Tox.self_nospam.html">self_nospam</a></li>
+          <li class="property"><a href="ToxCore.Tox.self_status.html">self_status</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceInviteCallback.html">ConferenceInviteCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferenceMessageCallback.html">ConferenceMessageCallback</a></li>
           <li class="delegate"><a href="ToxCore.Tox.ConferencePeerListChangedCallback.html">ConferencePeerListChangedCallback</a></li>
@@ -51,7 +51,6 @@
           <li class="delegate"><a href="ToxCore.Tox.SelfConnectionStatusCallback.html">SelfConnectionStatusCallback</a></li>
           <li class="static_method"><a href="ToxCore.Tox.hash.html">hash</a></li>
           <li class="creation_method"><a href="ToxCore.Tox.Tox.html">Tox</a></li>
-          <li class="method"><a href="ToxCore.Tox._self_get_dht_id.html">_self_get_dht_id</a></li>
           <li class="method"><a href="ToxCore.Tox.add_tcp_relay.html">add_tcp_relay</a></li>
           <li class="method"><a href="ToxCore.Tox.bootstrap.html">bootstrap</a></li>
           <li class="method"><a href="ToxCore.Tox.callback_conference_invite.html">callback_conference_invite</a></li>
@@ -151,12 +150,12 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Properties:</h3>
         <ul class="navi_inline">
-          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.nospam.html" class="property">nospam</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.self_nospam.html" class="property">self_nospam</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The 4-byte nospam part of the address. This value is expected in host 
                 byte order. I.e. 0x12345678 will form the bytes [12, 34, 56, 78] in the nospam part of the Tox friend address.</span>
             </div></li>
-          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.UserStatus.html" class="enum">UserStatus</a></span> <b><a href="ToxCore.Tox.user_status.html" class="property">user_status</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="ToxCore.UserStatus.html" class="enum">UserStatus</a></span> <b><a href="ToxCore.Tox.self_status.html" class="property">self_status</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The client's user status.</span>
             </div></li>
@@ -459,7 +458,7 @@
             <div class="leaf_brief_description"><span class="brief_description">Copy the file id associated to the file transfer to a byte array.
               </span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.file_send.html" class="method">file_send</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> kind, <span class="main_basic_type"><span class="struct">uint64</span></span> file_size, <span class="main_basic_type"><span class="struct">uint8</span></span>[] file_id, <span class="main_basic_type"><span class="struct">uint8</span></span>[] filename, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFileSeek.html" class="enum">ErrFileSeek</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.file_send.html" class="method">file_send</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxCore.FileKind.html" class="enum">FileKind</a></span> kind, <span class="main_basic_type"><span class="struct">uint64</span></span> file_size, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? file_id, <span class="main_basic_type"><span class="class">string</span></span> filename, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFileSend.html" class="enum">ErrFileSend</a></span> error)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Send a file transmission request.</span>
             </div></li>
@@ -578,10 +577,6 @@
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Set the callback for the `friend_lossless_packet` event. Pass NULL to 
                 unset.</span>
-            </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox._self_get_dht_id.html" class="method">_self_get_dht_id</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] dht_id)
-            </span>
-            <div class="leaf_brief_description">
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.self_get_dht_id.html" class="method">self_get_dht_id</a></b> ()
             </span>
