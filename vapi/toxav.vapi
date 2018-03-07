@@ -87,7 +87,7 @@ namespace ToxAV {
   }
 
   [Flags]
-  [CCode(cname = "int", cprefix = "TOXAV_FRIEND_CALL_STATE_", has_type_id = false)]
+  [CCode(cname = "guint32", cprefix = "TOXAV_FRIEND_CALL_STATE_", has_type_id = false)]
   public enum FriendCallState {
     /**
      * The empty bit mask. None of the bits specified below are set.
