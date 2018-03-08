@@ -4,6 +4,14 @@ namespace Tests {
   public class ToxCoreTest {
     private const string PREFIX = "/toxcore/";
 
+    private static void add_dummy_friend(Tox tox) {
+      var address = new uint8[address_size()];
+      var err_friend_add = ErrFriendAdd.OK;
+      var ret = tox.friend_add(address, "dummy", ref err_friend_add);
+      assert(err_friend_add == ErrFriendAdd.OK);
+      assert(ret == 0);
+    }
+
     private static void test_constants() {
       assert(public_key_size() != 0);
       assert(secret_key_size() != 0);
@@ -60,7 +68,7 @@ namespace Tests {
       assert(tox == null);
     }
 
-    private static void test_savedata() {
+    private static void test_get_savedata() {
       var err_new = ErrNew.OK;
       var tox = new Tox(null, ref err_new);
       var savedata = tox.get_savedata();
@@ -94,16 +102,6 @@ namespace Tests {
       tox.iterate(null);
     }
 
-    private static void test_bootstrap() {
-      var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
-      var public_key = new uint8[public_key_size()];
-      var err_bootstrap = ErrBootstrap.OK;
-      var ret = tox.bootstrap("dummyaddress", 0, public_key, ref err_bootstrap);
-      assert(err_bootstrap == ErrBootstrap.BAD_PORT);
-      assert(!ret);
-    }
-
     private static void test_add_tcp_relay() {
       var err_new = ErrNew.OK;
       var tox = new Tox(null, ref err_new);
@@ -114,7 +112,17 @@ namespace Tests {
       assert(!ret);
     }
 
-    private static void test_self_address() {
+    private static void test_bootstrap() {
+      var err_new = ErrNew.OK;
+      var tox = new Tox(null, ref err_new);
+      var public_key = new uint8[public_key_size()];
+      var err_bootstrap = ErrBootstrap.OK;
+      var ret = tox.bootstrap("dummyaddress", 0, public_key, ref err_bootstrap);
+      assert(err_bootstrap == ErrBootstrap.BAD_PORT);
+      assert(!ret);
+    }
+
+    private static void test_self_get_address() {
       var err_new = ErrNew.OK;
       var tox = new Tox(null, ref err_new);
 
@@ -123,15 +131,7 @@ namespace Tests {
       assert(id.length == address_size());
     }
 
-    private static void add_dummy_friend(Tox tox) {
-      var address = new uint8[address_size()];
-      var err_friend_add = ErrFriendAdd.OK;
-      var ret = tox.friend_add(address, "dummy", ref err_friend_add);
-      assert(err_friend_add == ErrFriendAdd.OK);
-      assert(ret == 0);
-    }
-
-    private static void test_self_friend_list() {
+    private static void test_self_get_friend_list() {
       var err_new = ErrNew.OK;
       var tox = new Tox(null, ref err_new);
       assert(tox.self_get_friend_list().length == 0);
@@ -667,6 +667,201 @@ namespace Tests {
       assert(Memory.cmp(hash1, hash4, hash1.length) != 0);
     }
 
+    private static void conference_invite_cb(Tox self, uint32 friend_number, ConferenceType type, uint8[] cookie, void* user_data) {}
+    private static void conference_message_cb(Tox self, uint32 conference_number, uint32 peer_number, MessageType type, uint8[] message, void* user_data) {}
+    private static void conference_peer_list_changed_cb(Tox self, uint32 conference_number, void* user_data) {}
+    private static void conference_peer_name_cb(Tox self, uint32 conference_number, uint32 peer_number, uint8[] name, void* user_data) {}
+    private static void conference_title_cb(Tox self, uint32 conference_number, uint32 peer_number, uint8[] name, void* user_data) {}
+    private static void file_chunk_request_cb(Tox self, uint32 friend_number, uint32 file_number, uint64 position, size_t length, void* user_data) {}
+    private static void file_recv_cb(Tox self, uint32 friend_number, uint32 file_number, uint32 kind, uint64 file_size, uint8[] filename, void* user_data) {}
+    private static void file_recv_chunk_cb(Tox self, uint32 friend_number, uint32 file_number, uint64 position, uint8[] data, void* user_data) {}
+    private static void file_recv_control_cb(Tox self, uint32 friend_number, uint32 file_number, FileControl control, void* user_data) {}
+    private static void friend_connection_status_cb(Tox self, uint32 friend_number, Connection connection_status, void* userdata) {}
+    private static void friend_lossless_packet_cb(Tox self, uint32 friend_number, uint8[] data, void* user_data) {}
+    private static void friend_lossy_packet_cb(Tox self, uint32 friend_number, uint8[] data, void* user_data) {}
+    private static void friend_message_cb(Tox self, uint32 friend_number, MessageType type, uint8[] message, void* user_data) {}
+    private static void friend_name_cb(Tox self, uint32 friend_number, uint8[] name, void* user_data) {}
+    private static void friend_read_receipt_cb(Tox self, uint32 friend_number, uint32 message_id, void* user_data) {}
+    private static void friend_request_cb(Tox self, uint8[] public_key, uint8[] message, void* user_data) {}
+    private static void friend_status_cb(Tox self, uint32 friend_number, UserStatus status, void* user_data) {}
+    private static void friend_status_message_cb(Tox self, uint32 friend_number, uint8[] message, void* user_data) {}
+    private static void friend_typing_cb(Tox self, uint32 friend_number, bool is_typing, void* userdata) {}
+    private static void self_connection_status_cb(Tox self, Connection connection_status, void* user_data) {}
+
+    private static void test_callbacks() {
+      var err_new = ErrNew.OK;
+      var tox = new Tox(null, ref err_new);
+      tox.callback_conference_invite(conference_invite_cb);
+      tox.callback_conference_message(conference_message_cb);
+      tox.callback_conference_peer_list_changed(conference_peer_list_changed_cb);
+      tox.callback_conference_title(conference_title_cb);
+      tox.callback_file_chunk_request(file_chunk_request_cb);
+      tox.callback_file_recv(file_recv_cb);
+      tox.callback_file_recv_chunk(file_recv_chunk_cb);
+      tox.callback_file_recv_control(file_recv_control_cb);
+      tox.callback_friend_connection_status(friend_connection_status_cb);
+      tox.callback_friend_lossless_packet(friend_lossless_packet_cb);
+      tox.callback_friend_lossy_packet(friend_lossy_packet_cb);
+      tox.callback_friend_message(friend_message_cb);
+      tox.callback_friend_name(friend_name_cb);
+      tox.callback_friend_read_receipt(friend_read_receipt_cb);
+      tox.callback_friend_request(friend_request_cb);
+      tox.callback_friend_status(friend_status_cb);
+      tox.callback_friend_status_message(friend_status_message_cb);
+      tox.callback_friend_typing(friend_typing_cb);
+      tox.callback_self_connection_status(self_connection_status_cb);
+    }
+
+    private static void test_enums() {
+      assert(ConferenceType.TEXT != ConferenceType.AV);
+
+      assert(Connection.NONE != Connection.TCP);
+      assert(Connection.NONE != Connection.UDP);
+
+      assert(ErrBootstrap.OK != ErrBootstrap.NULL);
+      assert(ErrBootstrap.OK != ErrBootstrap.BAD_HOST);
+      assert(ErrBootstrap.OK != ErrBootstrap.BAD_PORT);
+
+      assert(ErrConferenceDelete.OK != ErrConferenceDelete.CONFERENCE_NOT_FOUND);
+
+      assert(ErrConferenceGetType.OK != ErrConferenceGetType.CONFERENCE_NOT_FOUND);
+
+      assert(ErrConferenceInvite.OK != ErrConferenceInvite.CONFERENCE_NOT_FOUND);
+      assert(ErrConferenceInvite.OK != ErrConferenceInvite.FAIL_SEND);
+
+      assert(ErrConferenceJoin.OK != ErrConferenceJoin.INVALID_LENGTH);
+      assert(ErrConferenceJoin.OK != ErrConferenceJoin.WRONG_TYPE);
+      assert(ErrConferenceJoin.OK != ErrConferenceJoin.FRIEND_NOT_FOUND);
+      assert(ErrConferenceJoin.OK != ErrConferenceJoin.DUPLICATE);
+      assert(ErrConferenceJoin.OK != ErrConferenceJoin.INIT_FAIL);
+      assert(ErrConferenceJoin.OK != ErrConferenceJoin.FAIL_SEND);
+
+      assert(ErrConferenceNew.OK != ErrConferenceNew.INIT);
+
+      assert(ErrConferencePeerQuery.OK != ErrConferencePeerQuery.CONFERENCE_NOT_FOUND);
+      assert(ErrConferencePeerQuery.OK != ErrConferencePeerQuery.PEER_NOT_FOUND);
+      assert(ErrConferencePeerQuery.OK != ErrConferencePeerQuery.NO_CONNECTION);
+
+      assert(ErrConferenceSendMessage.OK != ErrConferenceSendMessage.CONFERENCE_NOT_FOUND);
+      assert(ErrConferenceSendMessage.OK != ErrConferenceSendMessage.TOO_LONG);
+      assert(ErrConferenceSendMessage.OK != ErrConferenceSendMessage.NO_CONNECTION);
+      assert(ErrConferenceSendMessage.OK != ErrConferenceSendMessage.FAIL_SEND);
+
+      assert(ErrConferenceTitle.OK != ErrConferenceTitle.CONFERENCE_NOT_FOUND);
+      assert(ErrConferenceTitle.OK != ErrConferenceTitle.INVALID_LENGTH);
+      assert(ErrConferenceTitle.OK != ErrConferenceTitle.FAIL_SEND);
+
+      assert(ErrFileControl.OK != ErrFileControl.FRIEND_NOT_FOUND);
+      assert(ErrFileControl.OK != ErrFileControl.FRIEND_NOT_CONNECTED);
+      assert(ErrFileControl.OK != ErrFileControl.NOT_FOUND);
+      assert(ErrFileControl.OK != ErrFileControl.NOT_PAUSED);
+      assert(ErrFileControl.OK != ErrFileControl.DENIED);
+      assert(ErrFileControl.OK != ErrFileControl.ALREADY_PAUSED);
+      assert(ErrFileControl.OK != ErrFileControl.SENDQ);
+
+      assert(ErrFileGet.OK != ErrFileGet.NULL);
+      assert(ErrFileGet.OK != ErrFileGet.FRIEND_NOT_FOUND);
+      assert(ErrFileGet.OK != ErrFileGet.NOT_FOUND);
+
+      assert(ErrFileSeek.OK != ErrFileSeek.FRIEND_NOT_FOUND);
+      assert(ErrFileSeek.OK != ErrFileSeek.FRIEND_NOT_CONNECTED);
+      assert(ErrFileSeek.OK != ErrFileSeek.NOT_FOUND);
+      assert(ErrFileSeek.OK != ErrFileSeek.DENIED);
+      assert(ErrFileSeek.OK != ErrFileSeek.INVALID_POSITION);
+      assert(ErrFileSeek.OK != ErrFileSeek.SENDQ);
+
+      assert(ErrFileSend.OK != ErrFileSend.NULL);
+      assert(ErrFileSend.OK != ErrFileSend.FRIEND_NOT_FOUND);
+      assert(ErrFileSend.OK != ErrFileSend.FRIEND_NOT_CONNECTED);
+      assert(ErrFileSend.OK != ErrFileSend.NAME_TOO_LONG);
+      assert(ErrFileSend.OK != ErrFileSend.TOO_MANY);
+
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.NULL);
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.FRIEND_NOT_FOUND);
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.FRIEND_NOT_CONNECTED);
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.NOT_FOUND);
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.NOT_TRANSFERRING);
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.INVALID_LENGTH);
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.SENDQ);
+      assert(ErrFileSendChunk.OK != ErrFileSendChunk.WRONG_POSITION);
+
+      assert(ErrFriendAdd.OK != ErrFriendAdd.NULL);
+      assert(ErrFriendAdd.OK != ErrFriendAdd.TOO_LONG);
+      assert(ErrFriendAdd.OK != ErrFriendAdd.NO_MESSAGE);
+      assert(ErrFriendAdd.OK != ErrFriendAdd.OWN_KEY);
+      assert(ErrFriendAdd.OK != ErrFriendAdd.ALREADY_SENT);
+      assert(ErrFriendAdd.OK != ErrFriendAdd.BAD_CHECKSUM);
+      assert(ErrFriendAdd.OK != ErrFriendAdd.SET_NEW_NOSPAM);
+      assert(ErrFriendAdd.OK != ErrFriendAdd.MALLOC);
+
+      assert(ErrFriendByPublicKey.OK != ErrFriendByPublicKey.NULL);
+      assert(ErrFriendByPublicKey.OK != ErrFriendByPublicKey.NOT_FOUND);
+
+      assert(ErrFriendCustomPacket.OK != ErrFriendCustomPacket.NULL);
+      assert(ErrFriendCustomPacket.OK != ErrFriendCustomPacket.FRIEND_NOT_FOUND);
+      assert(ErrFriendCustomPacket.OK != ErrFriendCustomPacket.FRIEND_NOT_CONNECTED);
+      assert(ErrFriendCustomPacket.OK != ErrFriendCustomPacket.INVALID);
+      assert(ErrFriendCustomPacket.OK != ErrFriendCustomPacket.EMPTY);
+      assert(ErrFriendCustomPacket.OK != ErrFriendCustomPacket.TOO_LONG);
+      assert(ErrFriendCustomPacket.OK != ErrFriendCustomPacket.SENDQ);
+
+      assert(ErrFriendDelete.OK != ErrFriendDelete.FRIEND_NOT_FOUND);
+
+      assert(ErrFriendGetLastOnline.OK != ErrFriendGetLastOnline.FRIEND_NOT_FOUND);
+
+      assert(ErrFriendGetPublicKey.OK != ErrFriendGetPublicKey.FRIEND_NOT_FOUND);
+
+      assert(ErrFriendQuery.OK != ErrFriendQuery.NULL);
+      assert(ErrFriendQuery.OK != ErrFriendQuery.FRIEND_NOT_FOUND);
+
+      assert(ErrFriendSendMessage.OK != ErrFriendSendMessage.NULL);
+      assert(ErrFriendSendMessage.OK != ErrFriendSendMessage.FRIEND_NOT_FOUND);
+      assert(ErrFriendSendMessage.OK != ErrFriendSendMessage.FRIEND_NOT_CONNECTED);
+      assert(ErrFriendSendMessage.OK != ErrFriendSendMessage.SENDQ);
+      assert(ErrFriendSendMessage.OK != ErrFriendSendMessage.TOO_LONG);
+      assert(ErrFriendSendMessage.OK != ErrFriendSendMessage.EMPTY);
+
+      assert(ErrGetPort.OK != ErrGetPort.NOT_BOUND);
+
+      assert(ErrNew.OK != ErrNew.NULL);
+      assert(ErrNew.OK != ErrNew.MALLOC);
+      assert(ErrNew.OK != ErrNew.PORT_ALLOC);
+      assert(ErrNew.OK != ErrNew.PROXY_BAD_TYPE);
+      assert(ErrNew.OK != ErrNew.PROXY_BAD_HOST);
+      assert(ErrNew.OK != ErrNew.PROXY_BAD_PORT);
+      assert(ErrNew.OK != ErrNew.PROXY_NOT_FOUND);
+      assert(ErrNew.OK != ErrNew.LOAD_ENCRYPTED);
+      assert(ErrNew.OK != ErrNew.LOAD_BAD_FORMAT);
+
+      assert(ErrOptionsNew.OK != ErrOptionsNew.MALLOC);
+
+      assert(ErrSetInfo.OK != ErrSetInfo.NULL);
+      assert(ErrSetInfo.OK != ErrSetInfo.TOO_LONG);
+
+      assert(ErrSetTyping.OK != ErrSetTyping.FRIEND_NOT_FOUND);
+
+      assert(FileControl.RESUME != FileControl.PAUSE);
+      assert(FileControl.RESUME != FileControl.CANCEL);
+
+      assert(FileKind.DATA != FileKind.AVATAR);
+
+      assert(LogLevel.TRACE != LogLevel.DEBUG);
+      assert(LogLevel.TRACE != LogLevel.INFO);
+      assert(LogLevel.TRACE != LogLevel.WARNING);
+      assert(LogLevel.TRACE != LogLevel.ERROR);
+
+      assert(MessageType.NORMAL != MessageType.ACTION);
+
+      assert(ProxyType.NONE != ProxyType.HTTP);
+      assert(ProxyType.NONE != ProxyType.SOCKS5);
+
+      assert(SaveDataType.NONE != SaveDataType.TOX_SAVE);
+      assert(SaveDataType.NONE != SaveDataType.SECRET_KEY);
+
+      assert(UserStatus.NONE != UserStatus.AWAY);
+      assert(UserStatus.NONE != UserStatus.BUSY);
+    }
+
     public static int main(string[] args) {
       Test.init(ref args);
 
@@ -675,14 +870,14 @@ namespace Tests {
       Test.add_func(PREFIX + "test_create_null_options", test_create_null_options);
       Test.add_func(PREFIX + "test_create", test_create);
       Test.add_func(PREFIX + "test_create_bad_save_format", test_create_bad_save_format);
-      Test.add_func(PREFIX + "test_savedata", test_savedata);
+      Test.add_func(PREFIX + "test_get_savedata", test_get_savedata);
       Test.add_func(PREFIX + "test_savedata_restore", test_savedata_restore);
       Test.add_func(PREFIX + "test_iterate", test_iterate);
       Test.add_func(PREFIX + "test_bootstrap", test_bootstrap);
       Test.add_func(PREFIX + "test_add_tcp_relay", test_add_tcp_relay);
-      Test.add_func(PREFIX + "test_self_address", test_self_address);
+      Test.add_func(PREFIX + "test_self_get_address", test_self_get_address);
       Test.add_func(PREFIX + "test_self_dht_id", test_self_dht_id);
-      Test.add_func(PREFIX + "test_self_friend_list", test_self_friend_list);
+      Test.add_func(PREFIX + "test_self_get_friend_list", test_self_get_friend_list);
       Test.add_func(PREFIX + "test_self_get_name", test_self_get_name);
       Test.add_func(PREFIX + "test_self_set_name", test_self_set_name);
       Test.add_func(PREFIX + "test_self_get_public_key", test_self_get_public_key);
@@ -725,6 +920,8 @@ namespace Tests {
       Test.add_func(PREFIX + "test_conference_send_message", test_conference_send_message);
       Test.add_func(PREFIX + "test_conference_set_title", test_conference_set_title);
       Test.add_func(PREFIX + "test_hash", test_hash);
+      Test.add_func(PREFIX + "test_callbacks", test_callbacks);
+      Test.add_func(PREFIX + "test_enums", test_enums);
 
       Test.run();
       return 0;

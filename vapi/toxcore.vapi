@@ -72,6 +72,7 @@ namespace ToxCore {
    * The size of the nospam in bytes when written in a Tox address.
    * @since 0.2.1
    */
+  [Version(since = "0.2.1")]
   public static uint32 nospam_size();
   /**
    * The size of a Tox address in bytes. Tox addresses are in the format
@@ -1570,7 +1571,7 @@ namespace ToxCore {
      *   tox_friend_get_name would write to its `name` parameter.
      */
     [CCode(cname = "tox_friend_name_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendNameCallback (Tox self, uint32 friend_number, uint8[] name, void *user_data);
+    public delegate void FriendNameCallback (Tox self, uint32 friend_number, [CCode(array_length_type = "size_t")] uint8[] name, void *user_data);
 
     /**
      * Set the callback for the `friend_name` event. Pass NULL to unset.
@@ -1609,7 +1610,7 @@ namespace ToxCore {
      *   tox_friend_get_status_message would write to its `status_message` parameter.
      */
     [CCode(cname = "tox_friend_status_message_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendStatusMessageCallback (Tox self, uint32 friend_number, uint8[] message, void *user_data);
+    public delegate void FriendStatusMessageCallback (Tox self, uint32 friend_number, [CCode(array_length_type = "size_t")] uint8[] message, void *user_data);
     /**
      * Set the callback for the `friend_status_message` event. Pass NULL to unset.
      *
@@ -1718,7 +1719,7 @@ namespace ToxCore {
     public bool self_set_typing(uint32 friend_number, bool typing, ref ErrSetTyping error);
 
     [CCode(cname = "tox_friend_send_message")]
-    private uint32 _friend_send_message(uint32 friend_number, MessageType type, uint8[] message, ref ErrFriendSendMessage error);
+    private uint32 _friend_send_message(uint32 friend_number, MessageType type, [CCode(array_length_type = "size_t")] uint8[] message, ref ErrFriendSendMessage error);
 
     /**
      * Send a text chat message to an online friend.
@@ -1753,7 +1754,7 @@ namespace ToxCore {
      *   corresponding to the message sent.
      */
     [CCode(cname = "tox_friend_read_receipt_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendReadReceptCallback(Tox self, uint32 friend_number, uint32 message_id, void *user_data);
+    public delegate void FriendReadReceiptCallback(Tox self, uint32 friend_number, uint32 message_id, void *user_data);
 
     /**
      * Set the callback for the `friend_read_receipt` event. Pass NULL to unset.
@@ -1761,14 +1762,14 @@ namespace ToxCore {
      * This event is triggered when the friend receives the message sent with
      * tox_friend_send_message with the corresponding message ID.
      */
-    public void callback_friend_read_receipt(FriendReadReceptCallback callback);
+    public void callback_friend_read_receipt(FriendReadReceiptCallback callback);
 
     /**
      * @param public_key The Public Key of the user who sent the friend request.
      * @param message The message they sent along with the request.
      */
     [CCode(cname = "tox_friend_request_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendRequestCallback(Tox self, [CCode(array_length = "public_key_size()")] uint8[] public_key, uint8[] message, void *user_data);
+    public delegate void FriendRequestCallback(Tox self, [CCode(array_length = "public_key_size()")] uint8[] public_key, [CCode(array_length_type = "size_t")] uint8[] message, void *user_data);
 
     /**
      * Set the callback for the `friend_request` event. Pass NULL to unset.
@@ -1782,7 +1783,7 @@ namespace ToxCore {
      * @param message The message data they sent.
      */
     [CCode(cname = "tox_friend_message_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendMessageCallback(Tox self, uint32 friend_number, MessageType type, uint8[] message, void *user_data);
+    public delegate void FriendMessageCallback(Tox self, uint32 friend_number, MessageType type, [CCode(array_length_type = "size_t")] uint8[] message, void *user_data);
 
     /**
      * Set the callback for the `friend_message` event. Pass NULL to unset.
@@ -2055,7 +2056,7 @@ namespace ToxCore {
      *   conference.
      */
     [CCode(cname = "tox_conference_invite_cb", has_target = false, has_type_id = false)]
-    public delegate void ConferenceInviteCallback (Tox self, uint32 friend_number, ConferenceType type, uint8[] cookie, void *user_data);
+    public delegate void ConferenceInviteCallback (Tox self, uint32 friend_number, ConferenceType type, [CCode(array_length_type = "size_t")] uint8[] cookie, void *user_data);
 
     /**
      * Set the callback for the `conference_invite` event. Pass NULL to unset.
@@ -2071,7 +2072,7 @@ namespace ToxCore {
      * @param message The message data.
      */
     [CCode(cname = "tox_conference_message_cb", has_target = false, has_type_id = false)]
-    public delegate void ConferenceMessageCallback (Tox self, uint32 conference_number, uint32 peer_number, MessageType type, uint8[] message, void *user_data);
+    public delegate void ConferenceMessageCallback (Tox self, uint32 conference_number, uint32 peer_number, MessageType type, [CCode(array_length_type = "size_t")] uint8[] message, void *user_data);
 
     /**
      * Set the callback for the `conference_message` event. Pass NULL to unset.
@@ -2086,7 +2087,7 @@ namespace ToxCore {
      * @param title The title data.
      */
     [CCode(cname = "tox_conference_title_cb", has_target = false, has_type_id = false)]
-    public delegate void ConferenceTitleCallback (Tox self, uint32 conference_number, uint32 peer_number, uint8[] title, void *user_data);
+    public delegate void ConferenceTitleCallback (Tox self, uint32 conference_number, uint32 peer_number, [CCode(array_length_type = "size_t")] uint8[] title, void *user_data);
 
     /**
      * Set the callback for the `conference_title` event. Pass NULL to unset.
@@ -2106,7 +2107,7 @@ namespace ToxCore {
      */
     [Version(since = "0.2.0")]
     [CCode(cname = "tox_conference_peer_name_cb", has_target = false, has_type_id = false)]
-    public delegate void ConferencePeerNameCallback(Tox self, uint32 conference_number, uint32 peer_number, uint8[] name, void* user_data);
+    public delegate void ConferencePeerNameCallback(Tox self, uint32 conference_number, uint32 peer_number, [CCode(array_length_type = "size_t")] uint8[] name, void* user_data);
 
     /**
      * Set the callback for the `conference_peer_name` event. Pass NULL to unset.
@@ -2342,7 +2343,7 @@ namespace ToxCore {
      * @param data A byte array containing the received packet data.
      */
     [CCode(cname = "tox_friend_lossy_packet_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendLossyPacketCallback (Tox self, uint32 friend_number, uint8[] data, void* user_data);
+    public delegate void FriendLossyPacketCallback (Tox self, uint32 friend_number, [CCode(array_length_type = "size_t")] uint8[] data, void* user_data);
 
     /**
      * Set the callback for the `friend_lossy_packet` event. Pass NULL to unset.
@@ -2354,7 +2355,7 @@ namespace ToxCore {
      * @param data A byte array containing the received packet data.
      */
     [CCode(cname = "tox_friend_lossless_packet_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendLosslessPacketCallback (Tox self, uint32 friend_number, uint8[] data, void* user_data);
+    public delegate void FriendLosslessPacketCallback (Tox self, uint32 friend_number, [CCode(array_length_type = "size_t")] uint8[] data, void* user_data);
 
     /**
      * Set the callback for the `friend_lossless_packet` event. Pass NULL to unset.
