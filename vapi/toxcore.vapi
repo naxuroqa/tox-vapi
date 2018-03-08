@@ -70,7 +70,7 @@ namespace ToxCore {
   public const uint32 NOSPAM_SIZE;
   /**
    * The size of the nospam in bytes when written in a Tox address.
-   * @since 0.2.0
+   * @since 0.2.1
    */
   public static uint32 nospam_size();
   /**

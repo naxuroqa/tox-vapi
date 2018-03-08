@@ -21,9 +21,6 @@ test-options-bin:
 		-g \
 		tests/ToxOptionsTest.vala
 
-test-options: test-options-bin
-	./ToxOptionsTest
-
 test-core-bin:
 	valac \
 		--vapidir=vapi \
@@ -33,9 +30,6 @@ test-core-bin:
 		--pkg=toxencryptsave \
 		-g \
 		tests/ToxCoreTest.vala
-
-test-core: test-core-bin
-	./ToxCoreTest
 
 test-av-bin:
 	valac \
@@ -47,9 +41,6 @@ test-av-bin:
 		-g \
 		tests/ToxAVTest.vala
 
-test-av: test-av-bin
-	./ToxAVTest
-
 test-encrypt-bin:
 	valac \
 		--vapidir=vapi \
@@ -60,10 +51,8 @@ test-encrypt-bin:
 		-g \
 		tests/ToxEncryptSaveTest.vala
 
-test-encrypt: test-encrypt-bin
-	./ToxEncryptSaveTest
-
-test: test-options test-core test-av test-encrypt
+test: test-options-bin test-core-bin test-av-bin test-encrypt-bin
+	gtester --verbose ToxOptionsTest ToxCoreTest ToxAVTest ToxEncryptSaveTest
 
 debug: bot
 	gdb -ex run ./Bot
