@@ -40,8 +40,11 @@
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><span class="method">encrypt</span></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] plaintext, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxEncryptSave.ErrEncryption.html" class="enum">ErrEncryption</a></span> error)
         </div>
         <div class="description">
-          <p>Encrypt a plain text with a key produced by tox_pass_key_derive or tox_pass_key_derive_with_salt.</p>
-          <p>The output array must be at least `plaintext_len + TOX_PASS_ENCRYPTION_EXTRA_LENGTH` bytes long.</p>
+          <p>Encrypt a plain text with a key produced by <a href="ToxEncryptSave.PassKey.PassKey.derive.html" class="creation_method">
+              PassKey.PassKey.derive</a> or <a href="ToxEncryptSave.PassKey.PassKey.derive_with_salt.html" class="creation_method">
+              PassKey.PassKey.derive_with_salt</a>.</p>
+          <p>The output array must be at least `plaintext_len + <a href="ToxEncryptSave.PASS_ENCRYPTION_EXTRA_LENGTH.html" class="constant">
+              PASS_ENCRYPTION_EXTRA_LENGTH</a>` bytes long.</p>
           <h2 class="main_title">Parameters:</h2>
           <table class="main_parameter_table">
             <tr>

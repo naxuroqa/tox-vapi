@@ -200,8 +200,9 @@
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.FileRecvControlCallback.html" class="delegate">FileRecvControlCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_type"><a href="ToxCore.FileControl.html" class="enum">FileControl</a></span> control, <span class="main_keyword">void</span>* user_data)
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">When receiving TOX_FILE_CONTROL_CANCEL, the client should release the 
-                resources associated with the file number and consider the transfer failed.</span>
+            <div class="leaf_brief_description"><span class="brief_description">When receiving 
+                <a href="ToxCore.FileControl.CANCEL.html" class="enumvalue">FileControl.CANCEL</a>, the client should release the resources associated
+                with the file number and consider the transfer failed.</span>
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.FileChunkRequestCallback.html" class="delegate">FileChunkRequestCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint64</span></span> position, <span class="main_basic_type"><span class="struct">size_t</span></span> length, <span class="main_keyword">void</span>* user_data)
             </span>
@@ -213,8 +214,8 @@
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The client should acquire resources to be associated with the file 
                 transfer. Incoming file transfers start in the PAUSED state. After this callback returns, a transfer can be rejected by sending a 
-                TOX_FILE_CONTROL_CANCEL control command before any other control commands. It can be accepted by sending TOX_FILE_CONTROL_RESUME.
-              </span>
+                <a href="ToxCore.FileControl.CANCEL.html" class="enumvalue">FileControl.CANCEL</a> control command before any other control commands. 
+                It can be accepted by sending <a href="ToxCore.FileControl.RESUME.html" class="enumvalue">FileControl.RESUME</a>.</span>
             </div></li>
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.FileRecvChunkCallback.html" class="delegate">FileRecvChunkCallback</a></b> (<span class="main_type"><span class="class">Tox</span></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> file_number, <span class="main_basic_type"><span class="struct">uint64</span></span> position, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_keyword">void</span>* user_data)
             </span>
@@ -295,13 +296,13 @@
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.iteration_interval.html" class="method">iteration_interval</a></b> ()
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Return the time in milliseconds before tox_iterate() should be called 
-                again for optimal performance.</span>
+            <div class="leaf_brief_description"><span class="brief_description">Return the time in milliseconds before 
+                <a href="ToxCore.Tox.iterate.html" class="method">iterate</a> should be called again for optimal performance.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.iterate.html" class="method">iterate</a></b>&lt;<b><span>T</span></b>&gt; (<span class="main_type"><span>T</span></span> user_data = <span class="main_literal">null</span>)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Tox.iterate.html" class="method">iterate</a></b> (<span class="main_keyword">void</span>* user_data)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The main loop that needs to be run in intervals of 
-                tox_iteration_interval() milliseconds.</span>
+                <a href="ToxCore.Tox.iteration_interval.html" class="method">iteration_interval</a> milliseconds.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[] <b><a href="ToxCore.Tox.self_get_address.html" class="method">self_get_address</a></b> ()
             </span>
@@ -322,7 +323,8 @@
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="ToxCore.Tox.self_get_name.html" class="method">self_get_name</a></b> ()
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Write the nickname set by tox_self_set_name to a byte array.</span>
+            <div class="leaf_brief_description"><span class="brief_description">Write the nickname set by 
+                <a href="ToxCore.Tox.self_set_name.html" class="method">Tox.self_set_name</a> to a byte array.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Tox.self_set_status_message.html" class="method">self_set_status_message</a></b> (<span class="main_basic_type"><span class="class">string</span></span> message, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrSetInfo.html" class="enum">ErrSetInfo</a></span> error)
             </span>
@@ -330,8 +332,8 @@
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="ToxCore.Tox.self_get_status_message.html" class="method">self_get_status_message</a></b> ()
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Write the status message set by tox_self_set_status_message to a byte 
-                array.</span>
+            <div class="leaf_brief_description"><span class="brief_description">Write the status message set by 
+                <a href="ToxCore.Tox.self_set_status_message.html" class="method">Tox.self_set_status_message</a> to a byte array.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Tox.friend_add.html" class="method">friend_add</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] address, <span class="main_basic_type"><span class="class">string</span></span> message, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrFriendAdd.html" class="enum">ErrFriendAdd</a></span> error)
             </span>

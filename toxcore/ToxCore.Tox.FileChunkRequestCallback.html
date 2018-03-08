@@ -138,9 +138,9 @@
             -once streams, the client should keep the last read chunk so that a seek back can be supported. A seek-back only ever needs to read from 
             the last requested chunk. This happens when a chunk was requested, but the send failed. A seek-back request can occur an arbitrary number 
             of times for any given chunk.</p>
-          <p>In response to receiving this callback, the client should call the function `tox_file_send_chunk` with the requested chunk. If the number
-            of bytes sent through that function is zero, the file transfer is assumed complete. A client must send the full length of data requested 
-            with this callback.</p>
+          <p>In response to receiving this callback, the client should call the function `<a href="ToxCore.Tox.file_send_chunk.html" class="method">
+              Tox.file_send_chunk</a>` with the requested chunk. If the number of bytes sent through that function is zero, the file transfer is 
+            assumed complete. A client must send the full length of data requested with this callback.</p>
           <h2 class="main_title">Parameters:</h2>
           <table class="main_parameter_table">
             <tr>
@@ -152,7 +152,7 @@
             <tr>
               <td class="main_parameter_table_name">file_number</td>
               <td>
-                <p>The file transfer identifier returned by tox_file_send. </p>
+                <p>The file transfer identifier returned by <a href="ToxCore.Tox.file_send.html" class="method">Tox.file_send</a>. </p>
               </td>
             </tr>
             <tr>

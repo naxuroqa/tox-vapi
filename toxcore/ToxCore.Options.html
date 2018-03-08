@@ -59,7 +59,7 @@
         <div class="main_code_definition">[ <span class="main_type">Compact</span> ]<br/><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">Options</span></b>
         </div>
         <div class="description">
-          <p>This struct contains all the startup options for Tox. You must tox_options_new to allocate an object of this type.</p>
+          <p>This struct contains all the startup options for Tox.</p>
           <p>WARNING: Although this struct happens to be visible in the API, it is effectively private. Do not allocate this yourself or access 
             members directly, as it *will* break binary compatibility frequently.</p>
         </div><br/>
@@ -121,9 +121,9 @@
         <ul class="navi_inline">
           <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="ToxCore.Options.Options.html" class="creation_method">Options</a></b> (<span class="main_keyword">ref</span> <span class="main_type"><a href="ToxCore.ErrOptionsNew.html" class="enum">ErrOptionsNew</a></span> error)
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Allocates a new Tox_Options object and initialises it with the default
-                options. This function can be used to preserve long term ABI compatibility by giving the responsibility of allocation and deallocation
-                to the Tox library.</span>
+            <div class="leaf_brief_description"><span class="brief_description">Allocates a new <span class="creation_method">Options</span> object 
+                and initialises it with the default options. This function can be used to preserve long term ABI compatibility by giving the 
+                responsibility of allocation and deallocation to the Tox library.</span>
             </div></li>
         </ul>
         <h3 class="main_title">Methods:</h3>
@@ -138,7 +138,8 @@
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxCore.Options.@default.html" class="method">@default</a></b> ()
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Initialises a Tox_Options object with the default options.</span>
+            <div class="leaf_brief_description"><span class="brief_description">Initialises a 
+                <a href="ToxCore.Options.Options.html" class="creation_method">Options</a> object with the default options.</span>
             </div></li>
         </ul>
         <h3 class="main_title">Fields:</h3>

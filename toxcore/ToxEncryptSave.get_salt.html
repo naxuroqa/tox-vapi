@@ -48,10 +48,12 @@
         </div>
         <div class="description">
           <p>Retrieves the salt used to encrypt the given data.</p>
-          <p>The retrieved salt can then be passed to tox_pass_key_derive_with_salt to produce the same key as was previously used. Any data encrypted
-            with this module can be used as input.</p>
-          <p>The cipher text must be at least TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes in length. The salt must be TOX_PASS_SALT_LENGTH bytes in length.
-            If the passed byte arrays are smaller than required, the behaviour is undefined.</p>
+          <p>The retrieved salt can then be passed to <a href="ToxEncryptSave.PassKey.PassKey.derive_with_salt.html" class="creation_method">
+              PassKey.PassKey.derive_with_salt</a> to produce the same key as was previously used. Any data encrypted with this module can be used as 
+            input.</p>
+          <p>The cipher text must be at least <a href="ToxEncryptSave.PASS_ENCRYPTION_EXTRA_LENGTH.html" class="constant">PASS_ENCRYPTION_EXTRA_LENGTH
+            </a> bytes in length. The salt must be <a href="ToxEncryptSave.PASS_SALT_LENGTH.html" class="constant">PASS_SALT_LENGTH</a> bytes in 
+            length. If the passed byte arrays are smaller than required, the behaviour is undefined.</p>
           <p>If the cipher text pointer or the salt is NULL, this function returns null.</p>
           <p>Success does not say anything about the validity of the data, only that data of the appropriate size was copied.</p>
           <h2 class="main_title">Returns:</h2>

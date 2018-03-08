@@ -134,8 +134,8 @@
         <div class="description">
           <p>Send a text chat message to an online friend.</p>
           <p>This function creates a chat message packet and pushes it into the send queue.</p>
-          <p>The message length may not exceed TOX_MAX_MESSAGE_LENGTH. Larger messages must be split by the client and sent as separate messages. 
-            Other clients can then reassemble the fragments. Messages may not be empty.</p>
+          <p>The message length may not exceed <a href="ToxCore.MAX_MESSAGE_LENGTH.html" class="constant">MAX_MESSAGE_LENGTH</a>. Larger messages must
+            be split by the client and sent as separate messages. Other clients can then reassemble the fragments. Messages may not be empty.</p>
           <p>The return value of this function is the message ID. If a read receipt is received, the triggered `friend_read_receipt` event will be 
             passed this message ID.</p>
           <p>Message IDs are unique per friend. The first message ID is 0. Message IDs are incremented by 1 each time a message is sent. If UINT32_MAX

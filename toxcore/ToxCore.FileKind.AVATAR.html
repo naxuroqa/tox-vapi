@@ -40,13 +40,17 @@
         <div class="main_code_definition"><b><span class="enumvalue">AVATAR</span></b>
         </div>
         <div class="description">
-          <p>Avatar file_id. This consists of tox_hash(image). Avatar data. This consists of the image data.</p>
+          <p>Avatar file_id. This consists of <a href="ToxCore.Tox.hash.html" class="static_method">Tox.hash</a>(image). Avatar data. This consists of
+            the image data.</p>
           <p>Avatars can be sent at any time the client wishes. Generally, a client will send the avatar to a friend when that friend comes online, 
             and to all friends when the avatar changed. A client can save some traffic by remembering which friend received the updated avatar already
             and only send it if the friend has an out of date avatar.</p>
-          <p>Clients who receive avatar send requests can reject it (by sending TOX_FILE_CONTROL_CANCEL before any other controls), or accept it (by 
-            sending TOX_FILE_CONTROL_RESUME). The file_id of length TOX_HASH_LENGTH bytes (same length as TOX_FILE_ID_LENGTH) will contain the hash. A
-            client can compare this hash with a saved hash and send TOX_FILE_CONTROL_CANCEL to terminate the avatar transfer if it matches.</p>
+          <p>Clients who receive avatar send requests can reject it (by sending <a href="ToxCore.FileControl.CANCEL.html" class="enumvalue">
+              FileControl.CANCEL</a> before any other controls), or accept it (by sending <a href="ToxCore.FileControl.RESUME.html" class="enumvalue">
+              FileControl.RESUME</a>). The file_id of length <a href="ToxCore.HASH_LENGTH.html" class="constant">HASH_LENGTH</a> bytes (same length as
+            <a href="ToxCore.FILE_ID_LENGTH.html" class="constant">FILE_ID_LENGTH</a>) will contain the hash. A client can compare this hash with a 
+            saved hash and send <a href="ToxCore.FileControl.CANCEL.html" class="enumvalue">FileControl.CANCEL</a> to terminate the avatar transfer if
+            it matches.</p>
           <p>When file_size is set to 0 in the transfer request it means that the client has no avatar.</p>
         </div>
       </div>

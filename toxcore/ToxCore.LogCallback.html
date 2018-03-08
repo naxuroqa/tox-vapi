@@ -97,8 +97,8 @@
         </div>
         <div class="description">
           <p>This event is triggered when the toxcore library logs an internal message. This is mostly useful for debugging. This callback can be 
-            called from any function, not just tox_iterate. This means the user data lifetime must at least extend between registering and 
-            unregistering it or tox_kill.</p>
+            called from any function, not just <a href="ToxCore.Tox.iterate.html" class="method">Tox.iterate</a>. This means the user data lifetime 
+            must at least extend between registering and unregistering it or tox_kill.</p>
           <p>Other toxcore modules such as toxav may concurrently call this callback at any time. Thus, user code must make sure it is equipped to 
             handle concurrent execution, e.g. by employing appropriate mutex locking.</p>
           <h2 class="main_title">Parameters:</h2>

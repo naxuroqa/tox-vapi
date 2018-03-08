@@ -133,7 +133,8 @@
         </div>
         <div class="description">
           <p>Send a custom lossy packet to a friend.</p>
-          <p>The first byte of data must be in the range 200-254. Maximum length of a custom packet is TOX_MAX_CUSTOM_PACKET_SIZE.</p>
+          <p>The first byte of data must be in the range 200-254. Maximum length of a custom packet is 
+            <a href="ToxCore.MAX_CUSTOM_PACKET_SIZE.html" class="constant">MAX_CUSTOM_PACKET_SIZE</a>.</p>
           <p>Lossy packets behave like UDP packets, meaning they might never reach the other side or might arrive more than once (if someone is 
             messing with the connection) or might arrive in the wrong order.</p>
           <p>Unless latency is an issue, it is recommended that you use lossless custom packets instead.</p>

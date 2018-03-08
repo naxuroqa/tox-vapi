@@ -133,7 +133,8 @@
         </div>
         <div class="description">
           <p>Add a friend to the friend list and send a friend request.</p>
-          <p>A friend request message must be at least 1 byte long and at most TOX_MAX_FRIEND_REQUEST_LENGTH.</p>
+          <p>A friend request message must be at least 1 byte long and at most <a href="ToxCore.MAX_FRIEND_REQUEST_LENGTH.html" class="constant">
+              MAX_FRIEND_REQUEST_LENGTH</a>.</p>
           <p>Friend numbers are unique identifiers used in all functions that operate on friends. Once added, a friend number is stable for the 
             lifetime of the Tox object. After saving the state and reloading it, the friend numbers may not be the same as before. Deleting a friend 
             creates a gap in the friend number set, which is filled by the next adding of a friend. Any pattern in friend numbers should not be relied
@@ -144,7 +145,8 @@
             <tr>
               <td class="main_parameter_table_name">address</td>
               <td>
-                <p>The address of the friend (returned by tox_self_get_address of the friend you wish to add) it must be TOX_ADDRESS_SIZE bytes. </p>
+                <p>The address of the friend (returned by <a href="ToxCore.Tox.self_get_address.html" class="method">Tox.self_get_address</a> of the 
+                  friend you wish to add) it must be <a href="ToxCore.ADDRESS_SIZE.html" class="constant">ADDRESS_SIZE</a> bytes. </p>
               </td>
             </tr>
             <tr>
@@ -158,7 +160,7 @@
           <table class="main_parameter_table">
             <tr>
               <td>
-                <p>the friend number on success, UINT32_MAX on failure. </p>
+                <p>the friend number on success, <span class="constant">uint32.MAX</span> on failure. </p>
               </td>
             </tr>
           </table>

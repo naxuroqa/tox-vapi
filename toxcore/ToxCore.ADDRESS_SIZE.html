@@ -96,8 +96,8 @@
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><span class="constant">ADDRESS_SIZE</span></b>
         </div>
         <div class="description">
-          <p>The size of a Tox address in bytes. Tox addresses are in the format [Public Key (TOX_PUBLIC_KEY_SIZE bytes)][nospam (4 bytes)][checksum 
-            (2 bytes)].</p>
+          <p>The size of a Tox address in bytes. Tox addresses are in the format [Public Key (<a href="ToxCore.PUBLIC_KEY_SIZE.html" class="constant">
+              PUBLIC_KEY_SIZE</a> bytes)][nospam (4 bytes)][checksum (2 bytes)].</p>
           <p>The checksum is computed over the Public Key and the nospam value. The first byte is an XOR of all the even bytes (0, 2, 4, ...), the 
             second byte is an XOR of all the odd bytes (1, 3, 5, ...) of the Public Key and nospam.</p>
         </div><br/>

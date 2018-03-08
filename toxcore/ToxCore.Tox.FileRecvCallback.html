@@ -133,8 +133,9 @@
         </div>
         <div class="description">
           <p>The client should acquire resources to be associated with the file transfer. Incoming file transfers start in the PAUSED state. After 
-            this callback returns, a transfer can be rejected by sending a TOX_FILE_CONTROL_CANCEL control command before any other control commands. 
-            It can be accepted by sending TOX_FILE_CONTROL_RESUME.</p>
+            this callback returns, a transfer can be rejected by sending a <a href="ToxCore.FileControl.CANCEL.html" class="enumvalue">
+              FileControl.CANCEL</a> control command before any other control commands. It can be accepted by sending 
+            <a href="ToxCore.FileControl.RESUME.html" class="enumvalue">FileControl.RESUME</a>.</p>
           <h2 class="main_title">Parameters:</h2>
           <table class="main_parameter_table">
             <tr>

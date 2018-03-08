@@ -88,13 +88,15 @@
         <ul class="navi_inline">
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxAV.ToxAV.iteration_interval.html" class="method">iteration_interval</a></b> ()
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">Returns the interval in milliseconds when the next toxav_iterate call 
-                should be. If no call is active at the moment, this function returns 200.</span>
+            <div class="leaf_brief_description"><span class="brief_description">Returns the interval in milliseconds when the next 
+                <a href="ToxAV.ToxAV.iterate.html" class="method">ToxAV.iterate</a> call should be. If no call is active at the moment, this function 
+                returns 200.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="ToxAV.ToxAV.iterate.html" class="method">iterate</a></b> ()
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Main loop for the session. This function needs to be called in 
-                intervals of toxav_iteration_interval() milliseconds. It is best called in the separate thread from tox_iterate.</span>
+                intervals of <a href="ToxAV.ToxAV.iteration_interval.html" class="method">ToxAV.iteration_interval</a>() milliseconds. It is best 
+                called in the separate thread from tox_iterate.</span>
             </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.call.html" class="method">call</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate, <span class="main_keyword">ref</span> <span class="main_type"><a href="ToxAV.ErrCall.html" class="enum">ErrCall</a></span> error)
             </span>
