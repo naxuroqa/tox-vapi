@@ -382,14 +382,14 @@ namespace ToxAV {
     }
 
     /**
-     * Returns the interval in milliseconds when the next toxav_iterate call should
+     * Returns the interval in milliseconds when the next {@link ToxAV.iterate} call should
      * be. If no call is active at the moment, this function returns 200.
      */
     public uint32 iteration_interval();
 
     /**
      * Main loop for the session. This function needs to be called in intervals of
-     * toxav_iteration_interval() milliseconds. It is best called in the separate
+     * {@link ToxAV.iteration_interval}() milliseconds. It is best called in the separate
      * thread from tox_iterate.
      */
     public void iterate();

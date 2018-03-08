@@ -694,6 +694,7 @@ namespace Tests {
       tox.callback_conference_invite(conference_invite_cb);
       tox.callback_conference_message(conference_message_cb);
       tox.callback_conference_peer_list_changed(conference_peer_list_changed_cb);
+      tox.callback_conference_peer_name(conference_peer_name_cb);
       tox.callback_conference_title(conference_title_cb);
       tox.callback_file_chunk_request(file_chunk_request_cb);
       tox.callback_file_recv(file_recv_cb);

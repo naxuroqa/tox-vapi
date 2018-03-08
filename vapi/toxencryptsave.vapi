@@ -22,14 +22,14 @@ namespace ToxEncryptSave {
 
   /**
    * The amount of additional data required to store any encrypted byte array.
-   * Encrypting an array of N bytes requires N + TOX_PASS_ENCRYPTION_EXTRA_LENGTH
+   * Encrypting an array of N bytes requires N + {@link PASS_ENCRYPTION_EXTRA_LENGTH}
    * bytes in the encrypted byte array.
    */
   public const uint32 PASS_ENCRYPTION_EXTRA_LENGTH;
 
   /**
    * The amount of additional data required to store any encrypted byte array.
-   * Encrypting an array of N bytes requires N + TOX_PASS_ENCRYPTION_EXTRA_LENGTH
+   * Encrypting an array of N bytes requires N + {@link PASS_ENCRYPTION_EXTRA_LENGTH}
    * bytes in the encrypted byte array.
    */
   public uint32 pass_encryption_extra_length();
@@ -84,7 +84,7 @@ namespace ToxEncryptSave {
      */
     NULL,
     /**
-     * The input data was shorter than TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes
+     * The input data was shorter than {@link PASS_ENCRYPTION_EXTRA_LENGTH} bytes
      */
     INVALID_LENGTH,
     /**
@@ -114,9 +114,9 @@ namespace ToxEncryptSave {
   /**
    * Encrypts the given data with the given passphrase.
    *
-   * The output array must be at least `plaintext_len + TOX_PASS_ENCRYPTION_EXTRA_LENGTH`
-   * bytes long. This delegates to tox_pass_key_derive and
-   * tox_pass_key_encrypt.
+   * The output array must be at least `plaintext_len + {@link PASS_ENCRYPTION_EXTRA_LENGTH}`
+   * bytes long. This delegates to {@link PassKey.PassKey.derive} and
+   * {@link PassKey.encrypt}.
    *
    * @param plaintext A byte array of length `plaintext_len`.
    * @param passphrase The user-provided password. Can be empty.
@@ -139,8 +139,8 @@ namespace ToxEncryptSave {
   /**
    * Decrypts the given data with the given passphrase.
    *
-   * The output array must be at least `ciphertext_len - TOX_PASS_ENCRYPTION_EXTRA_LENGTH`
-   * bytes long. This delegates to tox_pass_key_decrypt.
+   * The output array must be at least `ciphertext_len - {@link PASS_ENCRYPTION_EXTRA_LENGTH}`
+   * bytes long. This delegates to {@link PassKey.decrypt}.
    *
    * @param ciphertext A byte array of length `ciphertext_len`.
    * @param passphrase The user-provided password. Can be empty.
@@ -173,7 +173,7 @@ namespace ToxEncryptSave {
      *
      * Note that this function is not deterministic; to derive the same key from
      * a password, you also must know the random salt that was used. A
-     * deterministic version of this function is tox_pass_key_derive_with_salt.
+     * deterministic version of this function is {@link PassKey.PassKey.derive_with_salt}.
      *
      * @since 0.2.0
      *
@@ -187,7 +187,7 @@ namespace ToxEncryptSave {
      * Same as above, except use the given salt for deterministic key derivation.
      *
      * @param passphrase The user-provided password. Can be empty.
-     * @param salt An array of at least TOX_PASS_SALT_LENGTH bytes.
+     * @param salt An array of at least {@link PASS_SALT_LENGTH} bytes.
      *
      * @since 0.2.0
      *
@@ -201,9 +201,9 @@ namespace ToxEncryptSave {
     private bool _encrypt(uint8[] plaintext, [CCode(array_length = false)] uint8[] ciphertext, ref ErrEncryption error);
 
     /**
-     * Encrypt a plain text with a key produced by tox_pass_key_derive or tox_pass_key_derive_with_salt.
+     * Encrypt a plain text with a key produced by {@link PassKey.PassKey.derive} or {@link PassKey.PassKey.derive_with_salt}.
      *
-     * The output array must be at least `plaintext_len + TOX_PASS_ENCRYPTION_EXTRA_LENGTH`
+     * The output array must be at least `plaintext_len + {@link PASS_ENCRYPTION_EXTRA_LENGTH}`
      * bytes long.
      *
      * @param plaintext A byte array of length `plaintext_len`.
@@ -221,8 +221,8 @@ namespace ToxEncryptSave {
     private bool _decrypt(uint8[] ciphertext, [CCode(array_length = false)] uint8[] plaintext, ref ErrDecryption error);
 
     /**
-     * This is the inverse of tox_pass_key_encrypt, also using only keys produced by
-     * tox_pass_key_derive or tox_pass_key_derive_with_salt.
+     * This is the inverse of {@link PassKey.encrypt}, also using only keys produced by
+     * {@link PassKey.PassKey.derive} or {@link PassKey.PassKey.derive_with_salt}.
      *
      * @param ciphertext A byte array of length `ciphertext_len`.
      *
@@ -259,12 +259,12 @@ namespace ToxEncryptSave {
   /**
    * Retrieves the salt used to encrypt the given data.
    *
-   * The retrieved salt can then be passed to tox_pass_key_derive_with_salt to
+   * The retrieved salt can then be passed to {@link PassKey.PassKey.derive_with_salt} to
    * produce the same key as was previously used. Any data encrypted with this
    * module can be used as input.
    *
-   * The cipher text must be at least TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes in length.
-   * The salt must be TOX_PASS_SALT_LENGTH bytes in length.
+   * The cipher text must be at least {@link PASS_ENCRYPTION_EXTRA_LENGTH} bytes in length.
+   * The salt must be {@link PASS_SALT_LENGTH} bytes in length.
    * If the passed byte arrays are smaller than required, the behaviour is
    * undefined.
    *
@@ -288,7 +288,7 @@ namespace ToxEncryptSave {
    * It does this check by verifying that the magic number is the one put in
    * place by the encryption functions.
    *
-   * The data must be at least TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes in length.
+   * The data must be at least {@link PASS_ENCRYPTION_EXTRA_LENGTH} bytes in length.
    * If the passed byte array is smaller than required, the behaviour is
    * undefined.
    *
