@@ -5,7 +5,7 @@ before_install:
     - sudo add-apt-repository --yes ppa:chris-lea/libsodium
     - sudo apt-get update --quiet
     - sudo apt-get install --yes libsodium-dev libconfig-dev libopus-dev libvpx-dev cmake
-    - sudo apt-get install --yes valac libglib2.0-dev
+    - sudo apt-get install --yes valac valadoc libglib2.0-dev
 
 script:
     - wget https://github.com/TokTok/c-toxcore/archive/v0.2.0.tar.gz
