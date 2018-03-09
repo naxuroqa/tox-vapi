@@ -17,11 +17,12 @@ script:
     - make test
     - make docs
 
-deploy:
-  provider: pages
-  local-dir: docs
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  keep-history: true
-  on:
-    branch: master
+# Temporarily disabled autodeploy
+#deploy:
+#  provider: pages
+#  local-dir: docs
+#  skip-cleanup: true
+#  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+#  keep-history: true
+#  on:
+#    branch: master
