@@ -48,15 +48,15 @@
         </div>
         <div class="description">
           <p>Decrypts the given data with the given passphrase.</p>
-          <p>The output array must be at least `ciphertext_len - <a href="ToxEncryptSave.PASS_ENCRYPTION_EXTRA_LENGTH.html" class="constant">
-              PASS_ENCRYPTION_EXTRA_LENGTH</a>` bytes long. This delegates to <a href="ToxEncryptSave.PassKey.decrypt.html" class="method">
+          <p>The output array must be at least <code>ciphertext.length - <a href="ToxEncryptSave.pass_encryption_extra_length.html" class="method">
+                pass_encryption_extra_length</a></code> bytes long. This delegates to <a href="ToxEncryptSave.PassKey.decrypt.html" class="method">
               PassKey.decrypt</a>.</p>
           <h2 class="main_title">Parameters:</h2>
           <table class="main_parameter_table">
             <tr>
               <td class="main_parameter_table_name">ciphertext</td>
               <td>
-                <p>A byte array of length `ciphertext_len`. </p>
+                <p>A byte array of length <code>ciphertext.length</code>. </p>
               </td>
             </tr>
             <tr>

@@ -48,8 +48,8 @@
         </div>
         <div class="description">
           <p>Encrypts the given data with the given passphrase.</p>
-          <p>The output array must be at least `plaintext_len + <a href="ToxEncryptSave.PASS_ENCRYPTION_EXTRA_LENGTH.html" class="constant">
-              PASS_ENCRYPTION_EXTRA_LENGTH</a>` bytes long. This delegates to 
+          <p>The output array must be at least <code>plaintext_len + <a href="ToxEncryptSave.pass_encryption_extra_length.html" class="method">
+                pass_encryption_extra_length</a></code> bytes long. This delegates to 
             <a href="ToxEncryptSave.PassKey.PassKey.derive.html" class="creation_method">PassKey.PassKey.derive</a> and 
             <a href="ToxEncryptSave.PassKey.encrypt.html" class="method">PassKey.encrypt</a>.</p>
           <h2 class="main_title">Parameters:</h2>
@@ -57,7 +57,7 @@
             <tr>
               <td class="main_parameter_table_name">plaintext</td>
               <td>
-                <p>A byte array of length `plaintext_len`. </p>
+                <p>A byte array of length <code>plaintext.length</code>. </p>
               </td>
             </tr>
             <tr>
