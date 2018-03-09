@@ -375,7 +375,7 @@ namespace ToxAV {
     public ToxAV(ToxCore.Tox tox, ref ErrNew e);
 
     /**
-     * Returns the Tox instance the A/V object was created for.
+     * Returns the {@link ToxCore.Tox} instance the A/V object was created for.
      */
     public ToxCore.Tox tox {
       [CCode(cname = "toxav_get_tox")] get;
