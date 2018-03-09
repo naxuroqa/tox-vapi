@@ -1,5 +1,5 @@
-
 using ToxCore;
+
 namespace Tests {
   public class ToxCoreTest {
     private const string PREFIX = "/toxcore/";
@@ -7,7 +7,7 @@ namespace Tests {
     private static void add_dummy_friend(Tox tox) {
       var address = new uint8[address_size()];
       var err_friend_add = ErrFriendAdd.OK;
-      var ret = tox.friend_add(address, "dummy", ref err_friend_add);
+      var ret = tox.friend_add(address, "dummy", out err_friend_add);
       assert(err_friend_add == ErrFriendAdd.OK);
       assert(ret == 0);
     }
@@ -38,39 +38,39 @@ namespace Tests {
 
     private static void test_create_null_options() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       assert(err_new == ErrNew.OK);
       assert(tox != null);
     }
 
     private static void test_create() {
       var err_options_new = ErrOptionsNew.OK;
-      var options = new Options(ref err_options_new);
+      var options = new Options(out err_options_new);
       assert(err_options_new == ErrOptionsNew.OK);
 
       var err_new = ErrNew.OK;
-      var tox = new Tox(options, ref err_new);
+      var tox = new Tox(options, out err_new);
       assert(err_new == ErrNew.OK);
       assert(tox != null);
     }
 
     private static void test_create_bad_save_format() {
       var err_options_new = ErrOptionsNew.OK;
-      var options = new Options(ref err_options_new);
+      var options = new Options(out err_options_new);
       assert(err_options_new == ErrOptionsNew.OK);
       options.savedata_type = SaveDataType.TOX_SAVE;
       var savedata = new uint8[] { 0xba, 0xad, 0xba, 0xad };
       options.set_savedata_data(savedata);
 
       var err_new = ErrNew.OK;
-      var tox = new Tox(options, ref err_new);
+      var tox = new Tox(options, out err_new);
       assert(err_new == ErrNew.LOAD_BAD_FORMAT);
       assert(tox == null);
     }
 
     private static void test_get_savedata() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var savedata = tox.get_savedata();
       assert(savedata != null);
       assert(savedata.length > 0);
@@ -80,51 +80,51 @@ namespace Tests {
       uint8[] ? savedata = null;
       var err_new = ErrNew.OK;
       {
-        var tox = new Tox(null, ref err_new);
+        var tox = new Tox(null, out err_new);
         savedata = tox.get_savedata();
       }
 
       var err_options_new = ErrOptionsNew.OK;
-      var options = new Options(ref err_options_new);
+      var options = new Options(out err_options_new);
       assert(err_options_new == ErrOptionsNew.OK);
       options.savedata_type = SaveDataType.TOX_SAVE;
       options.set_savedata_data(savedata);
 
-      var tox = new Tox(options, ref err_new);
+      var tox = new Tox(options, out err_new);
       assert(err_new == ErrNew.OK);
       assert(tox != null);
     }
 
     private static void test_iterate() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       assert(tox.iteration_interval() != 0);
       tox.iterate(null);
     }
 
     private static void test_add_tcp_relay() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_bootstrap = ErrBootstrap.OK;
       var public_key = new uint8[public_key_size()];
-      var ret = tox.add_tcp_relay("dummyaddress", 0, public_key, ref err_bootstrap);
+      var ret = tox.add_tcp_relay("dummyaddress", 0, public_key, out err_bootstrap);
       assert(err_bootstrap == ErrBootstrap.BAD_PORT);
       assert(!ret);
     }
 
     private static void test_bootstrap() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var public_key = new uint8[public_key_size()];
       var err_bootstrap = ErrBootstrap.OK;
-      var ret = tox.bootstrap("dummyaddress", 0, public_key, ref err_bootstrap);
+      var ret = tox.bootstrap("dummyaddress", 0, public_key, out err_bootstrap);
       assert(err_bootstrap == ErrBootstrap.BAD_PORT);
       assert(!ret);
     }
 
     private static void test_self_get_address() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
 
       var id = tox.self_get_address();
       assert(id != null);
@@ -133,7 +133,7 @@ namespace Tests {
 
     private static void test_self_get_friend_list() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       assert(tox.self_get_friend_list().length == 0);
       add_dummy_friend(tox);
       assert(tox.self_get_friend_list().length == 1);
@@ -141,7 +141,7 @@ namespace Tests {
 
     private static void test_self_dht_id() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
 
       var id = tox.self_get_dht_id();
       assert(id != null);
@@ -150,7 +150,7 @@ namespace Tests {
 
     private static void test_self_get_name() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var name = tox.self_get_name();
       assert(name != null);
       assert(name == "");
@@ -158,9 +158,9 @@ namespace Tests {
 
     private static void test_self_set_name() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_set_info = ErrSetInfo.OK;
-      var ret = tox.self_set_name("name", ref err_set_info);
+      var ret = tox.self_set_name("name", out err_set_info);
       assert(ret);
       assert(err_set_info == ErrSetInfo.OK);
 
@@ -168,7 +168,7 @@ namespace Tests {
       assert(name != null);
       assert(name == "name");
 
-      ret = tox.self_set_name("", ref err_set_info);
+      ret = tox.self_set_name("", out err_set_info);
       assert(ret);
       assert(err_set_info == ErrSetInfo.OK);
 
@@ -179,7 +179,7 @@ namespace Tests {
 
     private static void test_self_get_public_key() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var public_key = tox.self_get_public_key();
       assert(public_key != null);
       assert(public_key.length == public_key_size());
@@ -187,7 +187,7 @@ namespace Tests {
 
     private static void test_self_get_secret_key() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var secret_key = tox.self_get_secret_key();
       assert(secret_key != null);
       assert(secret_key.length == secret_key_size());
@@ -195,7 +195,7 @@ namespace Tests {
 
     private static void test_self_get_status_message() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var status_message = tox.self_get_status_message();
       assert(status_message != null);
       assert(status_message == "");
@@ -203,9 +203,9 @@ namespace Tests {
 
     private static void test_self_set_status_message() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_set_info = ErrSetInfo.OK;
-      var ret = tox.self_set_status_message("message", ref err_set_info);
+      var ret = tox.self_set_status_message("message", out err_set_info);
       assert(ret);
       assert(err_set_info == ErrSetInfo.OK);
 
@@ -213,7 +213,7 @@ namespace Tests {
       assert(message != null);
       assert(message == "message");
 
-      ret = tox.self_set_status_message("", ref err_set_info);
+      ret = tox.self_set_status_message("", out err_set_info);
       assert(ret);
       assert(err_set_info == ErrSetInfo.OK);
 
@@ -224,39 +224,39 @@ namespace Tests {
 
     private static void test_self_get_tcp_port() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_get_port = ErrGetPort.OK;
-      var port = tox.self_get_tcp_port(ref err_get_port);
+      var port = tox.self_get_tcp_port(out err_get_port);
       assert(err_get_port == ErrGetPort.NOT_BOUND);
       assert(port == 0);
     }
 
     private static void test_self_get_udp_port() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_get_port = ErrGetPort.OK;
-      var port = tox.self_get_udp_port(ref err_get_port);
+      var port = tox.self_get_udp_port(out err_get_port);
       assert(err_get_port == ErrGetPort.OK);
       assert(port != 0);
     }
 
     private static void test_self_set_typing() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_set_typing = ErrSetTyping.OK;
-      var ret = tox.self_set_typing(0, true, ref err_set_typing);
+      var ret = tox.self_set_typing(0, true, out err_set_typing);
       assert(err_set_typing == ErrSetTyping.FRIEND_NOT_FOUND);
       assert(!ret);
 
       add_dummy_friend(tox);
-      ret = tox.self_set_typing(0, true, ref err_set_typing);
+      ret = tox.self_set_typing(0, true, out err_set_typing);
       assert(err_set_typing == ErrSetTyping.OK);
       assert(ret);
     }
 
     private static void test_self_status() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       assert(tox.self_status == UserStatus.NONE);
       tox.self_status = UserStatus.AWAY;
       assert(tox.self_status == UserStatus.AWAY);
@@ -264,7 +264,7 @@ namespace Tests {
 
     private static void test_self_nospam() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       assert(tox.self_nospam != 0);
       tox.self_nospam = 0;
       assert(tox.self_nospam == 0);
@@ -272,25 +272,25 @@ namespace Tests {
 
     private static void test_friend_add() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
 
       add_dummy_friend(tox);
     }
 
     private static void test_friend_add_norequest() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
 
       var address = new uint8[address_size()];
       var err_friend_add = ErrFriendAdd.OK;
-      var ret = tox.friend_add_norequest(address, ref err_friend_add);
+      var ret = tox.friend_add_norequest(address, out err_friend_add);
       assert(err_friend_add == ErrFriendAdd.OK);
       assert(ret == 0);
     }
 
     private static void test_friend_exists() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       assert(!tox.friend_exists(0));
       add_dummy_friend(tox);
       assert(tox.friend_exists(0));
@@ -298,43 +298,43 @@ namespace Tests {
 
     private static void test_friend_by_public_key() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var address = new uint8[public_key_size()];
       var err_friend_by_public_key = ErrFriendByPublicKey.OK;
-      var ret = tox.friend_by_public_key(address, ref err_friend_by_public_key);
+      var ret = tox.friend_by_public_key(address, out err_friend_by_public_key);
       assert(ret == uint32.MAX);
       assert(err_friend_by_public_key == ErrFriendByPublicKey.NOT_FOUND);
 
       add_dummy_friend(tox);
-      ret = tox.friend_by_public_key(address, ref err_friend_by_public_key);
+      ret = tox.friend_by_public_key(address, out err_friend_by_public_key);
       assert(ret == 0);
       assert(err_friend_by_public_key == ErrFriendByPublicKey.OK);
     }
 
     private static void test_friend_last_online() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_friend_get_last_online = ErrFriendGetLastOnline.OK;
-      var ret = tox.friend_get_last_online(0, ref err_friend_get_last_online);
+      var ret = tox.friend_get_last_online(0, out err_friend_get_last_online);
       assert(ret == uint64.MAX);
       assert(err_friend_get_last_online == ErrFriendGetLastOnline.FRIEND_NOT_FOUND);
 
       add_dummy_friend(tox);
-      ret = tox.friend_get_last_online(0, ref err_friend_get_last_online);
+      ret = tox.friend_get_last_online(0, out err_friend_get_last_online);
       assert(ret == 0);
       assert(err_friend_get_last_online == ErrFriendGetLastOnline.OK);
     }
 
     private static void test_friend_get_name() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_friend_query = ErrFriendQuery.OK;
-      var ret = tox.friend_get_name(0, ref err_friend_query);
+      var ret = tox.friend_get_name(0, out err_friend_query);
       assert(ret == null);
       assert(err_friend_query == ErrFriendQuery.FRIEND_NOT_FOUND);
 
       add_dummy_friend(tox);
-      ret = tox.friend_get_name(0, ref err_friend_query);
+      ret = tox.friend_get_name(0, out err_friend_query);
       assert(ret != null);
       assert(ret.length == 0);
       assert(err_friend_query == ErrFriendQuery.OK);
@@ -342,14 +342,14 @@ namespace Tests {
 
     private static void test_friend_get_public_key() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_friend_get_public_key = ErrFriendGetPublicKey.OK;
-      var ret = tox.friend_get_public_key(0, ref err_friend_get_public_key);
+      var ret = tox.friend_get_public_key(0, out err_friend_get_public_key);
       assert(ret == null);
       assert(err_friend_get_public_key == ErrFriendGetPublicKey.FRIEND_NOT_FOUND);
 
       add_dummy_friend(tox);
-      ret = tox.friend_get_public_key(0, ref err_friend_get_public_key);
+      ret = tox.friend_get_public_key(0, out err_friend_get_public_key);
       assert(ret != null);
       assert(ret.length == public_key_size());
       assert(err_friend_get_public_key == ErrFriendGetPublicKey.OK);
@@ -357,14 +357,14 @@ namespace Tests {
 
     private static void test_friend_get_status_message() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_friend_query = ErrFriendQuery.OK;
-      var ret = tox.friend_get_status_message(0, ref err_friend_query);
+      var ret = tox.friend_get_status_message(0, out err_friend_query);
       assert(ret == null);
       assert(err_friend_query == ErrFriendQuery.FRIEND_NOT_FOUND);
 
       add_dummy_friend(tox);
-      ret = tox.friend_get_status_message(0, ref err_friend_query);
+      ret = tox.friend_get_status_message(0, out err_friend_query);
       assert(ret != null);
       assert(ret.length == 0);
       assert(err_friend_query == ErrFriendQuery.OK);
@@ -372,164 +372,164 @@ namespace Tests {
 
     private static void test_friend_send_lossless_packet() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var data = new uint8[] { 180, 1, 2, 3 };
       var invalid_data = new uint8[] { 0, 1, 2, 3 };
       var err_friend_custom_packet = ErrFriendCustomPacket.OK;
-      var ret = tox.friend_send_lossless_packet(0, data, ref err_friend_custom_packet);
+      var ret = tox.friend_send_lossless_packet(0, data, out err_friend_custom_packet);
       assert(err_friend_custom_packet == ErrFriendCustomPacket.FRIEND_NOT_FOUND);
       assert(!ret);
 
       add_dummy_friend(tox);
-      ret = tox.friend_send_lossless_packet(0, data, ref err_friend_custom_packet);
+      ret = tox.friend_send_lossless_packet(0, data, out err_friend_custom_packet);
       assert(err_friend_custom_packet == ErrFriendCustomPacket.FRIEND_NOT_CONNECTED);
       assert(!ret);
 
-      ret = tox.friend_send_lossless_packet(0, invalid_data, ref err_friend_custom_packet);
+      ret = tox.friend_send_lossless_packet(0, invalid_data, out err_friend_custom_packet);
       assert(err_friend_custom_packet == ErrFriendCustomPacket.INVALID);
       assert(!ret);
     }
 
     private static void test_friend_send_lossy_packet() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var data = new uint8[] { 210, 1, 2, 3 };
       var invalid_data = new uint8[] { 0, 1, 2, 3 };
       var err_friend_custom_packet = ErrFriendCustomPacket.OK;
-      var ret = tox.friend_send_lossy_packet(0, data, ref err_friend_custom_packet);
+      var ret = tox.friend_send_lossy_packet(0, data, out err_friend_custom_packet);
       assert(err_friend_custom_packet == ErrFriendCustomPacket.FRIEND_NOT_FOUND);
       assert(!ret);
 
       add_dummy_friend(tox);
-      ret = tox.friend_send_lossy_packet(0, data, ref err_friend_custom_packet);
+      ret = tox.friend_send_lossy_packet(0, data, out err_friend_custom_packet);
       assert(err_friend_custom_packet == ErrFriendCustomPacket.FRIEND_NOT_CONNECTED);
       assert(!ret);
 
-      ret = tox.friend_send_lossy_packet(0, invalid_data, ref err_friend_custom_packet);
+      ret = tox.friend_send_lossy_packet(0, invalid_data, out err_friend_custom_packet);
       assert(err_friend_custom_packet == ErrFriendCustomPacket.INVALID);
       assert(!ret);
     }
 
     private static void test_friend_send_message() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_friend_send_message = ErrFriendSendMessage.OK;
-      var ret = tox.friend_send_message(0, MessageType.NORMAL, "test", ref err_friend_send_message);
+      var ret = tox.friend_send_message(0, MessageType.NORMAL, "test", out err_friend_send_message);
       assert(err_friend_send_message == ErrFriendSendMessage.FRIEND_NOT_FOUND);
 
       add_dummy_friend(tox);
-      ret = tox.friend_send_message(0, MessageType.NORMAL, "test", ref err_friend_send_message);
+      ret = tox.friend_send_message(0, MessageType.NORMAL, "test", out err_friend_send_message);
       assert(err_friend_send_message == ErrFriendSendMessage.FRIEND_NOT_CONNECTED);
 
-      ret = tox.friend_send_message(0, MessageType.NORMAL, "", ref err_friend_send_message);
+      ret = tox.friend_send_message(0, MessageType.NORMAL, "", out err_friend_send_message);
       assert(err_friend_send_message == ErrFriendSendMessage.EMPTY);
     }
 
     private static void test_friend_delete() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_friend_delete = ErrFriendDelete.OK;
-      var ret = tox.friend_delete(0, ref err_friend_delete);
+      var ret = tox.friend_delete(0, out err_friend_delete);
       assert(!ret);
       assert(err_friend_delete == ErrFriendDelete.FRIEND_NOT_FOUND);
 
       add_dummy_friend(tox);
 
-      ret = tox.friend_delete(0, ref err_friend_delete);
+      ret = tox.friend_delete(0, out err_friend_delete);
       assert(ret);
       assert(err_friend_delete == ErrFriendDelete.OK);
     }
 
     private static void test_file_control() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_file_control = ErrFileControl.OK;
-      var ret = tox.file_control(0, 0, FileControl.CANCEL, ref err_file_control);
+      var ret = tox.file_control(0, 0, FileControl.CANCEL, out err_file_control);
       assert(err_file_control == ErrFileControl.FRIEND_NOT_FOUND);
       assert(!ret);
 
       add_dummy_friend(tox);
-      ret = tox.file_control(0, 0, FileControl.CANCEL, ref err_file_control);
+      ret = tox.file_control(0, 0, FileControl.CANCEL, out err_file_control);
       assert(err_file_control == ErrFileControl.FRIEND_NOT_CONNECTED);
       assert(!ret);
     }
 
     private static void test_file_get_file_id() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_file_get = ErrFileGet.OK;
-      var ret = tox.file_get_file_id(0, 0, ref err_file_get);
+      var ret = tox.file_get_file_id(0, 0, out err_file_get);
       assert(err_file_get == ErrFileGet.FRIEND_NOT_FOUND);
       assert(ret == null);
 
       add_dummy_friend(tox);
-      ret = tox.file_get_file_id(0, 0, ref err_file_get);
+      ret = tox.file_get_file_id(0, 0, out err_file_get);
       assert(err_file_get == ErrFileGet.NOT_FOUND);
       assert(ret == null);
     }
 
     private static void test_file_seek() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_file_seek = ErrFileSeek.OK;
-      var ret = tox.file_seek(0, 0, 0, ref err_file_seek);
+      var ret = tox.file_seek(0, 0, 0, out err_file_seek);
       assert(err_file_seek == ErrFileSeek.FRIEND_NOT_FOUND);
       assert(!ret);
 
       add_dummy_friend(tox);
-      ret = tox.file_seek(0, 0, 0, ref err_file_seek);
+      ret = tox.file_seek(0, 0, 0, out err_file_seek);
       assert(err_file_seek == ErrFileSeek.FRIEND_NOT_CONNECTED);
       assert(!ret);
     }
 
     private static void test_file_send() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_file_send = ErrFileSend.OK;
-      var ret = tox.file_send(0, FileKind.DATA, 0, null, "filename", ref err_file_send);
+      var ret = tox.file_send(0, FileKind.DATA, 0, null, "filename", out err_file_send);
       assert(err_file_send == ErrFileSend.FRIEND_NOT_FOUND);
       assert(ret == uint32.MAX);
 
       add_dummy_friend(tox);
-      ret = tox.file_send(0, FileKind.DATA, 0, null, "filename", ref err_file_send);
+      ret = tox.file_send(0, FileKind.DATA, 0, null, "filename", out err_file_send);
       assert(err_file_send == ErrFileSend.FRIEND_NOT_CONNECTED);
       assert(ret == uint32.MAX);
     }
 
     private static void test_file_send_chunk() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var data = new uint8[] { 0, 1, 2, 3 };
       var err_file_send_chunk = ErrFileSendChunk.OK;
-      var ret = tox.file_send_chunk(0, 0, 0, data, ref err_file_send_chunk);
+      var ret = tox.file_send_chunk(0, 0, 0, data, out err_file_send_chunk);
       assert(err_file_send_chunk == ErrFileSendChunk.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_conference_delete() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_delete = ErrConferenceDelete.OK;
-      var ret = tox.conference_delete(0, ref err_conference_delete);
+      var ret = tox.conference_delete(0, out err_conference_delete);
       assert(err_conference_delete == ErrConferenceDelete.CONFERENCE_NOT_FOUND);
       assert(!ret);
 
       var err_conference_new = ErrConferenceNew.OK;
-      tox.conference_new(ref err_conference_new);
+      tox.conference_new(out err_conference_new);
 
-      ret = tox.conference_delete(0, ref err_conference_delete);
+      ret = tox.conference_delete(0, out err_conference_delete);
       assert(err_conference_delete == ErrConferenceDelete.OK);
       assert(ret);
     }
 
     private static void test_conference_get_chatlist() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var ret = tox.conference_get_chatlist();
       assert(ret.length == 0);
 
       var err_conference_new = ErrConferenceNew.OK;
-      tox.conference_new(ref err_conference_new);
+      tox.conference_new(out err_conference_new);
 
       ret = tox.conference_get_chatlist();
       assert(ret.length == 1);
@@ -538,112 +538,112 @@ namespace Tests {
 
     private static void test_conference_get_title() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_title = ErrConferenceTitle.OK;
-      var ret = tox.conference_get_title(0, ref err_conference_title);
+      var ret = tox.conference_get_title(0, out err_conference_title);
       assert(err_conference_title == ErrConferenceTitle.CONFERENCE_NOT_FOUND);
       assert(ret == null);
 
       var err_conference_new = ErrConferenceNew.OK;
-      tox.conference_new(ref err_conference_new);
+      tox.conference_new(out err_conference_new);
 
-      ret = tox.conference_get_title(0, ref err_conference_title);
+      ret = tox.conference_get_title(0, out err_conference_title);
       assert(err_conference_title == ErrConferenceTitle.INVALID_LENGTH);
       assert(ret == null);
     }
 
     private static void test_conference_get_type() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_get_type = ErrConferenceGetType.OK;
-      tox.conference_get_type(0, ref err_conference_get_type);
+      tox.conference_get_type(0, out err_conference_get_type);
       assert(err_conference_get_type == ErrConferenceGetType.CONFERENCE_NOT_FOUND);
 
       var err_conference_new = ErrConferenceNew.OK;
-      tox.conference_new(ref err_conference_new);
+      tox.conference_new(out err_conference_new);
 
-      var ret = tox.conference_get_type(0, ref err_conference_get_type);
+      var ret = tox.conference_get_type(0, out err_conference_get_type);
       assert(err_conference_get_type == ErrConferenceGetType.OK);
       assert(ret == ConferenceType.TEXT);
     }
 
     private static void test_conference_invite() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_invite = ErrConferenceInvite.OK;
-      var ret = tox.conference_invite(0, 0, ref err_conference_invite);
+      var ret = tox.conference_invite(0, 0, out err_conference_invite);
       assert(err_conference_invite == ErrConferenceInvite.CONFERENCE_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_conference_join() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var cookie = new uint8[] { 1, 2, 3 };
       var err_conference_join = ErrConferenceJoin.OK;
-      var ret = tox.conference_join(0, cookie, ref err_conference_join);
+      var ret = tox.conference_join(0, cookie, out err_conference_join);
       assert(err_conference_join == ErrConferenceJoin.INVALID_LENGTH);
       assert(ret == uint32.MAX);
     }
 
     private static void test_conference_new() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_new = ErrConferenceNew.OK;
-      var ret = tox.conference_new(ref err_conference_new);
+      var ret = tox.conference_new(out err_conference_new);
       assert(err_conference_new == ErrConferenceNew.OK);
       assert(ret == 0);
     }
 
     private static void test_conference_peer_count() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_peer_query = ErrConferencePeerQuery.OK;
-      tox.conference_peer_count(0, ref err_conference_peer_query);
+      tox.conference_peer_count(0, out err_conference_peer_query);
       assert(err_conference_peer_query == ErrConferencePeerQuery.CONFERENCE_NOT_FOUND);
     }
 
     private static void test_conference_peer_get_name() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_peer_query = ErrConferencePeerQuery.OK;
-      var ret = tox.conference_peer_get_name(0, 0, ref err_conference_peer_query);
+      var ret = tox.conference_peer_get_name(0, 0, out err_conference_peer_query);
       assert(err_conference_peer_query == ErrConferencePeerQuery.CONFERENCE_NOT_FOUND);
       assert(ret == null);
     }
 
     private static void test_conference_peer_get_public_key() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_peer_query = ErrConferencePeerQuery.OK;
-      var ret = tox.conference_peer_get_public_key(0, 0, ref err_conference_peer_query);
+      var ret = tox.conference_peer_get_public_key(0, 0, out err_conference_peer_query);
       assert(err_conference_peer_query == ErrConferencePeerQuery.CONFERENCE_NOT_FOUND);
       assert(ret == null);
     }
 
     private static void test_conference_peer_number_is_ours() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_peer_query = ErrConferencePeerQuery.OK;
-      var ret = tox.conference_peer_number_is_ours(0, 0, ref err_conference_peer_query);
+      var ret = tox.conference_peer_number_is_ours(0, 0, out err_conference_peer_query);
       assert(err_conference_peer_query == ErrConferencePeerQuery.CONFERENCE_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_conference_send_message() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_send_message = ErrConferenceSendMessage.OK;
-      var ret = tox.conference_send_message(0, MessageType.NORMAL, "message", ref err_conference_send_message);
+      var ret = tox.conference_send_message(0, MessageType.NORMAL, "message", out err_conference_send_message);
       assert(err_conference_send_message == ErrConferenceSendMessage.CONFERENCE_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_conference_set_title() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       var err_conference_title = ErrConferenceTitle.OK;
-      var ret = tox.conference_set_title(0, "title", ref err_conference_title);
+      var ret = tox.conference_set_title(0, "title", out err_conference_title);
       assert(err_conference_title == ErrConferenceTitle.CONFERENCE_NOT_FOUND);
       assert(!ret);
     }
@@ -690,7 +690,7 @@ namespace Tests {
 
     private static void test_callbacks() {
       var err_new = ErrNew.OK;
-      var tox = new Tox(null, ref err_new);
+      var tox = new Tox(null, out err_new);
       tox.callback_conference_invite(conference_invite_cb);
       tox.callback_conference_message(conference_message_cb);
       tox.callback_conference_peer_list_changed(conference_peer_list_changed_cb);

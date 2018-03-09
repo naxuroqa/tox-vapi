@@ -1,5 +1,5 @@
-
 using ToxEncryptSave;
+
 namespace Tests {
   public class ToxEncryptSaveTest {
     private const string PREFIX = "/toxencryptsave/";
@@ -12,7 +12,7 @@ namespace Tests {
 
     private static void test_passkey_derive() {
       var err_key_derivation = ErrKeyDerivation.OK;
-      var pass_key = new PassKey.derive("🔑".data, ref err_key_derivation);
+      var pass_key = new PassKey.derive("🔑".data, out err_key_derivation);
       assert(err_key_derivation == ErrKeyDerivation.OK);
       assert(pass_key != null);
     }
@@ -20,30 +20,30 @@ namespace Tests {
     private static void test_passkey_derive_with_salt() {
       var salt = new uint8[pass_salt_length()];
       var err_key_derivation = ErrKeyDerivation.OK;
-      var pass_key = new PassKey.derive_with_salt("🔑".data, salt, ref err_key_derivation);
+      var pass_key = new PassKey.derive_with_salt("🔑".data, salt, out err_key_derivation);
       assert(err_key_derivation == ErrKeyDerivation.OK);
       assert(pass_key != null);
     }
 
     private static void test_passkey_encrypt() {
       var err_key_derivation = ErrKeyDerivation.OK;
-      var pass_key = new PassKey.derive("🔑".data, ref err_key_derivation);
+      var pass_key = new PassKey.derive("🔑".data, out err_key_derivation);
 
       var err_encryption = ErrEncryption.OK;
-      var encrypted = pass_key.encrypt("🔐".data, ref err_encryption);
+      var encrypted = pass_key.encrypt("🔐".data, out err_encryption);
       assert(err_encryption == ErrEncryption.OK);
       assert(encrypted != null);
     }
 
     private static void test_passkey_decrypt() {
       var err_key_derivation = ErrKeyDerivation.OK;
-      var pass_key = new PassKey.derive("🔑".data, ref err_key_derivation);
+      var pass_key = new PassKey.derive("🔑".data, out err_key_derivation);
 
       var err_encryption = ErrEncryption.OK;
-      var encrypted = pass_key.encrypt("🔐".data, ref err_encryption);
+      var encrypted = pass_key.encrypt("🔐".data, out err_encryption);
 
       var err_decryption = ErrDecryption.OK;
-      var plaintext = pass_key.decrypt(encrypted, ref err_decryption);
+      var plaintext = pass_key.decrypt(encrypted, out err_decryption);
       assert(err_decryption == ErrDecryption.OK);
       assert(plaintext != null);
       assert((string) plaintext == "🔐");
@@ -54,20 +54,20 @@ namespace Tests {
       assert(!is_data_encrypted(data));
 
       var err_encryption = ErrEncryption.OK;
-      var ciphertext = pass_encrypt("🔐".data, "🔑".data, ref err_encryption);
+      var ciphertext = pass_encrypt("🔐".data, "🔑".data, out err_encryption);
       assert(is_data_encrypted(ciphertext));
     }
 
     private static void test_get_salt() {
       var data = new uint8[pass_encryption_extra_length()];
       var err_get_salt = ErrGetSalt.OK;
-      var salt = get_salt(data, ref err_get_salt);
+      var salt = get_salt(data, out err_get_salt);
       assert(err_get_salt == ErrGetSalt.BAD_FORMAT);
       assert(salt == null);
 
       var err_encryption = ErrEncryption.OK;
-      var ciphertext = pass_encrypt("🔐".data, "🔑".data, ref err_encryption);
-      salt = get_salt(ciphertext, ref err_get_salt);
+      var ciphertext = pass_encrypt("🔐".data, "🔑".data, out err_encryption);
+      salt = get_salt(ciphertext, out err_get_salt);
       assert(err_get_salt == ErrGetSalt.OK);
       assert(salt != null);
       assert(salt.length == pass_salt_length());
@@ -75,17 +75,17 @@ namespace Tests {
 
     private static void test_pass_encrypt() {
       var err_encryption = ErrEncryption.OK;
-      var ciphertext = pass_encrypt("🔐".data, "🔑".data, ref err_encryption);
+      var ciphertext = pass_encrypt("🔐".data, "🔑".data, out err_encryption);
       assert(err_encryption == ErrEncryption.OK);
       assert(ciphertext != null);
     }
 
     private static void test_pass_decrypt() {
       var err_encryption = ErrEncryption.OK;
-      var ciphertext = pass_encrypt("🔐".data, "🔑".data, ref err_encryption);
+      var ciphertext = pass_encrypt("🔐".data, "🔑".data, out err_encryption);
 
       var err_decryption = ErrDecryption.OK;
-      var plaintext = pass_decrypt(ciphertext, "🔑".data, ref err_decryption);
+      var plaintext = pass_decrypt(ciphertext, "🔑".data, out err_decryption);
       assert(err_decryption == ErrDecryption.OK);
       assert(plaintext != null);
       assert((string) plaintext == "🔐");

@@ -109,7 +109,7 @@ namespace ToxEncryptSave {
   private static bool _pass_encrypt ([CCode(array_length_type = "size_t")] uint8[] plaintext,
                                      [CCode(array_length_type = "size_t")] uint8[] ? passphrase,
                                      [CCode(array_length = false)] uint8[] ciphertext,
-                                     ref ErrEncryption error);
+                                     out ErrEncryption error);
 
   /**
    * Encrypts the given data with the given passphrase.
@@ -124,9 +124,9 @@ namespace ToxEncryptSave {
    * @return ciphertext on success.
    */
   [CCode(cname = "vala_tox_pass_encrypt")]
-  public static uint8[] ? pass_encrypt(uint8[] plaintext, uint8[] ? passphrase, ref ErrEncryption error) {
+  public static uint8[] ? pass_encrypt(uint8[] plaintext, uint8[] ? passphrase, out ErrEncryption error) {
     var t = new uint8[plaintext.length + PASS_ENCRYPTION_EXTRA_LENGTH];
-    var ret = _pass_encrypt(plaintext, passphrase, t, ref error);
+    var ret = _pass_encrypt(plaintext, passphrase, t, out error);
     return ret ? t : null;
   }
 
@@ -134,7 +134,7 @@ namespace ToxEncryptSave {
   private static bool _pass_decrypt ([CCode(array_length_type = "size_t")] uint8[] ciphertext,
                                      [CCode(array_length_type = "size_t")] uint8[] ? passphrase,
                                      [CCode(array_length = false)] uint8[] plaintext,
-                                     ref ErrDecryption error);
+                                     out ErrDecryption error);
 
   /**
    * Decrypts the given data with the given passphrase.
@@ -148,9 +148,9 @@ namespace ToxEncryptSave {
    * @return plaintext on success.
    */
   [CCode(cname = "vala_tox_pass_decrypt")]
-  public static uint8[] ? pass_decrypt(uint8[] ciphertext, uint8[] ? passphrase, ref ErrDecryption error) {
+  public static uint8[] ? pass_decrypt(uint8[] ciphertext, uint8[] ? passphrase, out ErrDecryption error) {
     var t = new uint8[ciphertext.length + PASS_ENCRYPTION_EXTRA_LENGTH];
-    var ret = _pass_decrypt(ciphertext, passphrase, t, ref error);
+    var ret = _pass_decrypt(ciphertext, passphrase, t, out error);
     return ret ? t : null;
   }
 
@@ -181,7 +181,7 @@ namespace ToxEncryptSave {
      */
     [Version(since = "0.2.0")]
     [CCode(cname = "tox_pass_key_derive")]
-    public PassKey.derive(uint8[] passphrase, ref ErrKeyDerivation error);
+    public PassKey.derive(uint8[] passphrase, out ErrKeyDerivation error);
 
     /**
      * Same as above, except use the given salt for deterministic key derivation.
@@ -195,10 +195,10 @@ namespace ToxEncryptSave {
      */
     [Version(since = "0.2.0")]
     [CCode(cname = "tox_pass_key_derive_with_salt")]
-    public PassKey.derive_with_salt(uint8[] passphrase, [CCode(array_length = false)] uint8[] salt, ref ErrKeyDerivation error);
+    public PassKey.derive_with_salt(uint8[] passphrase, [CCode(array_length = false)] uint8[] salt, out ErrKeyDerivation error);
 
     [CCode(cname = "tox_pass_key_encrypt")]
-    private bool _encrypt(uint8[] plaintext, [CCode(array_length = false)] uint8[] ciphertext, ref ErrEncryption error);
+    private bool _encrypt(uint8[] plaintext, [CCode(array_length = false)] uint8[] ciphertext, out ErrEncryption error);
 
     /**
      * Encrypt a plain text with a key produced by {@link PassKey.PassKey.derive} or {@link PassKey.PassKey.derive_with_salt}.
@@ -211,14 +211,14 @@ namespace ToxEncryptSave {
      * @return ciphertext on success.
      */
     [CCode(cname = "vala_tox_pass_key_encrypt")]
-    public uint8[] ? encrypt(uint8[] plaintext, ref ErrEncryption error) {
+    public uint8[] ? encrypt(uint8[] plaintext, out ErrEncryption error) {
       var t = new uint8[plaintext.length + PASS_ENCRYPTION_EXTRA_LENGTH];
-      var ret = _encrypt(plaintext, t, ref error);
+      var ret = _encrypt(plaintext, t, out error);
       return ret ? t : null;
     }
 
     [CCode(cname = "tox_pass_key_decrypt")]
-    private bool _decrypt(uint8[] ciphertext, [CCode(array_length = false)] uint8[] plaintext, ref ErrDecryption error);
+    private bool _decrypt(uint8[] ciphertext, [CCode(array_length = false)] uint8[] plaintext, out ErrDecryption error);
 
     /**
      * This is the inverse of {@link PassKey.encrypt}, also using only keys produced by
@@ -229,9 +229,9 @@ namespace ToxEncryptSave {
      * @return plaintext on success.
      */
     [CCode(cname = "vala_tox_pass_key_decrypt")]
-    public uint8[] ? decrypt(uint8[] ciphertext, ref ErrDecryption error) {
+    public uint8[] ? decrypt(uint8[] ciphertext, out ErrDecryption error) {
       var t = new uint8[ciphertext.length + PASS_ENCRYPTION_EXTRA_LENGTH];
-      var ret = _decrypt(ciphertext, t, ref error);
+      var ret = _decrypt(ciphertext, t, out error);
       return ret ? t : null;
     }
   }
@@ -254,7 +254,7 @@ namespace ToxEncryptSave {
   }
 
   [CCode(cname = "tox_get_salt")]
-  private static bool _get_salt([CCode(array_length = false)] uint8[] ciphertext, [CCode(array_length = false)] uint8[] salt, ref ErrGetSalt error);
+  private static bool _get_salt([CCode(array_length = false)] uint8[] ciphertext, [CCode(array_length = false)] uint8[] salt, out ErrGetSalt error);
 
   /**
    * Retrieves the salt used to encrypt the given data.
@@ -276,9 +276,9 @@ namespace ToxEncryptSave {
    * @return true on success.
    */
   [CCode(cname = "vala_tox_get_salt")]
-  public static uint8[] ? get_salt(uint8[] ciphertext, ref ErrGetSalt error) {
+  public static uint8[] ? get_salt(uint8[] ciphertext, out ErrGetSalt error) {
     var t = new uint8[PASS_SALT_LENGTH];
-    var ret = _get_salt(ciphertext, t, ref error);
+    var ret = _get_salt(ciphertext, t, out error);
     return ret ? t : null;
   }
 

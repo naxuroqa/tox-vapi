@@ -372,7 +372,7 @@ namespace ToxAV {
      * Start new A/V session. There can only be only one session per Tox instance.
      */
     [CCode(cname = "toxav_new")]
-    public ToxAV(ToxCore.Tox tox, ref ErrNew e);
+    public ToxAV(ToxCore.Tox tox, out ErrNew e);
 
     /**
      * Returns the {@link ToxCore.Tox} instance the A/V object was created for.
@@ -408,7 +408,7 @@ namespace ToxAV {
      * @param video_bit_rate Video bit rate in Kb/sec. Set this to 0 to disable
      * video sending.
      */
-    public bool call(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, ref ErrCall error);
+    public bool call(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, out ErrCall error);
 
     /**
      * Set the callback for the `call` event. Pass NULL to unset.
@@ -429,7 +429,7 @@ namespace ToxAV {
      * @param video_bit_rate Video bit rate in Kb/sec. Set this to 0 to disable
      * video sending.
      */
-    public bool answer(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, ref ErrAnswer error);
+    public bool answer(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, out ErrAnswer error);
 
     /**
      * Set the callback for the `call_state` event. Pass NULL to unset.
@@ -446,7 +446,7 @@ namespace ToxAV {
      *
      * @return true on success.
      */
-    public bool call_control(uint32 friend_number, CallControl control, ref ErrCallControl error);
+    public bool call_control(uint32 friend_number, CallControl control, out ErrCallControl error);
 
     /**
      * Send an audio frame to a friend.
@@ -468,7 +468,7 @@ namespace ToxAV {
      * @param sampling_rate Audio sampling rate used in this frame. Valid sampling
      * rates are 8000, 12000, 16000, 24000, or 48000.
      */
-    public bool audio_send_frame(uint32 friend_number, [CCode(array_length = false)] int16[] pcm, size_t sample_count, uint8 channels, uint32 sampling_rate, ref ErrSendFrame error);
+    public bool audio_send_frame(uint32 friend_number, [CCode(array_length = false)] int16[] pcm, size_t sample_count, uint8 channels, uint32 sampling_rate, out ErrSendFrame error);
 
     /**
      * Set the bit rate to be used in subsequent video frames.
@@ -482,7 +482,7 @@ namespace ToxAV {
      * @return true on success.
      */
     [Version(since = "0.2.0")]
-    public bool audio_set_bit_rate(uint32 friend_number, uint32 bit_rate, ref ErrBitRateSet error);
+    public bool audio_set_bit_rate(uint32 friend_number, uint32 bit_rate, out ErrBitRateSet error);
 
     /**
      * Set the callback for the `audio_bit_rate` event. Pass NULL to unset.
@@ -507,7 +507,7 @@ namespace ToxAV {
      * @param v V (Chroma) plane data.
      */
     public bool video_send_frame(uint32 friend_number, uint16 width, uint16 height, [CCode(array_length = false)] uint8[] y,
-                                 [CCode(array_length = false)] uint8[] u, [CCode(array_length = false)] uint8[] v, ref ErrSendFrame error);
+                                 [CCode(array_length = false)] uint8[] u, [CCode(array_length = false)] uint8[] v, out ErrSendFrame error);
 
     /**
      * Set the bit rate to be used in subsequent video frames.
@@ -521,7 +521,7 @@ namespace ToxAV {
      * @return true on success.
      */
     [Version(since = "0.2.0")]
-    public bool video_set_bit_rate(uint32 friend_number, uint32 bit_rate, ref ErrBitRateSet error);
+    public bool video_set_bit_rate(uint32 friend_number, uint32 bit_rate, out ErrBitRateSet error);
 
     /**
      * Set the callback for the `video_bit_rate` event. Pass NULL to unset.
