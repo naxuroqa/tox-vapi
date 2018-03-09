@@ -11,6 +11,19 @@ bot:
 		-g \
 		examples/Bot.vala
 
+echobot:
+	valac \
+		--vapidir=vapi \
+		--pkg=gio-2.0 \
+		--pkg=toxcore \
+		--pkg=toxav \
+		--pkg=toxencryptsave \
+		--pkg=posix \
+		-g \
+		examples/echobot/Echobot.vala
+
+examples: bot echobot
+
 test-options-bin:
 	valac \
 		--vapidir=vapi \
@@ -58,11 +71,7 @@ debug: bot
 	gdb -ex run ./Bot
 
 clean:
-	rm -f ./Bot
-	rm -f ./ToxOptionsTest
-	rm -f ./ToxCoreTest
-	rm -f ./ToxAVTest
-	rm -f ./ToxEncryptSaveTest
+	rm -f Bot Echobot ToxOptionsTest ToxCoreTest ToxAVTest ToxEncryptSaveTest
 	rm -rf ./docs
 
 style:
@@ -78,7 +87,8 @@ style:
 		tests/ToxOptionsTest.vala \
 		tests/ToxAVTest.vala \
 		tests/ToxEncryptSaveTest.vala \
-		examples/Bot.vala
+		examples/Bot.vala \
+		examples/echobot/Echobot.vala
 
 docs:
 	valadoc \

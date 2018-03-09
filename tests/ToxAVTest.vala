@@ -1,34 +1,34 @@
-
 using ToxAV;
+
 namespace Tests {
   public class ToxAVTest {
     private const string PREFIX = "/toxav/";
 
     private static void test_create() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       assert(err_new == ErrNew.OK);
       assert(toxav != null);
     }
 
     private static void test_create_null() {
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV((ToxCore.Tox) null, ref err_new);
+      var toxav = new ToxAV.ToxAV((ToxCore.Tox) null, out err_new);
       assert(err_new == ErrNew.NULL);
       assert(toxav == null);
     }
 
     private static void test_create_multiple() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       assert(err_new == ErrNew.OK);
-      var toxav2 = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav2 = new ToxAV.ToxAV(tox, out err_new);
       assert(err_new == ErrNew.MULTIPLE);
       assert(toxav != null);
       assert(toxav2 == null);
@@ -36,106 +36,106 @@ namespace Tests {
 
     private static void test_iterate() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       assert(toxav.iteration_interval() != 0);
       toxav.iterate();
     }
 
     private static void test_answer() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       var err_answer = ErrAnswer.OK;
-      var ret = toxav.answer(0, 0, 0, ref err_answer);
+      var ret = toxav.answer(0, 0, 0, out err_answer);
       assert(err_answer == ErrAnswer.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_audio_send_frame() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       var data = new int16[10];
       var err_send_frame = ErrSendFrame.OK;
-      var ret = toxav.audio_send_frame(0, data, 1, 1, 8000, ref err_send_frame);
+      var ret = toxav.audio_send_frame(0, data, 1, 1, 8000, out err_send_frame);
       assert(err_send_frame == ErrSendFrame.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_audio_set_bit_rate() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       var err_bit_rate_set = ErrBitRateSet.OK;
-      var ret = toxav.audio_set_bit_rate(0, 0, ref err_bit_rate_set);
+      var ret = toxav.audio_set_bit_rate(0, 0, out err_bit_rate_set);
       assert(err_bit_rate_set == ErrBitRateSet.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_call() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       var err_call = ErrCall.OK;
-      var ret = toxav.call(0, 0, 0, ref err_call);
+      var ret = toxav.call(0, 0, 0, out err_call);
       assert(err_call == ErrCall.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_call_control() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       var err_call_control = ErrCallControl.OK;
-      var ret = toxav.call_control(0, CallControl.RESUME, ref err_call_control);
+      var ret = toxav.call_control(0, CallControl.RESUME, out err_call_control);
       assert(err_call_control == ErrCallControl.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_video_send_frame() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       var data = new uint8[16];
       var err_send_frame = ErrSendFrame.OK;
-      var ret = toxav.video_send_frame(0, 4, 4, data, data, data, ref err_send_frame);
+      var ret = toxav.video_send_frame(0, 4, 4, data, data, data, out err_send_frame);
       assert(err_send_frame == ErrSendFrame.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_video_set_bit_rate() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       var err_bit_rate_set = ErrBitRateSet.OK;
-      var ret = toxav.video_set_bit_rate(0, 0, ref err_bit_rate_set);
+      var ret = toxav.video_set_bit_rate(0, 0, out err_bit_rate_set);
       assert(err_bit_rate_set == ErrBitRateSet.FRIEND_NOT_FOUND);
       assert(!ret);
     }
 
     private static void test_callbacks() {
       var err_new_core = ToxCore.ErrNew.OK;
-      var tox = new ToxCore.Tox(null, ref err_new_core);
+      var tox = new ToxCore.Tox(null, out err_new_core);
 
       var err_new = ErrNew.OK;
-      var toxav = new ToxAV.ToxAV(tox, ref err_new);
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
       toxav.callback_audio_bit_rate((av, friend_number, audio_bit_rate) => {});
       toxav.callback_audio_receive_frame((av, friend_number, pcm, sample_count, channels, sampling_rate) => {});
       toxav.callback_call((av, friend_number, audio_enabled, video_enabled) => {});

@@ -302,7 +302,7 @@ namespace ToxCore {
      *
      * @return A new {@link Options} object with default options or NULL on failure.
      */
-    public Options(ref ErrOptionsNew error);
+    public Options(out ErrOptionsNew error);
     /**
      * The type of socket to create.
      *
@@ -1200,7 +1200,7 @@ namespace ToxCore {
      *
      * @return A new Tox instance pointer on success or NULL on failure.
      */
-    public Tox(Options? options = null, ref ErrNew error);
+    public Tox(Options? options = null, out ErrNew error);
 
     [CCode(cname = "tox_get_savedata_size")]
     private size_t _get_savedata_size();
@@ -1234,7 +1234,7 @@ namespace ToxCore {
     public bool bootstrap(string address,
                           uint16 port,
                           [CCode(array_length = false)] uint8[] public_key,
-                          ref ErrBootstrap error);
+                          out ErrBootstrap error);
 
     /**
      * Adds additional host:port pair as TCP relay.
@@ -1252,7 +1252,7 @@ namespace ToxCore {
     public bool add_tcp_relay(string address,
                               uint16 port,
                               [CCode(array_length = false)] uint8[] public_key,
-                              ref ErrBootstrap error);
+                              out ErrBootstrap error);
 
     /**
      * Return whether we are connected to the DHT. The return value is equal to the
@@ -1344,7 +1344,7 @@ namespace ToxCore {
     }
 
     [CCode(cname = "tox_self_set_name")]
-    private bool _self_set_name(uint8[] name, ref ErrSetInfo error);
+    private bool _self_set_name(uint8[] name, out ErrSetInfo error);
 
     /**
      * Set the nickname for the Tox client.
@@ -1357,8 +1357,8 @@ namespace ToxCore {
      * @return true on success.
      */
     [CCode(cname = "vala_tox_self_set_name")]
-    public bool self_set_name(string name, ref ErrSetInfo error) {
-      return _self_set_name(name.data, ref error);
+    public bool self_set_name(string name, out ErrSetInfo error) {
+      return _self_set_name(name.data, out error);
     }
 
     [CCode(cname = "tox_self_get_name_size")]
@@ -1380,7 +1380,7 @@ namespace ToxCore {
     }
 
     [CCode(cname = "tox_self_set_status_message")]
-    private bool _self_set_status_message(uint8[] message, ref ErrSetInfo error);
+    private bool _self_set_status_message(uint8[] message, out ErrSetInfo error);
 
     /**
      * Set the client's status message.
@@ -1390,8 +1390,8 @@ namespace ToxCore {
      * user status is set back to empty.
      */
     [CCode(cname = "vala_tox_self_set_status_message")]
-    public bool self_set_status_message(string message, ref ErrSetInfo error) {
-      return _self_set_status_message(message.data, ref error);
+    public bool self_set_status_message(string message, out ErrSetInfo error) {
+      return _self_set_status_message(message.data, out error);
     }
 
     [CCode(cname = "tox_self_get_status_message_size")]
@@ -1421,7 +1421,7 @@ namespace ToxCore {
     }
 
     [CCode(cname = "tox_friend_add")]
-    private uint32 _friend_add([CCode(array_length = false)] uint8[] address, uint8[] message, ref ErrFriendAdd error);
+    private uint32 _friend_add([CCode(array_length = false)] uint8[] address, uint8[] message, out ErrFriendAdd error);
     /**
      * Add a friend to the friend list and send a friend request.
      *
@@ -1445,8 +1445,8 @@ namespace ToxCore {
      * @return the friend number on success, {@link uint32.MAX} on failure.
      */
     [CCode(cname = "vala_tox_friend_add")]
-    public uint32 friend_add(uint8[] address, string message, ref ErrFriendAdd error) {
-      return _friend_add(address, message.data, ref error);
+    public uint32 friend_add(uint8[] address, string message, out ErrFriendAdd error) {
+      return _friend_add(address, message.data, out error);
     }
 
     /**
@@ -1467,7 +1467,7 @@ namespace ToxCore {
      * @return the friend number on success, UINT32_MAX on failure.
      * see {@link Tox.friend_add} for a more detailed description of friend numbers.
      */
-    public uint32 friend_add_norequest([CCode(array_length = false)] uint8[] public_key, ref ErrFriendAdd error);
+    public uint32 friend_add_norequest([CCode(array_length = false)] uint8[] public_key, out ErrFriendAdd error);
 
     /**
      * Remove a friend from the friend list.
@@ -1480,7 +1480,7 @@ namespace ToxCore {
      *
      * @return true on success.
      */
-    public bool friend_delete(uint32 friend_number, ref ErrFriendDelete error);
+    public bool friend_delete(uint32 friend_number, out ErrFriendDelete error);
 
     /**
      * Return the friend number associated with that Public Key.
@@ -1488,7 +1488,7 @@ namespace ToxCore {
      * @return the friend number on success, UINT32_MAX on failure.
      * @param public_key A byte array containing the Public Key.
      */
-    public uint32 friend_by_public_key([CCode(array_length = false)] uint8[] public_key, ref ErrFriendByPublicKey error);
+    public uint32 friend_by_public_key([CCode(array_length = false)] uint8[] public_key, out ErrFriendByPublicKey error);
 
     /**
      * Checks if a friend with the given friend number exists and returns true if
@@ -1511,7 +1511,7 @@ namespace ToxCore {
     }
 
     [CCode(cname = "tox_friend_get_public_key")]
-    private bool _friend_get_public_key(uint32 friend_number, [CCode(array_length = false)] uint8[] public_key, ref ErrFriendGetPublicKey error);
+    private bool _friend_get_public_key(uint32 friend_number, [CCode(array_length = false)] uint8[] public_key, out ErrFriendGetPublicKey error);
 
     /**
      * Returns the Public Key associated with a given friend number.
@@ -1521,9 +1521,9 @@ namespace ToxCore {
      * @return public_key on success.
      */
     [CCode(cname = "vala_tox_friend_get_public_key")]
-    public uint8[] friend_get_public_key(uint32 friend_number, ref ErrFriendGetPublicKey error) {
+    public uint8[] friend_get_public_key(uint32 friend_number, out ErrFriendGetPublicKey error) {
       var t = new uint8[public_key_size()];
-      return (_friend_get_public_key(friend_number, t, ref error) ? t : null);
+      return (_friend_get_public_key(friend_number, t, out error) ? t : null);
     }
 
     /**
@@ -1532,12 +1532,12 @@ namespace ToxCore {
      *
      * @param friend_number The friend number you want to query.
      */
-    public uint64 friend_get_last_online(uint32 friend_number, ref ErrFriendGetLastOnline error);
+    public uint64 friend_get_last_online(uint32 friend_number, out ErrFriendGetLastOnline error);
 
     [CCode(cname = "tox_friend_get_name_size")]
-    private size_t _friend_get_name_size(uint32 friend_number, ref ErrFriendQuery error);
+    private size_t _friend_get_name_size(uint32 friend_number, out ErrFriendQuery error);
     [CCode(cname = "tox_friend_get_name")]
-    private bool _friend_get_name(uint32 friend_number, [CCode(array_length = false)] uint8[] name, ref ErrFriendQuery error);
+    private bool _friend_get_name(uint32 friend_number, [CCode(array_length = false)] uint8[] name, out ErrFriendQuery error);
 
     /**
      * Return the name of the friend designated by the given friend number.
@@ -1548,13 +1548,13 @@ namespace ToxCore {
      * @return friend_name on success.
      */
     [CCode(cname = "vala_tox_friend_get_name")]
-    public string? friend_get_name(uint32 friend_number, ref ErrFriendQuery error) {
-      var len = _friend_get_name_size(friend_number, ref error);
+    public string? friend_get_name(uint32 friend_number, out ErrFriendQuery error) {
+      var len = _friend_get_name_size(friend_number, out error);
       if (error != ErrFriendQuery.OK) {
         return null;
       }
       var t = new uint8[len + 1];
-      return _friend_get_name(friend_number, t, ref error) ? (string) t : null;
+      return _friend_get_name(friend_number, t, out error) ? (string) t : null;
     }
 
     /**
@@ -1573,9 +1573,9 @@ namespace ToxCore {
     public void callback_friend_name(FriendNameCallback callback);
 
     [CCode(cname = "tox_friend_get_status_message_size")]
-    private size_t _friend_get_status_message_size(uint32 friend_number, ref ErrFriendQuery error);
+    private size_t _friend_get_status_message_size(uint32 friend_number, out ErrFriendQuery error);
     [CCode(cname = "tox_friend_get_status_message")]
-    private bool _friend_get_status_message(uint32 friend_number, [CCode(array_length = false)] uint8[] status_message, ref ErrFriendQuery error);
+    private bool _friend_get_status_message(uint32 friend_number, [CCode(array_length = false)] uint8[] status_message, out ErrFriendQuery error);
 
     /**
      * Return the status message of the friend designated by the given friend number.
@@ -1586,13 +1586,13 @@ namespace ToxCore {
      * @return status_message on success.
      */
     [CCode(cname = "vala_tox_friend_get_status_message")]
-    public string? friend_get_status_message(uint32 friend_number, ref ErrFriendQuery error) {
-      var len = _friend_get_status_message_size(friend_number, ref error);
+    public string? friend_get_status_message(uint32 friend_number, out ErrFriendQuery error) {
+      var len = _friend_get_status_message_size(friend_number, out error);
       if (error != ErrFriendQuery.OK) {
         return null;
       }
       var t = new uint8[len + 1];
-      return _friend_get_status_message(friend_number, t, ref error) ? (string) t : null;
+      return _friend_get_status_message(friend_number, t, out error) ? (string) t : null;
     }
 
     /**
@@ -1618,7 +1618,7 @@ namespace ToxCore {
      * `friend_status` callback.
      */
     [Version(deprecated = true, deprecated_since = "0.2.0")]
-    public UserStatus friend_get_status(uint32 friend_number, ref ErrFriendQuery error);
+    public UserStatus friend_get_status(uint32 friend_number, out ErrFriendQuery error);
 
     /**
      * @param friend_number The friend number of the friend whose user status
@@ -1648,7 +1648,7 @@ namespace ToxCore {
      *   `friend_connection_status` event.
      */
     [Version(deprecated = true, deprecated_since = "0.2.0")]
-    public Connection friend_get_connection_status(uint32 friend_number, ref ErrFriendQuery error);
+    public Connection friend_get_connection_status(uint32 friend_number, out ErrFriendQuery error);
 
     /**
      * @param friend_number The friend number of the friend whose connection status
@@ -1680,7 +1680,7 @@ namespace ToxCore {
      *   invalid. Inspect the error code to determine which case it is.
      */
     [Version(deprecated = true, deprecated_since = "0.2.0")]
-    public bool friend_get_typing(uint32 friend_number, ref ErrFriendQuery error);
+    public bool friend_get_typing(uint32 friend_number, out ErrFriendQuery error);
 
     /**
      * @param friend_number The friend number of the friend who started or stopped
@@ -1708,10 +1708,10 @@ namespace ToxCore {
      *
      * @return true on success.
      */
-    public bool self_set_typing(uint32 friend_number, bool typing, ref ErrSetTyping error);
+    public bool self_set_typing(uint32 friend_number, bool typing, out ErrSetTyping error);
 
     [CCode(cname = "tox_friend_send_message")]
-    private uint32 _friend_send_message(uint32 friend_number, MessageType type, [CCode(array_length_type = "size_t")] uint8[] message, ref ErrFriendSendMessage error);
+    private uint32 _friend_send_message(uint32 friend_number, MessageType type, [CCode(array_length_type = "size_t")] uint8[] message, out ErrFriendSendMessage error);
 
     /**
      * Send a text chat message to an online friend.
@@ -1736,8 +1736,8 @@ namespace ToxCore {
      *   containing the message text.
      */
     [CCode(cname = "vala_tox_friend_send_message")]
-    public uint32 friend_send_message(uint32 friend_number, MessageType type, string message, ref ErrFriendSendMessage error) {
-      return _friend_send_message(friend_number, type, message.data, ref error);
+    public uint32 friend_send_message(uint32 friend_number, MessageType type, string message, out ErrFriendSendMessage error) {
+      return _friend_send_message(friend_number, type, message.data, out error);
     }
 
     /**
@@ -1761,7 +1761,7 @@ namespace ToxCore {
      * @param message The message they sent along with the request.
      */
     [CCode(cname = "tox_friend_request_cb", has_target = false, has_type_id = false)]
-    public delegate void FriendRequestCallback(Tox self, [CCode(array_length = "public_key_size()")] uint8[] public_key, [CCode(array_length_type = "size_t")] uint8[] message, void *user_data);
+    public delegate void FriendRequestCallback(Tox self, [CCode(array_length = false)] uint8[] public_key, [CCode(array_length_type = "size_t")] uint8[] message, void *user_data);
 
     /**
      * Set the callback for the `friend_request` event. Pass NULL to unset.
@@ -1816,7 +1816,7 @@ namespace ToxCore {
      *
      * @return true on success.
      */
-    public bool file_control(uint32 friend_number, uint32 file_number, FileControl control, ref ErrFileControl error);
+    public bool file_control(uint32 friend_number, uint32 file_number, FileControl control, out ErrFileControl error);
 
     /**
      * When receiving {@link FileControl.CANCEL}, the client should release the
@@ -1849,10 +1849,10 @@ namespace ToxCore {
      * @param file_number The friend-specific identifier for the file transfer.
      * @param position The position that the file should be seeked to.
      */
-    public bool file_seek(uint32 friend_number, uint32 file_number, uint64 position, ref ErrFileSeek error);
+    public bool file_seek(uint32 friend_number, uint32 file_number, uint64 position, out ErrFileSeek error);
 
     [CCode(cname = "tox_file_get_file_id")]
-    private bool _file_get_file_id(uint32 friend_number, uint32 file_number, [CCode(array_length = false)] uint8[] file_id, ref ErrFileGet error);
+    private bool _file_get_file_id(uint32 friend_number, uint32 file_number, [CCode(array_length = false)] uint8[] file_id, out ErrFileGet error);
 
     /**
      * Copy the file id associated to the file transfer to a byte array.
@@ -1864,13 +1864,13 @@ namespace ToxCore {
      * @return file_id on success.
      */
     [CCode(cname = "vala_tox_file_get_file_id")]
-    public uint8[] ? file_get_file_id(uint32 friend_number, uint32 file_number, ref ErrFileGet error) {
+    public uint8[] ? file_get_file_id(uint32 friend_number, uint32 file_number, out ErrFileGet error) {
       var buf = new uint8[file_id_length()];
-      return _file_get_file_id(friend_number, file_number, buf, ref error) ? buf : null;
+      return _file_get_file_id(friend_number, file_number, buf, out error) ? buf : null;
     }
 
     [CCode(cname = "tox_file_send")]
-    private uint32 _file_send(uint32 friend_number, uint32 kind, uint64 file_size, [CCode(array_length = false)] uint8[] ? file_id, uint8[] filename, ref ErrFileSend error);
+    private uint32 _file_send(uint32 friend_number, uint32 kind, uint64 file_size, [CCode(array_length = false)] uint8[] ? file_id, uint8[] filename, out ErrFileSend error);
 
     /**
      * Send a file transmission request.
@@ -1931,9 +1931,9 @@ namespace ToxCore {
      *   should not be relied on.
      */
     [CCode(cname = "vala_tox_file_send")]
-    public uint32 file_send(uint32 friend_number, FileKind kind, uint64 file_size, uint8[] ? file_id, string filename, ref ErrFileSend error) {
+    public uint32 file_send(uint32 friend_number, FileKind kind, uint64 file_size, uint8[] ? file_id, string filename, out ErrFileSend error) {
       GLib.assert(file_id == null || file_id.length == file_id_length());
-      return _file_send(friend_number, kind, file_size, file_id, filename.data, ref error);
+      return _file_send(friend_number, kind, file_size, file_id, filename.data, out error);
     }
     /**
      * Send a chunk of file data to a friend.
@@ -1951,7 +1951,7 @@ namespace ToxCore {
      * @param position The file or stream position from which to continue reading.
      * @return true on success.
      */
-    public bool file_send_chunk(uint32 friend_number, uint32 file_number, uint64 position, uint8[] data, ref ErrFileSendChunk error);
+    public bool file_send_chunk(uint32 friend_number, uint32 file_number, uint64 position, uint8[] data, out ErrFileSendChunk error);
 
     /**
      * If the length parameter is 0, the file transfer is finished, and the client's
@@ -2137,7 +2137,7 @@ namespace ToxCore {
      *
      * @return conference number on success, or UINT32_MAX on failure.
      */
-    public uint32 conference_new(ref ErrConferenceNew error);
+    public uint32 conference_new(out ErrConferenceNew error);
 
     /**
      * This function deletes a conference.
@@ -2146,17 +2146,17 @@ namespace ToxCore {
      *
      * @return true on success.
      */
-    public bool conference_delete(uint32 conference_number, ref ErrConferenceDelete error);
+    public bool conference_delete(uint32 conference_number, out ErrConferenceDelete error);
 
     /**
      * Return the number of peers in the conference. Return value is unspecified on failure.
      */
-    public uint32 conference_peer_count(uint32 conference_number, ref ErrConferencePeerQuery error);
+    public uint32 conference_peer_count(uint32 conference_number, out ErrConferencePeerQuery error);
 
     [CCode(cname = "tox_conference_peer_get_name_size")]
-    private size_t _conference_peer_get_name_size(uint32 conference_number, uint32 peer_number, ref ErrConferencePeerQuery error);
+    private size_t _conference_peer_get_name_size(uint32 conference_number, uint32 peer_number, out ErrConferencePeerQuery error);
     [CCode(cname = "tox_conference_peer_get_name")]
-    private bool _conference_peer_get_name(uint32 conference_number, uint32 peer_number, [CCode(array_length = false)] uint8[] name, ref ErrConferencePeerQuery error);
+    private bool _conference_peer_get_name(uint32 conference_number, uint32 peer_number, [CCode(array_length = false)] uint8[] name, out ErrConferencePeerQuery error);
 
     /**
      * Return the name of peer_number who is in conference_number.
@@ -2164,17 +2164,17 @@ namespace ToxCore {
      * @return name on success.
      */
     [CCode(cname = "vala_tox_conference_peer_get_name")]
-    public string? conference_peer_get_name(uint32 conference_number, uint32 peer_number, ref ErrConferencePeerQuery error) {
-      var len = _conference_peer_get_name_size(conference_number, peer_number, ref error);
+    public string? conference_peer_get_name(uint32 conference_number, uint32 peer_number, out ErrConferencePeerQuery error) {
+      var len = _conference_peer_get_name_size(conference_number, peer_number, out error);
       if (error != ErrConferencePeerQuery.OK) {
         return null;
       }
       var t = new uint8[len + 1];
-      return _conference_peer_get_name(conference_number, peer_number, t, ref error) ? (string) t : null;
+      return _conference_peer_get_name(conference_number, peer_number, t, out error) ? (string) t : null;
     }
 
     [CCode(cname = "tox_conference_peer_get_public_key")]
-    private bool _conference_peer_get_public_key(uint32 conference_number, uint32 peer_number, [CCode(array_length = false)] uint8[] public_key, ref ErrConferencePeerQuery error);
+    private bool _conference_peer_get_public_key(uint32 conference_number, uint32 peer_number, [CCode(array_length = false)] uint8[] public_key, out ErrConferencePeerQuery error);
 
     /**
      * Return the public key of peer_number who is in conference_number.
@@ -2182,15 +2182,15 @@ namespace ToxCore {
      * @return public_key on success.
      */
     [CCode(cname = "vala_tox_conference_peer_get_public_key")]
-    public uint8[] ? conference_peer_get_public_key(uint32 conference_number, uint32 peer_number, ref ErrConferencePeerQuery error) {
+    public uint8[] ? conference_peer_get_public_key(uint32 conference_number, uint32 peer_number, out ErrConferencePeerQuery error) {
       var t = new uint8[public_key_size()];
-      return _conference_peer_get_public_key(conference_number, peer_number, t, ref error) ? t : null;
+      return _conference_peer_get_public_key(conference_number, peer_number, t, out error) ? t : null;
     }
 
     /**
      * Return true if passed peer_number corresponds to our own.
      */
-    public bool conference_peer_number_is_ours(uint32 conference_number, uint32 peer_number, ref ErrConferencePeerQuery error);
+    public bool conference_peer_number_is_ours(uint32 conference_number, uint32 peer_number, out ErrConferencePeerQuery error);
 
     /**
      * Invites a friend to a conference.
@@ -2200,7 +2200,7 @@ namespace ToxCore {
      *
      * @return true on success.
      */
-    public bool conference_invite(uint32 friend_number, uint32 conference_number, ref ErrConferenceInvite error);
+    public bool conference_invite(uint32 friend_number, uint32 conference_number, out ErrConferenceInvite error);
 
     /**
      * Joins a conference that the client has been invited to.
@@ -2210,10 +2210,10 @@ namespace ToxCore {
      *
      * @return conference number on success, UINT32_MAX on failure.
      */
-    public uint32 conference_join(uint32 friend_number, uint8[] cookie, ref ErrConferenceJoin error);
+    public uint32 conference_join(uint32 friend_number, uint8[] cookie, out ErrConferenceJoin error);
 
     [CCode(cname = "tox_conference_send_message")]
-    private bool _conference_send_message(uint32 conference_number, MessageType type, uint8[] message, ref ErrConferenceSendMessage error);
+    private bool _conference_send_message(uint32 conference_number, MessageType type, uint8[] message, out ErrConferenceSendMessage error);
 
     /**
      * Send a text chat message to the conference.
@@ -2233,14 +2233,14 @@ namespace ToxCore {
      * @return true on success.
      */
     [CCode(cname = "vala_tox_conference_send_message")]
-    public bool conference_send_message(uint32 conference_number, MessageType type, string message, ref ErrConferenceSendMessage error) {
-      return _conference_send_message(conference_number, type, message.data, ref error);
+    public bool conference_send_message(uint32 conference_number, MessageType type, string message, out ErrConferenceSendMessage error) {
+      return _conference_send_message(conference_number, type, message.data, out error);
     }
 
     [CCode(cname = "tox_conference_get_title_size")]
-    private size_t _conference_get_title_size(uint32 conference_number, ref ErrConferenceTitle error);
+    private size_t _conference_get_title_size(uint32 conference_number, out ErrConferenceTitle error);
     [CCode(cname = "tox_conference_get_title")]
-    private bool _conference_get_title(uint32 conference_number, [CCode(array_length = false)] uint8[] title, ref ErrConferenceTitle error);
+    private bool _conference_get_title(uint32 conference_number, [CCode(array_length = false)] uint8[] title, out ErrConferenceTitle error);
 
     /**
      * Return the title designated by the given conference number.
@@ -2251,17 +2251,17 @@ namespace ToxCore {
      * @return title on success.
      */
     [CCode(cname = "vala_tox_conference_get_title")]
-    public string? conference_get_title(uint32 conference_number, ref ErrConferenceTitle error) {
-      var len = _conference_get_title_size(conference_number, ref error);
+    public string? conference_get_title(uint32 conference_number, out ErrConferenceTitle error) {
+      var len = _conference_get_title_size(conference_number, out error);
       if (error != ErrConferenceTitle.OK) {
         return null;
       }
       var t = new uint8[len + 1];
-      return _conference_get_title(conference_number, t, ref error) ? (string) t : null;
+      return _conference_get_title(conference_number, t, out error) ? (string) t : null;
     }
 
     [CCode(cname = "tox_conference_set_title")]
-    private bool _conference_set_title(uint32 conference_number, uint8[] title, ref ErrConferenceTitle error);
+    private bool _conference_set_title(uint32 conference_number, uint8[] title, out ErrConferenceTitle error);
 
     /**
      * Set the conference title and broadcast it to the rest of the conference.
@@ -2271,8 +2271,8 @@ namespace ToxCore {
      * @return true on success.
      */
     [CCode(cname = "vala_tox_conference_set_title")]
-    public bool conference_set_title(uint32 conference_number, string title, ref ErrConferenceTitle error) {
-      return _conference_set_title(conference_number, title.data, ref error);
+    public bool conference_set_title(uint32 conference_number, string title, out ErrConferenceTitle error) {
+      return _conference_set_title(conference_number, title.data, out error);
     }
 
     [CCode(cname = "tox_conference_get_chatlist_size")]
@@ -2290,7 +2290,7 @@ namespace ToxCore {
       return t;
     }
 
-    public ConferenceType conference_get_type(uint32 conference_number, ref ErrConferenceGetType error);
+    public ConferenceType conference_get_type(uint32 conference_number, out ErrConferenceGetType error);
 
     /**
      * Send a custom lossy packet to a friend.
@@ -2311,7 +2311,7 @@ namespace ToxCore {
      *
      * @return true on success.
      */
-    public bool friend_send_lossy_packet(uint32 friend_number, uint8[] data, ref ErrFriendCustomPacket error);
+    public bool friend_send_lossy_packet(uint32 friend_number, uint8[] data, out ErrFriendCustomPacket error);
 
     /**
      * Send a custom lossless packet to a friend.
@@ -2328,7 +2328,7 @@ namespace ToxCore {
      *
      * @return true on success.
      */
-    public bool friend_send_lossless_packet(uint32 friend_number, uint8[] data, ref ErrFriendCustomPacket error);
+    public bool friend_send_lossless_packet(uint32 friend_number, uint8[] data, out ErrFriendCustomPacket error);
 
     /**
      * @param friend_number The friend number of the friend who sent a lossy packet.
@@ -2376,12 +2376,12 @@ namespace ToxCore {
     /**
      * Return the UDP port this Tox instance is bound to.
      */
-    public uint16 self_get_udp_port(ref ErrGetPort error);
+    public uint16 self_get_udp_port(out ErrGetPort error);
 
     /**
      * Return the TCP port this Tox instance is bound to. This is only relevant if
      * the instance is acting as a TCP relay.
      */
-    public uint16 self_get_tcp_port(ref ErrGetPort error);
+    public uint16 self_get_tcp_port(out ErrGetPort error);
   }
 }

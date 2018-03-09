@@ -1,12 +1,12 @@
-
 using ToxCore;
+
 namespace Tests {
   public class ToxOptionsTest {
     private const string PREFIX = "/toxoptions/";
 
     private static void test_create() {
       var err_options_new = ErrOptionsNew.OK;
-      var options = new Options(ref err_options_new);
+      var options = new Options(out err_options_new);
       assert(err_options_new == ErrOptionsNew.OK);
       assert(options != null);
     }
@@ -30,7 +30,7 @@ namespace Tests {
 
     private static void test_properties_defaults() {
       var err_options_new = ErrOptionsNew.OK;
-      var options = new Options(ref err_options_new);
+      var options = new Options(out err_options_new);
 
       test_properties_defaults_impl(options);
 
@@ -55,7 +55,7 @@ namespace Tests {
 
     private static void test_properties_setters() {
       var err_options_new = ErrOptionsNew.OK;
-      var options = new Options(ref err_options_new);
+      var options = new Options(out err_options_new);
 
       var data = new uint8[] { 1, 2, 3 };
       test_properties_setters_impl(options, data);
@@ -80,7 +80,7 @@ namespace Tests {
 
     private static void test_properties_reset() {
       var err_options_new = ErrOptionsNew.OK;
-      var options = new Options(ref err_options_new);
+      var options = new Options(out err_options_new);
       var data = new uint8[] { 1, 2, 3 };
       test_properties_setters_impl(options, data);
       options.default ();
