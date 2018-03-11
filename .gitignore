@@ -2,12 +2,18 @@
 *.orig
 
 # binary
+build/
 Bot
 Echobot
 ToxCoreTest
 ToxOptionsTest
 ToxAVTest
 ToxEncryptSaveTest
+*.gcda
+*.gcno
+
+# c files
+*.c
 
 # GOuput
 .goutputstream-*
