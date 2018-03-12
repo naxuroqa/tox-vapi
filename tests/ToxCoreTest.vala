@@ -15,9 +15,7 @@ namespace Tests {
     private static void test_constants() {
       assert(public_key_size() != 0);
       assert(secret_key_size() != 0);
-      assert(NOSPAM_SIZE != 0);
-      // upstream bug, symbol not exported
-      // assert(nospam_size() != 0);
+      assert(nospam_size() != 0);
       assert(address_size() != 0);
       assert(max_name_length() != 0);
       assert(max_status_message_length() != 0);
