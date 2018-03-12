@@ -1,3 +1,6 @@
+CFLAGS=-g -ftest-coverage -fprofile-arcs $(shell pkg-config --cflags gio-2.0 toxcore)
+LDFLAGS=$(shell pkg-config --libs gio-2.0 toxcore)
+
 bot:
 	valac \
 		--vapidir=vapi \
@@ -8,7 +11,7 @@ bot:
 		--pkg=toxav \
 		--pkg=toxencryptsave \
 		--target-glib=2.32 \
-		-g \
+		--debug \
 		examples/Bot.vala
 
 echobot:
@@ -19,7 +22,7 @@ echobot:
 		--pkg=toxav \
 		--pkg=toxencryptsave \
 		--pkg=posix \
-		-g \
+		--debug \
 		examples/echobot/Echobot.vala
 
 examples: bot echobot
@@ -31,8 +34,14 @@ test-options-bin:
 		--pkg=toxcore \
 		--pkg=toxav \
 		--pkg=toxencryptsave \
-		-g \
+		--ccode \
+		--debug \
 		tests/ToxOptionsTest.vala
+	gcc \
+		$(CFLAGS) \
+		-o ToxOptionsTest \
+		tests/ToxOptionsTest.c \
+		$(LDFLAGS)
 
 test-core-bin:
 	valac \
@@ -41,8 +50,14 @@ test-core-bin:
 		--pkg=toxcore \
 		--pkg=toxav \
 		--pkg=toxencryptsave \
-		-g \
+		--ccode \
+		--debug \
 		tests/ToxCoreTest.vala
+	gcc \
+		$(CFLAGS) \
+		-o ToxCoreTest \
+		tests/ToxCoreTest.c \
+		$(LDFLAGS)
 
 test-av-bin:
 	valac \
@@ -51,8 +66,14 @@ test-av-bin:
 		--pkg=toxcore \
 		--pkg=toxav \
 		--pkg=toxencryptsave \
-		-g \
+		--ccode \
+		--debug \
 		tests/ToxAVTest.vala
+	gcc \
+		$(CFLAGS) \
+		-o ToxAVTest \
+		tests/ToxAVTest.c \
+		$(LDFLAGS)
 
 test-encrypt-bin:
 	valac \
@@ -61,8 +82,14 @@ test-encrypt-bin:
 		--pkg=toxcore \
 		--pkg=toxav \
 		--pkg=toxencryptsave \
-		-g \
+		--ccode \
+		--debug \
 		tests/ToxEncryptSaveTest.vala
+	gcc \
+		$(CFLAGS) \
+		-o ToxEncryptSaveTest \
+		tests/ToxEncryptSaveTest.c \
+		$(LDFLAGS)
 
 test: test-options-bin test-core-bin test-av-bin test-encrypt-bin
 	gtester --verbose ToxOptionsTest ToxCoreTest ToxAVTest ToxEncryptSaveTest
@@ -71,8 +98,8 @@ debug: bot
 	gdb -ex run ./Bot
 
 clean:
-	rm -f Bot Echobot ToxOptionsTest ToxCoreTest ToxAVTest ToxEncryptSaveTest
-	rm -rf ./docs
+	rm -f Bot Echobot ToxOptionsTest ToxCoreTest ToxAVTest ToxEncryptSaveTest tests/*.c *.gcda *.gcno
+	rm -rf ./docs ./build
 
 style:
 	uncrustify \
