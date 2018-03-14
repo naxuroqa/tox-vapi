@@ -5,6 +5,7 @@
 build/
 Bot
 Echobot
+MockBot
 ToxCoreTest
 ToxOptionsTest
 ToxAVTest
