@@ -36,6 +36,7 @@
           <li class="delegate"><a href="ToxAV.AudioReceiveFrameCallback.html">AudioReceiveFrameCallback</a></li>
           <li class="delegate"><a href="ToxAV.CallCallback.html">CallCallback</a></li>
           <li class="delegate"><a href="ToxAV.CallStateCallback.html">CallStateCallback</a></li>
+          <li class="delegate"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html">GroupchatAudioReceiveFrameCallback</a></li>
           <li class="delegate"><a href="ToxAV.VideoBitRateCallback.html">VideoBitRateCallback</a></li>
           <li class="delegate"><a href="ToxAV.VideoReceiveFrameCallback.html">VideoReceiveFrameCallback</a></li>
         </ul>
@@ -92,6 +93,10 @@
           <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoReceiveFrameCallback.html" class="delegate">VideoReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint16</span></span> width, <span class="main_basic_type"><span class="struct">uint16</span></span> height, <span class="main_basic_type"><span class="struct">uint8</span></span>[] y, <span class="main_basic_type"><span class="struct">uint8</span></span>[] u, <span class="main_basic_type"><span class="struct">uint8</span></span>[] v, <span class="main_basic_type"><span class="struct">int32</span></span> ystride, <span class="main_basic_type"><span class="struct">int32</span></span> ustride, <span class="main_basic_type"><span class="struct">int32</span></span> vstride)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">The function type for the video_receive_frame callback.</span>
+            </div></li>
+          <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> group_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">uint</span></span> samples, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate)
+            </span>
+            <div class="leaf_brief_description">
             </div></li>
         </ul>
       </div>

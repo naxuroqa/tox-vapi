@@ -28,6 +28,9 @@
         <hr class="navi_hr"/>
         <ul class="navi_main">
           <li class="property"><a href="ToxAV.ToxAV.tox.html">tox</a></li>
+          <li class="static_method"><a href="ToxAV.ToxAV.add_av_groupchat.html">add_av_groupchat</a></li>
+          <li class="static_method"><a href="ToxAV.ToxAV.group_send_audio.html">group_send_audio</a></li>
+          <li class="static_method"><a href="ToxAV.ToxAV.join_av_groupchat.html">join_av_groupchat</a></li>
           <li class="creation_method"><a href="ToxAV.ToxAV.ToxAV.html">ToxAV</a></li>
           <li class="method"><a href="ToxAV.ToxAV.answer.html">answer</a></li>
           <li class="method"><a href="ToxAV.ToxAV.audio_send_frame.html">audio_send_frame</a></li>
@@ -75,6 +78,22 @@
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Returns the <a href="ToxCore.Tox.html" class="class">ToxCore.Tox</a> 
                 instance the A/V object was created for.</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Static methods:</h3>
+        <ul class="navi_inline">
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.add_av_groupchat.html" class="static_method">add_av_groupchat</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_type"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></span> callback)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">NOTE Compatibility with old toxav group calls. TODO(iphydf): remove
+              </span>
+            </div></li>
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.join_av_groupchat.html" class="static_method">join_av_groupchat</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_type"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></span> callback)
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.group_send_audio.html" class="static_method">group_send_audio</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> group_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">uint</span></span> samples, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sample_rate)
+            </span>
+            <div class="leaf_brief_description">
             </div></li>
         </ul>
         <h3 class="main_title">Creation methods:</h3>
