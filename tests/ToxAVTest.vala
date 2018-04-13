@@ -130,6 +130,49 @@ namespace Tests {
       assert(!ret);
     }
 
+    private static void audio_callback(ToxCore.Tox tox,
+                                       uint32 group_number,
+                                       uint32 peer_number,
+                                       [CCode(array_length = false)] int16[] pcm,
+                                       uint samples,
+                                       uint8 channels,
+                                       uint32 sampling_rate) {}
+
+    private static void test_add_av_groupchat() {
+      var err_new_core = ToxCore.ErrNew.OK;
+      var tox = new ToxCore.Tox(null, out err_new_core);
+
+      var err_new = ErrNew.OK;
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
+      assert(err_new == ErrNew.OK);
+      var ret = ToxAV.ToxAV.add_av_groupchat(tox, audio_callback);
+      assert(ret == 0);
+    }
+
+    private static void test_join_av_groupchat() {
+      var err_new_core = ToxCore.ErrNew.OK;
+      var tox = new ToxCore.Tox(null, out err_new_core);
+
+      var err_new = ErrNew.OK;
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
+      assert(err_new == ErrNew.OK);
+      var data = new uint8[1];
+      var ret = ToxAV.ToxAV.join_av_groupchat(tox, 0, data, audio_callback);
+      assert(ret == -1);
+    }
+
+    private static void test_group_send_audio() {
+      var err_new_core = ToxCore.ErrNew.OK;
+      var tox = new ToxCore.Tox(null, out err_new_core);
+
+      var err_new = ErrNew.OK;
+      var toxav = new ToxAV.ToxAV(tox, out err_new);
+      assert(err_new == ErrNew.OK);
+      var data = new int16[1000];
+      var ret = ToxAV.ToxAV.group_send_audio(tox, 0, data, 1, 1, 8000);
+      assert(ret == -1);
+    }
+
     private static void test_callbacks() {
       var err_new_core = ToxCore.ErrNew.OK;
       var tox = new ToxCore.Tox(null, out err_new_core);
@@ -202,6 +245,9 @@ namespace Tests {
       Test.add_func(PREFIX + "test_call_control", test_call_control);
       Test.add_func(PREFIX + "test_video_send_frame", test_video_send_frame);
       Test.add_func(PREFIX + "test_video_set_bit_rate", test_video_set_bit_rate);
+      Test.add_func(PREFIX + "test_add_av_groupchat", test_add_av_groupchat);
+      Test.add_func(PREFIX + "test_join_av_groupchat", test_join_av_groupchat);
+      Test.add_func(PREFIX + "test_group_send_audio", test_group_send_audio);
       Test.add_func(PREFIX + "test_callbacks", test_callbacks);
       Test.add_func(PREFIX + "test_enums", test_enums);
 
