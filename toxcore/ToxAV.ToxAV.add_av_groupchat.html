@@ -56,7 +56,23 @@
         <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><span class="static_method">add_av_groupchat</span></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_type"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></span> callback)
         </div>
         <div class="description">
-          <p>NOTE Compatibility with old toxav group calls. TODO(iphydf): remove</p>
+          <p>Create a new toxav group.</p>
+          <p>Audio data callback format: audio_callback(Tox *tox, uint32_t groupnumber, uint32_t peernumber, const int16_t *pcm, unsigned int samples,
+            uint8_t channels, uint32_t sample_rate, void *userdata)</p>
+          <p>Note that total size of pcm in bytes is equal to (samples * channels * sizeof(int16_t)).</p>
+          <h2 class="main_title">Returns:</h2>
+          <table class="main_parameter_table">
+            <tr>
+              <td>
+                <p>group number on success. </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>-1 on failure. </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div><br/>

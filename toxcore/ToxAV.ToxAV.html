@@ -84,16 +84,16 @@
         <ul class="navi_inline">
           <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.add_av_groupchat.html" class="static_method">add_av_groupchat</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_type"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description"><span class="brief_description">NOTE Compatibility with old toxav group calls. TODO(iphydf): remove
-              </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a new toxav group.</span>
             </div></li>
           <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.join_av_groupchat.html" class="static_method">join_av_groupchat</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_type"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></span> callback)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Join a AV group (you need to have been invited first.)</span>
             </div></li>
           <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.group_send_audio.html" class="static_method">group_send_audio</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> group_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">uint</span></span> samples, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sample_rate)
             </span>
-            <div class="leaf_brief_description">
+            <div class="leaf_brief_description"><span class="brief_description">Send audio to the group chat. Note that total size of pcm in bytes is 
+                equal to (samples * channels * sizeof(int16_t)).</span>
             </div></li>
         </ul>
         <h3 class="main_title">Creation methods:</h3>
