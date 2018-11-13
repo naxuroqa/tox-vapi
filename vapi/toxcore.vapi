@@ -65,6 +65,14 @@ namespace ToxCore {
    */
   public static uint32 secret_key_size();
   /**
+   * The size of a Tox Conference unique id in bytes.
+   */
+  public const uint32 CONFERENCE_ID_SIZE;
+  /**
+   * The size of a Tox Conference unique id in bytes.
+   */
+  public static uint32 conference_id_size();
+  /**
    * The size of the nospam in bytes when written in a Tox address.
    */
   public const uint32 NOSPAM_SIZE;
@@ -162,11 +170,25 @@ namespace ToxCore {
    * Maximum file name length for file transfers.
    */
   public static uint32 max_filename_length();
-
+  /**
+   * Maximum length of a hostname, e.g. proxy or bootstrap node names.
+   *
+   * This length does not include the NUL byte. Hostnames are NUL-terminated C
+   * strings, so they are 255 characters plus one NUL byte.
+   */
+  [Version(deprecated = true, deprecated_since = "0.2.1", replacement = "max_hostname_length")]
+  public const uint32 MAX_HOSTNAME_LENGTH;
+  /**
+   * Maximum length of a hostname, e.g. proxy or bootstrap node names.
+   *
+   * This length does not include the NUL byte. Hostnames are NUL-terminated C
+   * strings, so they are 255 characters plus one NUL byte.
+   */
+  public static uint32 max_hostname_length();
   /**
    * Represents the possible statuses a client can have.
    */
-  [CCode(cname = "TOX_USER_STATUS", cprefix = "TOX_USER_STATUS_", has_type_id = false)]
+  [CCode(cname = "Tox_User_Status", cprefix = "TOX_USER_STATUS_", has_type_id = false)]
   public enum UserStatus {
     /**
      * User is online and available.
@@ -188,7 +210,7 @@ namespace ToxCore {
    * Represents message types for tox_friend_send_message and conference
    * messages.
    */
-  [CCode(cname = "TOX_MESSAGE_TYPE", cprefix = "TOX_MESSAGE_TYPE_", has_type_id = false)]
+  [CCode(cname = "Tox_Message_Type", cprefix = "TOX_MESSAGE_TYPE_", has_type_id = false)]
   public enum MessageType {
     /**
      * Normal text message. Similar to PRIVMSG on IRC.
@@ -204,7 +226,7 @@ namespace ToxCore {
   /**
    * Type of proxy used to connect to TCP relays.
    */
-  [CCode(cname = "TOX_PROXY_TYPE", cprefix = "TOX_PROXY_TYPE_", has_type_id = false)]
+  [CCode(cname = "Tox_Proxy_Type", cprefix = "TOX_PROXY_TYPE_", has_type_id = false)]
   public enum ProxyType {
     /**
      * Don't use a proxy.
@@ -223,7 +245,7 @@ namespace ToxCore {
   /**
    * Type of savedata to create the Tox instance from.
    */
-  [CCode(cname = "TOX_SAVEDATA_TYPE", cprefix = "TOX_SAVEDATA_TYPE_", has_type_id = false)]
+  [CCode(cname = "Tox_Savedata_Type", cprefix = "TOX_SAVEDATA_TYPE_", has_type_id = false)]
   public enum SaveDataType {
     /**
      * No savedata.
@@ -242,7 +264,7 @@ namespace ToxCore {
   /**
    * Severity level of log messages.
    */
-  [CCode(cname = "TOX_LOG_LEVEL", cprefix = "TOX_LOG_LEVEL_", has_type_id = false)]
+  [CCode(cname = "Tox_Log_Level", cprefix = "TOX_LOG_LEVEL_", has_type_id = false)]
   public enum LogLevel {
     /**
      * Very detailed traces including all network activity.
@@ -320,7 +342,9 @@ namespace ToxCore {
      *
      * Setting this to false will force Tox to use TCP only. Communications will
      * need to be relayed through a TCP relay node, potentially slowing them down.
-     * Disabling UDP support is necessary when using anonymous proxies or Tor.
+     *
+     * If a proxy is enabled, UDP will be disabled if either toxcore or the
+     * proxy don't support proxying UDP messages.
      */
     public bool udp_enabled {
       [CCode(cname = "tox_options_get_udp_enabled")] get;
@@ -346,8 +370,8 @@ namespace ToxCore {
      * The IP address or DNS name of the proxy to be used.
      *
      * If used, this must be non-NULL and be a valid DNS name. The name must not
-     * exceed 255 characters, and be in a NUL-terminated C string format
-     * (255 chars + 1 NUL byte).
+     * exceed TOX_MAX_HOSTNAME_LENGTH characters, and be in a NUL-terminated C string
+     * format (TOX_MAX_HOSTNAME_LENGTH includes the NUL byte).
      *
      * This member is ignored (it can be NULL) if proxy_type is {@link ProxyType.NONE}.
      *
@@ -455,7 +479,7 @@ namespace ToxCore {
     public void default ();
   }
 
-  [CCode(cname = "TOX_ERR_OPTIONS_NEW", cprefix = "TOX_ERR_OPTIONS_NEW_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Options_New", cprefix = "TOX_ERR_OPTIONS_NEW_", has_type_id = false)]
   public enum ErrOptionsNew {
     /**
      * The function returned successfully.
@@ -467,7 +491,7 @@ namespace ToxCore {
     MALLOC
   }
 
-  [CCode(cname = "TOX_ERR_NEW", cprefix = "TOX_ERR_NEW_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_New", cprefix = "TOX_ERR_NEW_", has_type_id = false)]
   public enum ErrNew {
     /**
      * The function returned successfully.
@@ -519,7 +543,7 @@ namespace ToxCore {
     LOAD_BAD_FORMAT
   }
 
-  [CCode(cname = "TOX_ERR_BOOTSTRAP", cprefix = "TOX_ERR_BOOTSTRAP_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Bootstrap", cprefix = "TOX_ERR_BOOTSTRAP_", has_type_id = false)]
   public enum ErrBootstrap {
     /**
      * The function returned successfully.
@@ -530,7 +554,7 @@ namespace ToxCore {
      */
     NULL,
     /**
-     * The address could not be resolved to an IP address, or the IP address
+     * The hostname could not be resolved to an IP address, or the IP address
      * passed was invalid.
      */
     BAD_HOST,
@@ -543,7 +567,7 @@ namespace ToxCore {
   /**
    * Protocols that can be used to connect to the network or friends.
    */
-  [CCode(cname = "TOX_CONNECTION", cprefix = "TOX_CONNECTION_", has_type_id = false)]
+  [CCode(cname = "Tox_Connection", cprefix = "TOX_CONNECTION_", has_type_id = false)]
   public enum Connection {
     /**
      * There is no connection. This instance, or the friend the state change is
@@ -569,7 +593,7 @@ namespace ToxCore {
    * Common error codes for all functions that set a piece of user-visible
    * client information.
    */
-  [CCode(cname = "TOX_ERR_SET_INFO", cprefix = "TOX_ERR_SET_INFO_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Set_Info", cprefix = "TOX_ERR_SET_INFO_", has_type_id = false)]
   public enum ErrSetInfo {
     /**
      * The function returned successfully.
@@ -585,7 +609,7 @@ namespace ToxCore {
     TOO_LONG
   }
 
-  [CCode(cname = "TOX_ERR_FRIEND_ADD", cprefix = "TOX_ERR_FRIEND_ADD_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Friend_Add", cprefix = "TOX_ERR_FRIEND_ADD_", has_type_id = false)]
   public enum ErrFriendAdd {
     /**
      * The function returned successfully.
@@ -628,7 +652,7 @@ namespace ToxCore {
     MALLOC
   }
 
-  [CCode(cname = "TOX_ERR_FRIEND_DELETE", cprefix = "TOX_ERR_FRIEND_DELETE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Friend_Delete", cprefix = "TOX_ERR_FRIEND_DELETE_", has_type_id = false)]
   public enum ErrFriendDelete {
     /**
      * The function returned successfully.
@@ -640,7 +664,7 @@ namespace ToxCore {
     FRIEND_NOT_FOUND
   }
 
-  [CCode(cname = "TOX_ERR_FRIEND_BY_PUBLIC_KEY", cprefix = "TOX_ERR_FRIEND_BY_PUBLIC_KEY_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Friend_By_Public_Key", cprefix = "TOX_ERR_FRIEND_BY_PUBLIC_KEY_", has_type_id = false)]
   public enum ErrFriendByPublicKey {
     /**
      * The function returned successfully.
@@ -656,7 +680,7 @@ namespace ToxCore {
     NOT_FOUND
   }
 
-  [CCode(cname = "TOX_ERR_FRIEND_GET_PUBLIC_KEY", cprefix = "TOX_ERR_FRIEND_GET_PUBLIC_KEY_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Friend_Get_Public_Key", cprefix = "TOX_ERR_FRIEND_GET_PUBLIC_KEY_", has_type_id = false)]
   public enum ErrFriendGetPublicKey {
     /**
      * The function returned successfully.
@@ -668,7 +692,7 @@ namespace ToxCore {
     FRIEND_NOT_FOUND
   }
 
-  [CCode(cname = "TOX_ERR_FRIEND_GET_LAST_ONLINE", cprefix = "TOX_ERR_FRIEND_GET_LAST_ONLINE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Friend_Get_Last_Online", cprefix = "TOX_ERR_FRIEND_GET_LAST_ONLINE_", has_type_id = false)]
   public enum ErrFriendGetLastOnline {
     /**
      * The function returned successfully.
@@ -683,7 +707,7 @@ namespace ToxCore {
   /**
    * Common error codes for friend state query functions.
    */
-  [CCode(cname = "TOX_ERR_FRIEND_QUERY", cprefix = "TOX_ERR_FRIEND_QUERY_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Friend_Query", cprefix = "TOX_ERR_FRIEND_QUERY_", has_type_id = false)]
   public enum ErrFriendQuery {
     /**
      * The function returned successfully.
@@ -701,7 +725,7 @@ namespace ToxCore {
     FRIEND_NOT_FOUND
   }
 
-  [CCode(cname = "TOX_ERR_SET_TYPING", cprefix = "TOX_ERR_SET_TYPING_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Set_Typing", cprefix = "TOX_ERR_SET_TYPING_", has_type_id = false)]
   public enum ErrSetTyping {
     /**
      * The function returned successfully.
@@ -713,7 +737,7 @@ namespace ToxCore {
     FRIEND_NOT_FOUND
   }
 
-  [CCode(cname = "TOX_ERR_FRIEND_SEND_MESSAGE", cprefix = "TOX_ERR_FRIEND_SEND_MESSAGE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Friend_Send_Message", cprefix = "TOX_ERR_FRIEND_SEND_MESSAGE_", has_type_id = false)]
   public enum ErrFriendSendMessage {
     /**
      * The function returned successfully.
@@ -744,7 +768,14 @@ namespace ToxCore {
      */
     EMPTY
   }
-
+  /**
+   * A list of pre-defined file kinds. Toxcore itself does not behave
+   * differently for different file kinds. These are a hint to the client
+   * telling it what use the sender intended for the file. The `kind` parameter
+   * in the send function and recv callback are `uint32_t`, not TOX_FILE_KIND, because
+   * clients can invent their own file kind. Unknown file kinds should be
+   * treated as TOX_FILE_KIND_DATA.
+   */
   [CCode(cname = "int", cprefix = "TOX_FILE_KIND_", has_type_id = false)]
   public enum FileKind {
     /**
@@ -775,7 +806,7 @@ namespace ToxCore {
     AVATAR
   }
 
-  [CCode(cname = "TOX_FILE_CONTROL", cprefix = "TOX_FILE_CONTROL_", has_type_id = false)]
+  [CCode(cname = "Tox_File_Control", cprefix = "TOX_FILE_CONTROL_", has_type_id = false)]
   public enum FileControl {
     /**
      * Sent by the receiving side to accept a file send request. Also sent after a
@@ -796,7 +827,7 @@ namespace ToxCore {
     CANCEL
   }
 
-  [CCode(cname = "TOX_ERR_FILE_CONTROL", cprefix = "TOX_ERR_FILE_CONTROL_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_File_Control", cprefix = "TOX_ERR_FILE_CONTROL_", has_type_id = false)]
   public enum ErrFileControl {
     /**
      * The function returned successfully.
@@ -833,7 +864,7 @@ namespace ToxCore {
     SENDQ
   }
 
-  [CCode(cname = "TOX_ERR_FILE_SEEK", cprefix = "TOX_ERR_FILE_SEEK_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_File_Seek", cprefix = "TOX_ERR_FILE_SEEK_", has_type_id = false)]
   public enum ErrFileSeek {
     /**
      * The function returned successfully.
@@ -865,7 +896,7 @@ namespace ToxCore {
     SENDQ
   }
 
-  [CCode(cname = "TOX_ERR_FILE_GET", cprefix = "TOX_ERR_FILE_GET_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_File_Get", cprefix = "TOX_ERR_FILE_GET_", has_type_id = false)]
   public enum ErrFileGet {
     /**
      * The function returned successfully.
@@ -885,7 +916,7 @@ namespace ToxCore {
     NOT_FOUND
   }
 
-  [CCode(cname = "TOX_ERR_FILE_SEND", cprefix = "TOX_ERR_FILE_SEND_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_File_Send", cprefix = "TOX_ERR_FILE_SEND_", has_type_id = false)]
   public enum ErrFileSend {
     /**
      * The function returned successfully.
@@ -914,7 +945,7 @@ namespace ToxCore {
     TOO_MANY
   }
 
-  [CCode(cname = "TOX_ERR_FILE_SEND_CHUNK", cprefix = "TOX_ERR_FILE_SEND_CHUNK_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_File_Send_Chunk", cprefix = "TOX_ERR_FILE_SEND_CHUNK_", has_type_id = false)]
   public enum ErrFileSendChunk {
     /**
      * The function returned successfully.
@@ -960,7 +991,7 @@ namespace ToxCore {
   /**
    * Conference types for the conference_invite event.
    */
-  [CCode(cname = "TOX_CONFERENCE_TYPE", cprefix = "TOX_CONFERENCE_TYPE_", has_type_id = false)]
+  [CCode(cname = "Tox_Conference_Type", cprefix = "TOX_CONFERENCE_TYPE_", has_type_id = false)]
   public enum ConferenceType {
     /**
      * Text-only conferences that must be accepted with the {@link Tox.conference_join} function.
@@ -972,7 +1003,7 @@ namespace ToxCore {
     AV
   }
 
-  [CCode(cname = "TOX_ERR_CONFERENCE_NEW", cprefix = "TOX_ERR_CONFERENCE_NEW_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_New", cprefix = "TOX_ERR_CONFERENCE_NEW_", has_type_id = false)]
   public enum ErrConferenceNew {
     /**
      * The function returned successfully.
@@ -984,7 +1015,7 @@ namespace ToxCore {
     INIT
   }
 
-  [CCode(cname = "TOX_ERR_CONFERENCE_DELETE", cprefix = "TOX_ERR_CONFERENCE_DELETE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_Delete", cprefix = "TOX_ERR_CONFERENCE_DELETE_", has_type_id = false)]
   public enum ErrConferenceDelete {
     /**
      * The function returned successfully.
@@ -999,7 +1030,7 @@ namespace ToxCore {
   /**
    * Error codes for peer info queries.
    */
-  [CCode(cname = "TOX_ERR_CONFERENCE_PEER_QUERY", cprefix = "TOX_ERR_CONFERENCE_PEER_QUERY_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_Peer_Query", cprefix = "TOX_ERR_CONFERENCE_PEER_QUERY_", has_type_id = false)]
   public enum ErrConferencePeerQuery {
     /**
      * The function returned successfully.
@@ -1019,7 +1050,7 @@ namespace ToxCore {
     NO_CONNECTION
   }
 
-  [CCode(cname = "TOX_ERR_CONFERENCE_INVITE", cprefix = "TOX_ERR_CONFERENCE_INVITE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_Invite", cprefix = "TOX_ERR_CONFERENCE_INVITE_", has_type_id = false)]
   public enum ErrConferenceInvite {
     /**
      * The function returned successfully.
@@ -1032,10 +1063,14 @@ namespace ToxCore {
     /**
      * The invite packet failed to send.
      */
-    FAIL_SEND
+    FAIL_SEND,
+    /**
+     * The client is not connected to the conference.
+     */
+    NO_CONNECTION
   }
 
-  [CCode(cname = "TOX_ERR_CONFERENCE_JOIN", cprefix = "TOX_ERR_CONFERENCE_JOIN_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_Join", cprefix = "TOX_ERR_CONFERENCE_JOIN_", has_type_id = false)]
   public enum ErrConferenceJoin {
     /**
      * The function returned successfully.
@@ -1067,7 +1102,7 @@ namespace ToxCore {
     FAIL_SEND
   }
 
-  [CCode(cname = "TOX_ERR_CONFERENCE_SEND_MESSAGE", cprefix = "TOX_ERR_CONFERENCE_SEND_MESSAGE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_Send_Message", cprefix = "TOX_ERR_CONFERENCE_SEND_MESSAGE_", has_type_id = false)]
   public enum ErrConferenceSendMessage {
     /**
      * The function returned successfully.
@@ -1091,7 +1126,7 @@ namespace ToxCore {
     FAIL_SEND
   }
 
-  [CCode(cname = "TOX_ERR_CONFERENCE_TITLE", cprefix = "TOX_ERR_CONFERENCE_TITLE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_Title", cprefix = "TOX_ERR_CONFERENCE_TITLE_", has_type_id = false)]
   public enum ErrConferenceTitle {
     /**
      * The function returned successfully.
@@ -1115,7 +1150,7 @@ namespace ToxCore {
    * Returns the type of conference ({@link ConferenceType}) that conference_number is. Return value is
    * unspecified on failure.
    */
-  [CCode(cname = "TOX_ERR_CONFERENCE_GET_TYPE", cprefix = "TOX_ERR_CONFERENCE_GET_TYPE_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_Get_Type", cprefix = "TOX_ERR_CONFERENCE_GET_TYPE_", has_type_id = false)]
   public enum ErrConferenceGetType {
     /**
      * The function returned successfully.
@@ -1127,7 +1162,23 @@ namespace ToxCore {
     CONFERENCE_NOT_FOUND
   }
 
-  [CCode(cname = "TOX_ERR_FRIEND_CUSTOM_PACKET", cprefix = "TOX_ERR_FRIEND_CUSTOM_PACKET_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Conference_By_Id", cprefix = "TOX_ERR_CONFERENCE_BY_ID_", has_type_id = false)]
+  public enum ErrConferenceById {
+    /**
+     * The function returned successfully.
+     */
+    OK,
+    /**
+     * One of the arguments to the function was NULL when it was not expected.
+     */
+    NULL,
+    /**
+     * No conference with the given id exists on the conference list.
+     */
+    NOT_FOUND
+  }
+
+  [CCode(cname = "Tox_Err_Friend_Custom_Packet", cprefix = "TOX_ERR_FRIEND_CUSTOM_PACKET_", has_type_id = false)]
   public enum ErrFriendCustomPacket {
     /**
      * The function returned successfully.
@@ -1164,7 +1215,7 @@ namespace ToxCore {
     SENDQ
   }
 
-  [CCode(cname = "TOX_ERR_GET_PORT", cprefix = "TOX_ERR_GET_PORT_", has_type_id = false)]
+  [CCode(cname = "Tox_Err_Get_Port", cprefix = "TOX_ERR_GET_PORT_", has_type_id = false)]
   public enum ErrGetPort {
     /**
      * The function returned successfully.
@@ -1224,14 +1275,15 @@ namespace ToxCore {
      * This function will attempt to connect to the node using UDP. You must use
      * this function even if {@link Options.udp_enabled} was set to false.
      *
-     * @param address The hostname or IP address (IPv4 or IPv6) of the node.
+     * @param host The hostname or IP address (IPv4 or IPv6) of the node. Must be
+     *   at most TOX_MAX_HOSTNAME_LENGTH chars, including the NUL byte.
      * @param port The port on the host on which the bootstrap Tox instance is
      *   listening.
      * @param public_key The long term public key of the bootstrap node
      *   ({@link PUBLIC_KEY_SIZE} bytes).
      * @return true on success.
      */
-    public bool bootstrap(string address,
+    public bool bootstrap(string host,
                           uint16 port,
                           [CCode(array_length = false)] uint8[] public_key,
                           out ErrBootstrap error);
@@ -1243,13 +1295,14 @@ namespace ToxCore {
      * the same bootstrap node, or to add TCP relays without using them as
      * bootstrap nodes.
      *
-     * @param address The hostname or IP address (IPv4 or IPv6) of the TCP relay.
+     * @param host The hostname or IP address (IPv4 or IPv6) of the TCP relay.
+     *   Must be at most TOX_MAX_HOSTNAME_LENGTH chars, including the NUL byte.
      * @param port The port on the host on which the TCP relay is listening.
      * @param public_key The long term public key of the TCP relay
      *   ({@link PUBLIC_KEY_SIZE} bytes).
      * @return true on success.
      */
-    public bool add_tcp_relay(string address,
+    public bool add_tcp_relay(string host,
                               uint16 port,
                               [CCode(array_length = false)] uint8[] public_key,
                               out ErrBootstrap error);
@@ -1442,7 +1495,7 @@ namespace ToxCore {
      *   the friend you wish to add) it must be {@link ADDRESS_SIZE} bytes.
      * @param message The message that will be sent along with the friend request.
      *
-     * @return the friend number on success, {@link uint32.MAX} on failure.
+     * @return the friend number on success, an unspecified value on failure.
      */
     [CCode(cname = "vala_tox_friend_add")]
     public uint32 friend_add(uint8[] address, string message, out ErrFriendAdd error) {
@@ -1464,7 +1517,7 @@ namespace ToxCore {
      * @param public_key A byte array of length {@link PUBLIC_KEY_SIZE} containing the
      *   Public Key (not the Address) of the friend to add.
      *
-     * @return the friend number on success, UINT32_MAX on failure.
+     * @return the friend number on success, an unspecified value on failure.
      * see {@link Tox.friend_add} for a more detailed description of friend numbers.
      */
     public uint32 friend_add_norequest([CCode(array_length = false)] uint8[] public_key, out ErrFriendAdd error);
@@ -1485,7 +1538,7 @@ namespace ToxCore {
     /**
      * Return the friend number associated with that Public Key.
      *
-     * @return the friend number on success, UINT32_MAX on failure.
+     * @return the friend number on success, an unspecified value on failure.
      * @param public_key A byte array containing the Public Key.
      */
     public uint32 friend_by_public_key([CCode(array_length = false)] uint8[] public_key, out ErrFriendByPublicKey error);
@@ -1927,7 +1980,7 @@ namespace ToxCore {
      *
      * @return A file number used as an identifier in subsequent callbacks. This
      *   number is per friend. File numbers are reused after a transfer terminates.
-     *   On failure, this function returns UINT32_MAX. Any pattern in file numbers
+     *   On failure, this function returns an unspecified value. Any pattern in file numbers
      *   should not be relied on.
      */
     [CCode(cname = "vala_tox_file_send")]
@@ -1996,7 +2049,7 @@ namespace ToxCore {
      *   transfer request.
      * @param file_number The friend-specific file number the data received is
      *   associated with.
-     * @param kind The meaning of the file to be sent.
+     * @param kind The meaning of the file that was sent.
      * @param file_size Size in bytes of the file the client wants to send,
      *   UINT64_MAX if unknown or streaming.
      * @param filename Name of the file. Does not need to be the actual name. This
@@ -2056,6 +2109,20 @@ namespace ToxCore {
      * This event is triggered when the client is invited to join a conference.
      */
     public void callback_conference_invite(ConferenceInviteCallback callback);
+
+    /**
+     * @param conference_number The conference number of the conference to which we have connected.
+     */
+    [CCode(cname = "tox_conference_connected_cb", has_target = false, has_type_id = false)]
+    public delegate void ConferenceConnectedCallback (Tox self, uint32 conference_number, void *user_data);
+
+    /**
+     * Set the callback for the `conference_connected` event. Pass NULL to unset.
+     *
+     * This event is triggered when the client successfully connects to a
+     * conference after joining it with the {@link Tox.conference_join} function.
+     */
+    public void callback_conference_connected(ConferenceConnectedCallback callback);
 
     /**
      * @param conference_number The conference number of the conference the message is intended for.
@@ -2135,7 +2202,7 @@ namespace ToxCore {
      *
      * This function creates a new text conference.
      *
-     * @return conference number on success, or UINT32_MAX on failure.
+     * @return conference number on success, or an unspecified value on failure.
      */
     public uint32 conference_new(out ErrConferenceNew error);
 
@@ -2195,6 +2262,10 @@ namespace ToxCore {
     /**
      * Invites a friend to a conference.
      *
+     * We must be connected to the conference, meaning that the conference has not
+     * been deleted, and either we created the conference with the {@link Tox.conference_new} function,
+     * or a `conference_connected` event has occurred for the conference.
+     *
      * @param friend_number The friend number of the friend we want to invite.
      * @param conference_number The conference number of the conference we want to invite the friend to.
      *
@@ -2208,7 +2279,7 @@ namespace ToxCore {
      * @param friend_number The friend number of the friend who sent the invite.
      * @param cookie Received via the `conference_invite` event.
      *
-     * @return conference number on success, UINT32_MAX on failure.
+     * @return conference number on success, an unspecified value on failure.
      */
     public uint32 conference_join(uint32 friend_number, uint8[] cookie, out ErrConferenceJoin error);
 
@@ -2291,6 +2362,28 @@ namespace ToxCore {
     }
 
     public ConferenceType conference_get_type(uint32 conference_number, out ErrConferenceGetType error);
+
+    [CCode(cname = "tox_conference_get_id")]
+    private bool _conference_get_id(uint32 conference_number, [CCode(array_length = false)] uint8[] id);
+    /**
+     * Get the conference unique ID.
+     *
+     * @return conference id on success or null.
+     */
+    [CCode(cname = "vala_tox_conference_get_id")]
+    public uint8[]? conference_get_id(uint32 conference_number) {
+      var t = new uint8[CONFERENCE_ID_SIZE];
+      return _conference_get_id(conference_number, t) ? t : null;
+    }
+
+    /**
+     * Return the conference number associated with the specified id.
+     *
+     * @param id A byte array containing the conference id (TOX_CONFERENCE_ID_SIZE).
+     *
+     * @return the conference number on success, an unspecified value on failure.
+     */
+    public uint32 conference_by_id([CCode(array_length = false)] uint8[] id, out ErrConferenceById error);
 
     /**
      * Send a custom lossy packet to a friend.

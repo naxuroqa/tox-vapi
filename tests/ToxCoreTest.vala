@@ -646,6 +646,40 @@ namespace Tests {
       assert(!ret);
     }
 
+    private static void test_conference_get_id() {
+      var err_new = ErrNew.OK;
+      var tox = new Tox(null, out err_new);
+      var ret = tox.conference_get_id(0);
+      assert(ret == null);
+    }
+
+    private static void test_conference_get_by_id() {
+      var err_new = ErrNew.OK;
+      var tox = new Tox(null, out err_new);
+      var id = new uint8[CONFERENCE_ID_SIZE];
+      var err_conference_by_id = ErrConferenceById.OK;
+      var ret = tox.conference_by_id(id, out err_conference_by_id);
+      assert(err_conference_by_id == ErrConferenceById.NOT_FOUND);
+    }
+
+    private static void test_conference_get_id_matches_get_by_id() {
+      var err_new = ErrNew.OK;
+      var tox = new Tox(null, out err_new);
+      var err_conference_new = ErrConferenceNew.OK;
+      var ret = tox.conference_new(out err_conference_new);
+
+      assert(err_conference_new == ErrConferenceNew.OK);
+      assert(ret == 0);
+
+      var id = tox.conference_get_id(ret);
+      assert(id != null);
+
+      var err_conference_by_id = ErrConferenceById.OK;
+      var conference_number = tox.conference_by_id(id, out err_conference_by_id);
+      assert(err_conference_by_id == ErrConferenceById.OK);
+      assert(conference_number == ret);
+    }
+
     private static void test_hash() {
       var data1 = new uint8[] { 0, 1, 2, 3, 4 };
       var data2 = new uint8[] { 0, 1, 2, 3, 4 };
@@ -670,6 +704,7 @@ namespace Tests {
     private static void conference_peer_list_changed_cb(Tox self, uint32 conference_number, void* user_data) {}
     private static void conference_peer_name_cb(Tox self, uint32 conference_number, uint32 peer_number, uint8[] name, void* user_data) {}
     private static void conference_title_cb(Tox self, uint32 conference_number, uint32 peer_number, uint8[] name, void* user_data) {}
+    private static void conference_connected_cb(Tox self, uint32 conference_number, void *user_data) {}
     private static void file_chunk_request_cb(Tox self, uint32 friend_number, uint32 file_number, uint64 position, size_t length, void* user_data) {}
     private static void file_recv_cb(Tox self, uint32 friend_number, uint32 file_number, uint32 kind, uint64 file_size, uint8[] filename, void* user_data) {}
     private static void file_recv_chunk_cb(Tox self, uint32 friend_number, uint32 file_number, uint64 position, uint8[] data, void* user_data) {}
@@ -694,6 +729,7 @@ namespace Tests {
       tox.callback_conference_peer_list_changed(conference_peer_list_changed_cb);
       tox.callback_conference_peer_name(conference_peer_name_cb);
       tox.callback_conference_title(conference_title_cb);
+      tox.callback_conference_connected(conference_connected_cb);
       tox.callback_file_chunk_request(file_chunk_request_cb);
       tox.callback_file_recv(file_recv_cb);
       tox.callback_file_recv_chunk(file_recv_chunk_cb);
@@ -749,6 +785,9 @@ namespace Tests {
       assert(ErrConferenceTitle.OK != ErrConferenceTitle.CONFERENCE_NOT_FOUND);
       assert(ErrConferenceTitle.OK != ErrConferenceTitle.INVALID_LENGTH);
       assert(ErrConferenceTitle.OK != ErrConferenceTitle.FAIL_SEND);
+
+      assert(ErrConferenceById.OK != ErrConferenceById.NULL);
+      assert(ErrConferenceById.OK != ErrConferenceById.NOT_FOUND);
 
       assert(ErrFileControl.OK != ErrFileControl.FRIEND_NOT_FOUND);
       assert(ErrFileControl.OK != ErrFileControl.FRIEND_NOT_CONNECTED);
@@ -918,6 +957,9 @@ namespace Tests {
       Test.add_func(PREFIX + "test_conference_peer_number_is_ours", test_conference_peer_number_is_ours);
       Test.add_func(PREFIX + "test_conference_send_message", test_conference_send_message);
       Test.add_func(PREFIX + "test_conference_set_title", test_conference_set_title);
+      Test.add_func(PREFIX + "test_conference_get_id", test_conference_get_id);
+      Test.add_func(PREFIX + "test_conference_get_by_id", test_conference_get_by_id);
+      Test.add_func(PREFIX + "test_conference_get_id_matches_get_by_id", test_conference_get_id_matches_get_by_id);
       Test.add_func(PREFIX + "test_hash", test_hash);
       Test.add_func(PREFIX + "test_callbacks", test_callbacks);
       Test.add_func(PREFIX + "test_enums", test_enums);
