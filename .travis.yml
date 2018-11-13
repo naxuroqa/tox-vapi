@@ -6,8 +6,8 @@ before_install:
     - sudo apt-get update --quiet
     - sudo apt-get install --yes libsodium-dev libconfig-dev libopus-dev libvpx-dev cmake
     - sudo apt-get install --yes valac valadoc libglib2.0-dev
-    - wget https://github.com/TokTok/c-toxcore/archive/v0.2.1.tar.gz
-    - tar -xzf v0.2.1.tar.gz && cd c-toxcore-0.2.1/build
+    - wget https://github.com/TokTok/c-toxcore/archive/v0.2.8.tar.gz
+    - tar -xzf v0.2.8.tar.gz && cd c-toxcore-0.2.8/build
     - cmake -D BUILD_AV_TEST=OFF -D CMAKE_INSTALL_PREFIX=/usr -D DEBUG=ON ..
     - make && sudo make install && cd ../..
 
