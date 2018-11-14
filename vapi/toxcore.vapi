@@ -1,3 +1,129 @@
+/*
+ * The Tox public API.
+ */
+
+/*
+ * Copyright © 2016-2018 The TokTok team.
+ * Copyright © 2013 Tox project.
+ *
+ * This file is part of Tox, the free peer to peer instant messenger.
+ *
+ * Tox is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Tox is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Tox.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * ''Tox'' is a peer to peer (serverless) instant messenger aimed at making
+ * security and privacy easy to obtain for regular users. It uses
+ * [[https://nacl.cr.yp.to/|NaCl]] for its encryption and authentication.
+ *
+ *  * ''C-Documentation:'' [[https://github.com/TokTok/c-toxcore]]
+ *  * ''Binding-Maintainer(s):'' [[mailto:naxuroqa@gmail.com|naxuroqa <naxuroqa@gmail.com>]]
+ *
+ * == Public core API for Tox clients ==
+ *
+ * Every function that can fail takes a function-specific error code pointer
+ * that can be used to diagnose problems with the Tox state or the function
+ * arguments. The error code pointer can be NULL, which does not influence the
+ * function's behaviour, but can be done if the reason for failure is irrelevant
+ * to the client.
+ *
+ * The exception to this rule are simple allocation functions whose only failure
+ * mode is allocation failure. They return NULL in that case, and do not set an
+ * error code.
+ *
+ * Every error code type has an OK value to which functions will set their error
+ * code value on success. Clients can keep their error code uninitialised before
+ * passing it to a function. The library guarantees that after returning, the
+ * value pointed to by the error code pointer has been initialised.
+ *
+ * Functions with pointer parameters often have a NULL error code, meaning they
+ * could not perform any operation, because one of the required parameters was
+ * NULL. Some functions operate correctly or are defined as effectless on NULL.
+ *
+ * Some functions additionally return a value outside their
+ * return type domain, or a bool containing true on success and false on
+ * failure.
+ *
+ * All functions that take a Tox instance pointer will cause undefined behaviour
+ * when passed a NULL Tox pointer.
+ *
+ * All integer values are expected in host byte order.
+ *
+ * Functions with parameters with enum types cause unspecified behaviour if the
+ * enumeration value is outside the valid range of the type. If possible, the
+ * function will try to use a sane default, but there will be no error code,
+ * and one possible action for the function to take is to have no effect.
+ *
+ * Integer constants and the memory layout of publicly exposed structs are not
+ * part of the ABI.
+ *
+ * === Events and callbacks ===
+ *
+ * Events are handled by callbacks. One callback can be registered per event.
+ * All events have a callback function type named `tox_{event}_cb` and a
+ * function to register it named `tox_callback_{event}`. Passing a NULL
+ * callback will result in no callback being registered for that event. Only
+ * one callback per event can be registered, so if a client needs multiple
+ * event listeners, it needs to implement the dispatch functionality itself.
+ *
+ * The last argument to a callback is the user data pointer. It is passed from
+ * tox_iterate to each callback in sequence.
+ *
+ * The user data pointer is never stored or dereferenced by any library code, so
+ * can be any pointer, including NULL. Callbacks must all operate on the same
+ * object type. In the apidsl code (tox.in.h), this is denoted with `any`. The
+ * `any` in tox_iterate must be the same `any` as in all callbacks. In C,
+ * lacking parametric polymorphism, this is a pointer to void.
+ *
+ * Old style callbacks that are registered together with a user data pointer
+ * receive that pointer as argument when they are called. They can each have
+ * their own user data pointer of their own type.
+ *
+ *
+ * === Threading implications ===
+ *
+ * It is possible to run multiple concurrent threads with a Tox instance for
+ * each thread. It is also possible to run all Tox instances in the same thread.
+ * A common way to run Tox (multiple or single instance) is to have one thread
+ * running a simple tox_iterate loop, sleeping for tox_iteration_interval
+ * milliseconds on each iteration.
+ *
+ * If you want to access a single Tox instance from multiple threads, access
+ * to the instance must be synchronised. While multiple threads can concurrently
+ * access multiple different Tox instances, no more than one API function can
+ * operate on a single instance at any given time.
+ *
+ * Functions that write to variable length byte arrays will always have a size
+ * function associated with them. The result of this size function is only valid
+ * until another mutating function (one that takes a pointer to non-const Tox)
+ * is called. Thus, clients must ensure that no other thread calls a mutating
+ * function between the call to the size function and the call to the retrieval
+ * function.
+ *
+ * E.g. to get the current nickname, one would write
+ *
+ * {{{
+ *   size_t length = tox_self_get_name_size(tox);
+ *   uint8_t *name = malloc(length);
+ *   if (!name) abort();
+ *   tox_self_get_name(tox, name);
+ * }}}
+ *
+ * If any other thread calls tox_self_set_name while this thread is allocating
+ * memory, the length may have become invalid, and the call to
+ * tox_self_get_name may cause undefined behaviour.
+ */
 [CCode(cheader_filename = "tox/tox.h", cprefix = "Tox_", lower_case_cprefix = "tox_")]
 namespace ToxCore {
   namespace Version {
@@ -64,6 +190,16 @@ namespace ToxCore {
    * The size of a Tox Secret Key in bytes.
    */
   public static uint32 secret_key_size();
+  /**
+   * The size of a Tox Conference unique id in bytes.
+   */
+  [Version(since = "0.2.4", deprecated = true, deprecated_since = "0.2.5", replacement = "CONFERENCE_ID_SIZE")]
+  public const uint32 CONFERENCE_UID_SIZE;
+  /**
+   * The size of a Tox Conference unique id in bytes.
+   */
+  [Version(since = "0.2.4", deprecated = true, deprecated_since = "0.2.5", replacement = "conference_id_size")]
+  public static uint32 conference_uid_size();
   /**
    * The size of a Tox Conference unique id in bytes.
    */
@@ -176,7 +312,7 @@ namespace ToxCore {
    * This length does not include the NUL byte. Hostnames are NUL-terminated C
    * strings, so they are 255 characters plus one NUL byte.
    */
-  [Version(deprecated = true, deprecated_since = "0.2.1", replacement = "max_hostname_length")]
+  [Version(since = "0.2.3", deprecated = true, deprecated_since = "0.2.3", replacement = "max_hostname_length")]
   public const uint32 MAX_HOSTNAME_LENGTH;
   /**
    * Maximum length of a hostname, e.g. proxy or bootstrap node names.
@@ -184,6 +320,7 @@ namespace ToxCore {
    * This length does not include the NUL byte. Hostnames are NUL-terminated C
    * strings, so they are 255 characters plus one NUL byte.
    */
+  [Version(since = "0.2.3")]
   public static uint32 max_hostname_length();
   /**
    * Represents the possible statuses a client can have.
@@ -1067,6 +1204,7 @@ namespace ToxCore {
     /**
      * The client is not connected to the conference.
      */
+    [Version(since = "0.2.5")]
     NO_CONNECTION
   }
 
@@ -1162,6 +1300,24 @@ namespace ToxCore {
     CONFERENCE_NOT_FOUND
   }
 
+  [Version(since = "0.2.4", deprecated = true, deprecated_since = "0.2.5", replacement = "ErrConferenceById")]
+  [CCode(cname = "Tox_Err_Conference_By_Uid", cprefix = "TOX_ERR_CONFERENCE_BY_UID_", has_type_id = false)]
+  public enum ErrConferenceByUId {
+    /**
+     * The function returned successfully.
+     */
+    OK,
+    /**
+     * One of the arguments to the function was NULL when it was not expected.
+     */
+    NULL,
+    /**
+     * No conference with the given id exists on the conference list.
+     */
+    NOT_FOUND
+  }
+
+  [Version(since = "0.2.5")]
   [CCode(cname = "Tox_Err_Conference_By_Id", cprefix = "TOX_ERR_CONFERENCE_BY_ID_", has_type_id = false)]
   public enum ErrConferenceById {
     /**
@@ -2113,6 +2269,7 @@ namespace ToxCore {
     /**
      * @param conference_number The conference number of the conference to which we have connected.
      */
+    [Version(since = "0.2.6")]
     [CCode(cname = "tox_conference_connected_cb", has_target = false, has_type_id = false)]
     public delegate void ConferenceConnectedCallback (Tox self, uint32 conference_number, void *user_data);
 
@@ -2122,6 +2279,7 @@ namespace ToxCore {
      * This event is triggered when the client successfully connects to a
      * conference after joining it with the {@link Tox.conference_join} function.
      */
+    [Version(since = "0.2.6")]
     public void callback_conference_connected(ConferenceConnectedCallback callback);
 
     /**
@@ -2362,6 +2520,30 @@ namespace ToxCore {
     }
 
     public ConferenceType conference_get_type(uint32 conference_number, out ErrConferenceGetType error);
+
+    [CCode(cname = "tox_conference_get_uid")]
+    private bool _conference_get_uid(uint32 conference_number, [CCode(array_length = false)] uint8[] id);
+    /**
+     * Get the conference unique ID.
+     *
+     * @return conference id on success or null.
+     */
+    [Version(since = "0.2.4", deprecated = true, deprecated_since = "0.2.5", replacement = "conference_get_id")]
+    [CCode(cname = "vala_tox_conference_get_uid")]
+    public uint8[]? conference_get_uid(uint32 conference_number) {
+      var t = new uint8[CONFERENCE_ID_SIZE];
+      return _conference_get_uid(conference_number, t) ? t : null;
+    }
+
+    /**
+     * Return the conference number associated with the specified id.
+     *
+     * @param id A byte array containing the conference id (TOX_CONFERENCE_ID_SIZE).
+     *
+     * @return the conference number on success, an unspecified value on failure.
+     */
+    [Version(since = "0.2.4", deprecated = true, deprecated_since = "0.2.5", replacement = "conference_by_id")]
+    public uint32 conference_by_uid([CCode(array_length = false)] uint8[] id, out ErrConferenceByUId error);
 
     [CCode(cname = "tox_conference_get_id")]
     private bool _conference_get_id(uint32 conference_number, [CCode(array_length = false)] uint8[] id);
