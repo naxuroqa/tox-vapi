@@ -48,19 +48,20 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Enum values:</h3>
         <ul class="navi_inline">
-          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.OK.html">OK</a></li>
-          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.NULL.html">NULL</a> - <span class="brief_description">One of the arguments to 
-              the function was NULL when it was not expected.</span></li>
+          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.BAD_FORMAT.html">BAD_FORMAT</a> - <span class="brief_description">The input data
+              is missing the magic number (i.e. wasn't created by this module, or is corrupted).</span></li>
+          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.FAILED.html">FAILED</a> - <span class="brief_description">The encrypted byte 
+              array could not be decrypted. Either the data was corrupted or the password/key was incorrect.</span></li>
           <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.INVALID_LENGTH.html">INVALID_LENGTH</a> - <span class="brief_description">The 
               input data was shorter than <a href="ToxEncryptSave.pass_encryption_extra_length.html" class="method">pass_encryption_extra_length</a> 
               bytes</span></li>
-          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.BAD_FORMAT.html">BAD_FORMAT</a> - <span class="brief_description">The input data
-              is missing the magic number (i.e. wasn't created by this module, or is corrupted).</span></li>
           <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.KEY_DERIVATION_FAILED.html">KEY_DERIVATION_FAILED</a> - 
             <span class="brief_description">The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory 
               issue. The functions accepting keys do not produce this error.</span></li>
-          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.FAILED.html">FAILED</a> - <span class="brief_description">The encrypted byte 
-              array could not be decrypted. Either the data was corrupted or the password/key was incorrect.</span></li>
+          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.NULL.html">NULL</a> - <span class="brief_description">One of the arguments to 
+              the function was NULL when it was not expected.</span></li>
+          <li class="enumvalue"><a href="ToxEncryptSave.ErrDecryption.OK.html">OK</a> - <span class="brief_description">The function returned 
+              successfully.</span></li>
         </ul>
       </div>
     </div><br/>

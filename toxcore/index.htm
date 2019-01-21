@@ -42,33 +42,20 @@
           </ul>
           <h3 class="main_title">Enums:</h3>
           <ul class="navi_inline">
-            <li class="enum"><a href="ToxAV.ErrNew.html">ErrNew</a></li>
-            <li class="enum"><a href="ToxAV.ErrCall.html">ErrCall</a></li>
-            <li class="enum"><a href="ToxAV.ErrAnswer.html">ErrAnswer</a></li>
-            <li class="enum"><a href="ToxAV.FriendCallState.html">FriendCallState</a></li>
             <li class="enum"><a href="ToxAV.CallControl.html">CallControl</a></li>
-            <li class="enum"><a href="ToxAV.ErrCallControl.html">ErrCallControl</a></li>
+            <li class="enum"><a href="ToxAV.ErrAnswer.html">ErrAnswer</a></li>
             <li class="enum"><a href="ToxAV.ErrBitRateSet.html">ErrBitRateSet</a></li>
+            <li class="enum"><a href="ToxAV.ErrCall.html">ErrCall</a></li>
+            <li class="enum"><a href="ToxAV.ErrCallControl.html">ErrCallControl</a></li>
+            <li class="enum"><a href="ToxAV.ErrNew.html">ErrNew</a></li>
             <li class="enum"><a href="ToxAV.ErrSendFrame.html">ErrSendFrame</a></li>
+            <li class="enum"><a href="ToxAV.FriendCallState.html">FriendCallState</a></li>
           </ul>
           <h3 class="main_title">Delegates:</h3>
           <ul class="navi_inline">
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallCallback.html" class="delegate">CallCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">bool</span></span> audio_enabled, <span class="main_basic_type"><span class="struct">bool</span></span> video_enabled)
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The function type for the call callback.</span>
-              </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallStateCallback.html" class="delegate">CallStateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxAV.FriendCallState.html" class="enum">FriendCallState</a></span> state)
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The function type for the call_state callback.</span>
-              </div></li>
             <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.AudioBitRateCallback.html" class="delegate">AudioBitRateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The function type for the audio_bit_rate callback. The event is 
-                  triggered when the network becomes too saturated for current bit rates at which point core suggests new bit rates.</span>
-              </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoBitRateCallback.html" class="delegate">VideoBitRateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate)
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The function type for the video_bit_rate callback. The event is 
                   triggered when the network becomes too saturated for current bit rates at which point core suggests new bit rates.</span>
               </div></li>
             <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.AudioReceiveFrameCallback.html" class="delegate">AudioReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">size_t</span></span> sample_count, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate)
@@ -77,13 +64,26 @@
                   can be called multiple times per single iteration depending on the amount of queued frames in the buffer. The received format is the
                   same as in send function.</span>
               </div></li>
-            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoReceiveFrameCallback.html" class="delegate">VideoReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint16</span></span> width, <span class="main_basic_type"><span class="struct">uint16</span></span> height, <span class="main_basic_type"><span class="struct">uint8</span></span>[] y, <span class="main_basic_type"><span class="struct">uint8</span></span>[] u, <span class="main_basic_type"><span class="struct">uint8</span></span>[] v, <span class="main_basic_type"><span class="struct">int32</span></span> ystride, <span class="main_basic_type"><span class="struct">int32</span></span> ustride, <span class="main_basic_type"><span class="struct">int32</span></span> vstride)
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallCallback.html" class="delegate">CallCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">bool</span></span> audio_enabled, <span class="main_basic_type"><span class="struct">bool</span></span> video_enabled)
               </span>
-              <div class="leaf_brief_description"><span class="brief_description">The function type for the video_receive_frame callback.</span>
+              <div class="leaf_brief_description"><span class="brief_description">The function type for the call callback.</span>
+              </div></li>
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.CallStateCallback.html" class="delegate">CallStateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxAV.FriendCallState.html" class="enum">FriendCallState</a></span> state)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The function type for the call_state callback.</span>
               </div></li>
             <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> self, <span class="main_basic_type"><span class="struct">uint32</span></span> group_number, <span class="main_basic_type"><span class="struct">uint32</span></span> peer_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">uint</span></span> samples, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate)
               </span>
               <div class="leaf_brief_description">
+              </div></li>
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoBitRateCallback.html" class="delegate">VideoBitRateCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The function type for the video_bit_rate callback. The event is 
+                  triggered when the network becomes too saturated for current bit rates at which point core suggests new bit rates.</span>
+              </div></li>
+            <li class="delegate"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">delegate</span> <span class="main_keyword">void</span> <b><a href="ToxAV.VideoReceiveFrameCallback.html" class="delegate">VideoReceiveFrameCallback</a></b> (<span class="main_type"><a href="ToxAV.ToxAV.html" class="class">ToxAV</a></span> av, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint16</span></span> width, <span class="main_basic_type"><span class="struct">uint16</span></span> height, <span class="main_basic_type"><span class="struct">uint8</span></span>[] y, <span class="main_basic_type"><span class="struct">uint8</span></span>[] u, <span class="main_basic_type"><span class="struct">uint8</span></span>[] v, <span class="main_basic_type"><span class="struct">int32</span></span> ystride, <span class="main_basic_type"><span class="struct">int32</span></span> ustride, <span class="main_basic_type"><span class="struct">int32</span></span> vstride)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The function type for the video_receive_frame callback.</span>
               </div></li>
           </ul>
           <li class="namespace"><a href="ToxCore.html">ToxCore</a> - <span class="brief_description"><b>Tox</b> is a peer to peer (serverless) instant
@@ -91,8 +91,8 @@
               <a href="https://nacl.cr.yp.to/" target="_blank">NaCl</a> for its encryption and authentication.</span></li>
           <h3 class="main_title">Classes:</h3>
           <ul class="navi_inline">
-            <li class="class"><a href="ToxCore.Options.html">Options</a> - <span class="brief_description">This struct contains all the startup 
-                options for Tox.</span></li>
+            <li class="class"><a href="ToxCore.Options.html">Options</a> - <span class="brief_description">This class contains all the startup options
+                for Tox.</span></li>
             <li class="class"><a href="ToxCore.Tox.html">Tox</a> - <span class="brief_description">The Tox instance type. All the state associated 
                 with a connection is held within the instance. Multiple instances can exist and operate concurrently. The maximum number of Tox 
                 instances that can exist on a single network device is limited. Note that this is not just a per-process limit, since the limiting 
@@ -100,88 +100,107 @@
           </ul>
           <h3 class="main_title">Enums:</h3>
           <ul class="navi_inline">
-            <li class="enum"><a href="ToxCore.UserStatus.html">UserStatus</a> - <span class="brief_description">Represents the possible statuses a 
-                client can have.</span></li>
+            <li class="enum"><a href="ToxCore.ConferenceType.html">ConferenceType</a> - <span class="brief_description">Conference types for the 
+                conference_invite event.</span></li>
+            <li class="enum"><a href="ToxCore.Connection.html">Connection</a> - <span class="brief_description">Protocols that can be used to connect 
+                to the network or friends.</span></li>
+            <li class="enum"><a href="ToxCore.ErrBootstrap.html">ErrBootstrap</a></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceById.html">ErrConferenceById</a></li>
+            <li class="enum"><span class="deprecated"><a href="ToxCore.ErrConferenceByUId.html">ErrConferenceByUId</a></span></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceDelete.html">ErrConferenceDelete</a></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceGetType.html">ErrConferenceGetType</a> - <span class="brief_description">Returns the type 
+                of conference (<a href="ToxCore.ConferenceType.html" class="enum">ConferenceType</a>) that conference_number is. Return value is 
+                unspecified on failure.</span></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceInvite.html">ErrConferenceInvite</a></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceJoin.html">ErrConferenceJoin</a></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceNew.html">ErrConferenceNew</a></li>
+            <li class="enum"><a href="ToxCore.ErrConferencePeerQuery.html">ErrConferencePeerQuery</a> - <span class="brief_description">Error codes 
+                for peer info queries.</span></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceSendMessage.html">ErrConferenceSendMessage</a></li>
+            <li class="enum"><a href="ToxCore.ErrConferenceTitle.html">ErrConferenceTitle</a></li>
+            <li class="enum"><a href="ToxCore.ErrFileControl.html">ErrFileControl</a></li>
+            <li class="enum"><a href="ToxCore.ErrFileGet.html">ErrFileGet</a></li>
+            <li class="enum"><a href="ToxCore.ErrFileSeek.html">ErrFileSeek</a></li>
+            <li class="enum"><a href="ToxCore.ErrFileSend.html">ErrFileSend</a></li>
+            <li class="enum"><a href="ToxCore.ErrFileSendChunk.html">ErrFileSendChunk</a></li>
+            <li class="enum"><a href="ToxCore.ErrFriendAdd.html">ErrFriendAdd</a></li>
+            <li class="enum"><a href="ToxCore.ErrFriendByPublicKey.html">ErrFriendByPublicKey</a></li>
+            <li class="enum"><a href="ToxCore.ErrFriendCustomPacket.html">ErrFriendCustomPacket</a></li>
+            <li class="enum"><a href="ToxCore.ErrFriendDelete.html">ErrFriendDelete</a></li>
+            <li class="enum"><a href="ToxCore.ErrFriendGetLastOnline.html">ErrFriendGetLastOnline</a></li>
+            <li class="enum"><a href="ToxCore.ErrFriendGetPublicKey.html">ErrFriendGetPublicKey</a></li>
+            <li class="enum"><a href="ToxCore.ErrFriendQuery.html">ErrFriendQuery</a> - <span class="brief_description">Common error codes for friend 
+                state query functions.</span></li>
+            <li class="enum"><a href="ToxCore.ErrFriendSendMessage.html">ErrFriendSendMessage</a></li>
+            <li class="enum"><a href="ToxCore.ErrGetPort.html">ErrGetPort</a></li>
+            <li class="enum"><a href="ToxCore.ErrNew.html">ErrNew</a></li>
+            <li class="enum"><a href="ToxCore.ErrOptionsNew.html">ErrOptionsNew</a></li>
+            <li class="enum"><a href="ToxCore.ErrSetInfo.html">ErrSetInfo</a> - <span class="brief_description">Common error codes for all functions 
+                that set a piece of user-visible client information.</span></li>
+            <li class="enum"><a href="ToxCore.ErrSetTyping.html">ErrSetTyping</a></li>
+            <li class="enum"><a href="ToxCore.FileControl.html">FileControl</a></li>
+            <li class="enum"><a href="ToxCore.FileKind.html">FileKind</a> - <span class="brief_description">A list of pre-defined file kinds. Toxcore 
+                itself does not behave differently for different file kinds. These are a hint to the client telling it what use the sender intended 
+                for the file. The `kind` parameter in the send function and recv callback are `uint32_t`, not TOX_FILE_KIND, because clients can 
+                invent their own file kind. Unknown file kinds should be treated as TOX_FILE_KIND_DATA.</span></li>
+            <li class="enum"><a href="ToxCore.LogLevel.html">LogLevel</a> - <span class="brief_description">Severity level of log messages.</span>
+            </li>
             <li class="enum"><a href="ToxCore.MessageType.html">MessageType</a> - <span class="brief_description">Represents message types for 
                 tox_friend_send_message and conference messages.</span></li>
             <li class="enum"><a href="ToxCore.ProxyType.html">ProxyType</a> - <span class="brief_description">Type of proxy used to connect to TCP 
                 relays.</span></li>
             <li class="enum"><a href="ToxCore.SaveDataType.html">SaveDataType</a> - <span class="brief_description">Type of savedata to create the Tox
                 instance from.</span></li>
-            <li class="enum"><a href="ToxCore.LogLevel.html">LogLevel</a> - <span class="brief_description">Severity level of log messages.</span>
-            </li>
-            <li class="enum"><a href="ToxCore.ErrOptionsNew.html">ErrOptionsNew</a></li>
-            <li class="enum"><a href="ToxCore.ErrNew.html">ErrNew</a></li>
-            <li class="enum"><a href="ToxCore.ErrBootstrap.html">ErrBootstrap</a></li>
-            <li class="enum"><a href="ToxCore.Connection.html">Connection</a> - <span class="brief_description">Protocols that can be used to connect 
-                to the network or friends.</span></li>
-            <li class="enum"><a href="ToxCore.ErrSetInfo.html">ErrSetInfo</a> - <span class="brief_description">Common error codes for all functions 
-                that set a piece of user-visible client information.</span></li>
-            <li class="enum"><a href="ToxCore.ErrFriendAdd.html">ErrFriendAdd</a></li>
-            <li class="enum"><a href="ToxCore.ErrFriendDelete.html">ErrFriendDelete</a></li>
-            <li class="enum"><a href="ToxCore.ErrFriendByPublicKey.html">ErrFriendByPublicKey</a></li>
-            <li class="enum"><a href="ToxCore.ErrFriendGetPublicKey.html">ErrFriendGetPublicKey</a></li>
-            <li class="enum"><a href="ToxCore.ErrFriendGetLastOnline.html">ErrFriendGetLastOnline</a></li>
-            <li class="enum"><a href="ToxCore.ErrFriendQuery.html">ErrFriendQuery</a> - <span class="brief_description">Common error codes for friend 
-                state query functions.</span></li>
-            <li class="enum"><a href="ToxCore.ErrSetTyping.html">ErrSetTyping</a></li>
-            <li class="enum"><a href="ToxCore.ErrFriendSendMessage.html">ErrFriendSendMessage</a></li>
-            <li class="enum"><a href="ToxCore.FileKind.html">FileKind</a> - <span class="brief_description">A list of pre-defined file kinds. Toxcore 
-                itself does not behave differently for different file kinds. These are a hint to the client telling it what use the sender intended 
-                for the file. The `kind` parameter in the send function and recv callback are `uint32_t`, not TOX_FILE_KIND, because clients can 
-                invent their own file kind. Unknown file kinds should be treated as TOX_FILE_KIND_DATA.</span></li>
-            <li class="enum"><a href="ToxCore.FileControl.html">FileControl</a></li>
-            <li class="enum"><a href="ToxCore.ErrFileControl.html">ErrFileControl</a></li>
-            <li class="enum"><a href="ToxCore.ErrFileSeek.html">ErrFileSeek</a></li>
-            <li class="enum"><a href="ToxCore.ErrFileGet.html">ErrFileGet</a></li>
-            <li class="enum"><a href="ToxCore.ErrFileSend.html">ErrFileSend</a></li>
-            <li class="enum"><a href="ToxCore.ErrFileSendChunk.html">ErrFileSendChunk</a></li>
-            <li class="enum"><a href="ToxCore.ConferenceType.html">ConferenceType</a> - <span class="brief_description">Conference types for the 
-                conference_invite event.</span></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceNew.html">ErrConferenceNew</a></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceDelete.html">ErrConferenceDelete</a></li>
-            <li class="enum"><a href="ToxCore.ErrConferencePeerQuery.html">ErrConferencePeerQuery</a> - <span class="brief_description">Error codes 
-                for peer info queries.</span></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceInvite.html">ErrConferenceInvite</a></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceJoin.html">ErrConferenceJoin</a></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceSendMessage.html">ErrConferenceSendMessage</a></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceTitle.html">ErrConferenceTitle</a></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceGetType.html">ErrConferenceGetType</a> - <span class="brief_description">Returns the type 
-                of conference (<a href="ToxCore.ConferenceType.html" class="enum">ConferenceType</a>) that conference_number is. Return value is 
-                unspecified on failure.</span></li>
-            <li class="enum"><span class="deprecated"><a href="ToxCore.ErrConferenceByUId.html">ErrConferenceByUId</a></span></li>
-            <li class="enum"><a href="ToxCore.ErrConferenceById.html">ErrConferenceById</a></li>
-            <li class="enum"><a href="ToxCore.ErrFriendCustomPacket.html">ErrFriendCustomPacket</a></li>
-            <li class="enum"><a href="ToxCore.ErrGetPort.html">ErrGetPort</a></li>
+            <li class="enum"><a href="ToxCore.UserStatus.html">UserStatus</a> - <span class="brief_description">Represents the possible statuses a 
+                client can have.</span></li>
           </ul>
           <h3 class="main_title">Constants:</h3>
           <ul class="navi_inline">
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.PUBLIC_KEY_SIZE.html" class="constant">PUBLIC_KEY_SIZE</a></b>
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Public Key in bytes.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.SECRET_KEY_SIZE.html" class="constant">SECRET_KEY_SIZE</a></b>
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Secret Key in bytes.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.CONFERENCE_UID_SIZE.html" class="constant">CONFERENCE_UID_SIZE</a></b>
-                </span></span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.CONFERENCE_ID_SIZE.html" class="constant">CONFERENCE_ID_SIZE</a></b>
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.NOSPAM_SIZE.html" class="constant">NOSPAM_SIZE</a></b>
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of the nospam in bytes when written in a Tox address.
-                </span>
-              </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.ADDRESS_SIZE.html" class="constant">ADDRESS_SIZE</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The size of a Tox address in bytes. Tox addresses are in the format 
                   [Public Key (<a href="ToxCore.PUBLIC_KEY_SIZE.html" class="constant">PUBLIC_KEY_SIZE</a> bytes)][nospam (4 bytes)][checksum (2 
                   bytes)].</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.CONFERENCE_ID_SIZE.html" class="constant">CONFERENCE_ID_SIZE</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.CONFERENCE_UID_SIZE.html" class="constant">CONFERENCE_UID_SIZE</a></b>
+                </span></span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.FILE_ID_LENGTH.html" class="constant">FILE_ID_LENGTH</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a file id.</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.HASH_LENGTH.html" class="constant">HASH_LENGTH</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a hash generated by 
+                  <a href="ToxCore.Tox.hash.html" class="static_method">Tox.hash</a>.</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_CUSTOM_PACKET_SIZE.html" class="constant">MAX_CUSTOM_PACKET_SIZE</a></b>
+                </span></span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum size of custom packets. TODO(iphydf): should be LENGTH?
+                </span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_FILENAME_LENGTH.html" class="constant">MAX_FILENAME_LENGTH</a></b>
+                </span></span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum file name length for file transfers.</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_FRIEND_REQUEST_LENGTH.html" class="constant">MAX_FRIEND_REQUEST_LENGTH</a></b>
+                </span></span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a friend request message in bytes.</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_HOSTNAME_LENGTH.html" class="constant">MAX_HOSTNAME_LENGTH</a></b>
+                </span></span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a hostname, e.g. proxy or bootstrap node names.
+                </span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_MESSAGE_LENGTH.html" class="constant">MAX_MESSAGE_LENGTH</a></b>
+                </span></span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a single message after which it should be split.
+                </span>
               </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_NAME_LENGTH.html" class="constant">MAX_NAME_LENGTH</a></b>
                 </span></span>
@@ -191,37 +210,18 @@
                 </span></span>
               <div class="leaf_brief_description"><span class="brief_description">Maximum length of a status message in bytes.</span>
               </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_FRIEND_REQUEST_LENGTH.html" class="constant">MAX_FRIEND_REQUEST_LENGTH</a></b>
-                </span></span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a friend request message in bytes.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_MESSAGE_LENGTH.html" class="constant">MAX_MESSAGE_LENGTH</a></b>
-                </span></span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a single message after which it should be split.
-                </span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_CUSTOM_PACKET_SIZE.html" class="constant">MAX_CUSTOM_PACKET_SIZE</a></b>
-                </span></span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum size of custom packets. TODO(iphydf): should be LENGTH?
-                </span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.HASH_LENGTH.html" class="constant">HASH_LENGTH</a></b>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.NOSPAM_SIZE.html" class="constant">NOSPAM_SIZE</a></b>
               </span>
-              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a hash generated by 
-                  <a href="ToxCore.Tox.hash.html" class="static_method">Tox.hash</a>.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.FILE_ID_LENGTH.html" class="constant">FILE_ID_LENGTH</a></b>
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a file id.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_FILENAME_LENGTH.html" class="constant">MAX_FILENAME_LENGTH</a></b>
-                </span></span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum file name length for file transfers.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.MAX_HOSTNAME_LENGTH.html" class="constant">MAX_HOSTNAME_LENGTH</a></b>
-                </span></span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a hostname, e.g. proxy or bootstrap node names.
+              <div class="leaf_brief_description"><span class="brief_description">The size of the nospam in bytes when written in a Tox address.
                 </span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.PUBLIC_KEY_SIZE.html" class="constant">PUBLIC_KEY_SIZE</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Public Key in bytes.</span>
+              </div></li>
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.SECRET_KEY_SIZE.html" class="constant">SECRET_KEY_SIZE</a></b>
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Secret Key in bytes.</span>
               </div></li>
           </ul>
           <h3 class="main_title">Delegates:</h3>
@@ -236,32 +236,51 @@
           </ul>
           <h3 class="main_title">Methods:</h3>
           <ul class="navi_inline">
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.public_key_size.html" class="method">public_key_size</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Public Key in bytes.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.secret_key_size.html" class="method">secret_key_size</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Secret Key in bytes.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.conference_uid_size.html" class="method">conference_uid_size</a></b> ()
-                </span></span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.conference_id_size.html" class="method">conference_id_size</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.nospam_size.html" class="method">nospam_size</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of the nospam in bytes when written in a Tox address.
-                </span>
-              </div></li>
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.address_size.html" class="method">address_size</a></b> ()
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The size of a Tox address in bytes. Tox addresses are in the format 
                   [Public Key (<a href="ToxCore.PUBLIC_KEY_SIZE.html" class="constant">PUBLIC_KEY_SIZE</a> bytes)][nospam (4 bytes)][checksum (2 
                   bytes)].</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.conference_id_size.html" class="method">conference_id_size</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="deprecated"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.conference_uid_size.html" class="method">conference_uid_size</a></b> ()
+                </span></span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Conference unique id in bytes.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.file_id_length.html" class="method">file_id_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a file id.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.hash_length.html" class="method">hash_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a hash generated by 
+                  <a href="ToxCore.Tox.hash.html" class="static_method">Tox.hash</a>.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_custom_packet_size.html" class="method">max_custom_packet_size</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum size of custom packets. TODO(iphydf): should be LENGTH?
+                </span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_filename_length.html" class="method">max_filename_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum file name length for file transfers.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_friend_request_length.html" class="method">max_friend_request_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a friend request message in bytes.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_hostname_length.html" class="method">max_hostname_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a hostname, e.g. proxy or bootstrap node names.
+                </span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_message_length.html" class="method">max_message_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a single message after which it should be split.
+                </span>
               </div></li>
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_name_length.html" class="method">max_name_length</a></b> ()
               </span>
@@ -271,37 +290,18 @@
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Maximum length of a status message in bytes.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_friend_request_length.html" class="method">max_friend_request_length</a></b> ()
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.nospam_size.html" class="method">nospam_size</a></b> ()
               </span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a friend request message in bytes.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_message_length.html" class="method">max_message_length</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a single message after which it should be split.
+              <div class="leaf_brief_description"><span class="brief_description">The size of the nospam in bytes when written in a Tox address.
                 </span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_custom_packet_size.html" class="method">max_custom_packet_size</a></b> ()
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.public_key_size.html" class="method">public_key_size</a></b> ()
               </span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum size of custom packets. TODO(iphydf): should be LENGTH?
-                </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Public Key in bytes.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.hash_length.html" class="method">hash_length</a></b> ()
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.secret_key_size.html" class="method">secret_key_size</a></b> ()
               </span>
-              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a hash generated by 
-                  <a href="ToxCore.Tox.hash.html" class="static_method">Tox.hash</a>.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.file_id_length.html" class="method">file_id_length</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The number of bytes in a file id.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_filename_length.html" class="method">max_filename_length</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum file name length for file transfers.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.max_hostname_length.html" class="method">max_hostname_length</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">Maximum length of a hostname, e.g. proxy or bootstrap node names.
-                </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of a Tox Secret Key in bytes.</span>
               </div></li>
           </ul>
           <li class="namespace"><a href="ToxCore.Version.html">Version</a></li>
@@ -325,6 +325,11 @@
           </ul>
           <h3 class="main_title">Methods:</h3>
           <ul class="navi_inline">
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Version.is_compatible.html" class="method">is_compatible</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> major, <span class="main_basic_type"><span class="struct">uint32</span></span> minor, <span class="main_basic_type"><span class="struct">uint32</span></span> patch)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Return whether the compiled library version is compatible with the 
+                  passed version numbers.</span>
+              </div></li>
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxCore.Version.major.html" class="method">major</a></b> ()
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The major version number. Incremented when the API or ABI changes in
@@ -340,11 +345,6 @@
               <div class="leaf_brief_description"><span class="brief_description">The patch or revision number. Incremented when bugfixes are applied 
                   without changing any functionality or API or ABI.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxCore.Version.is_compatible.html" class="method">is_compatible</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> major, <span class="main_basic_type"><span class="struct">uint32</span></span> minor, <span class="main_basic_type"><span class="struct">uint32</span></span> patch)
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">Return whether the compiled library version is compatible with the 
-                  passed version numbers.</span>
-              </div></li>
           </ul>
           <li class="namespace"><a href="ToxEncryptSave.html">ToxEncryptSave</a> - <span class="brief_description">This module is organized into two 
               parts.</span></li>
@@ -355,52 +355,30 @@
           </ul>
           <h3 class="main_title">Enums:</h3>
           <ul class="navi_inline">
-            <li class="enum"><a href="ToxEncryptSave.ErrKeyDerivation.html">ErrKeyDerivation</a></li>
-            <li class="enum"><a href="ToxEncryptSave.ErrEncryption.html">ErrEncryption</a></li>
             <li class="enum"><a href="ToxEncryptSave.ErrDecryption.html">ErrDecryption</a></li>
+            <li class="enum"><a href="ToxEncryptSave.ErrEncryption.html">ErrEncryption</a></li>
             <li class="enum"><a href="ToxEncryptSave.ErrGetSalt.html">ErrGetSalt</a></li>
+            <li class="enum"><a href="ToxEncryptSave.ErrKeyDerivation.html">ErrKeyDerivation</a></li>
           </ul>
           <h3 class="main_title">Constants:</h3>
           <ul class="navi_inline">
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_SALT_LENGTH.html" class="constant">PASS_SALT_LENGTH</a></b>
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of the salt part of a pass-key.</span>
-              </div></li>
-            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_KEY_LENGTH.html" class="constant">PASS_KEY_LENGTH</a></b>
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of the key part of a pass-key.</span>
-              </div></li>
             <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_ENCRYPTION_EXTRA_LENGTH.html" class="constant">PASS_ENCRYPTION_EXTRA_LENGTH</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The amount of additional data required to store any encrypted byte 
                   array. Encrypting an array of N bytes requires N + <a href="ToxEncryptSave.pass_encryption_extra_length.html" class="method">
                     pass_encryption_extra_length</a> bytes in the encrypted byte array.</span>
               </div></li>
-          </ul>
-          <h3 class="main_title">Methods:</h3>
-          <ul class="navi_inline">
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_salt_length.html" class="method">pass_salt_length</a></b> ()
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">The size of the salt part of a pass-key.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_key_length.html" class="method">pass_key_length</a></b> ()
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_KEY_LENGTH.html" class="constant">PASS_KEY_LENGTH</a></b>
               </span>
               <div class="leaf_brief_description"><span class="brief_description">The size of the key part of a pass-key.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_encryption_extra_length.html" class="method">pass_encryption_extra_length</a></b> ()
+            <li class="constant"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">const</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.PASS_SALT_LENGTH.html" class="constant">PASS_SALT_LENGTH</a></b>
               </span>
-              <div class="leaf_brief_description"><span class="brief_description">The amount of additional data required to store any encrypted byte 
-                  array. Encrypting an array of N bytes requires N + <span class="method">pass_encryption_extra_length</span> bytes in the encrypted 
-                  byte array.</span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of the salt part of a pass-key.</span>
               </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.pass_encrypt.html" class="method">pass_encrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] plaintext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrEncryption.html" class="enum">ErrEncryption</a></span> error)
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">Encrypts the given data with the given passphrase.</span>
-              </div></li>
-            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.pass_decrypt.html" class="method">pass_decrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrDecryption.html" class="enum">ErrDecryption</a></span> error)
-              </span>
-              <div class="leaf_brief_description"><span class="brief_description">Decrypts the given data with the given passphrase.</span>
-              </div></li>
+          </ul>
+          <h3 class="main_title">Methods:</h3>
+          <ul class="navi_inline">
             <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.get_salt.html" class="method">get_salt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrGetSalt.html" class="enum">ErrGetSalt</a></span> error)
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Retrieves the salt used to encrypt the given data.</span>
@@ -409,6 +387,28 @@
               </span>
               <div class="leaf_brief_description"><span class="brief_description">Determines whether or not the given data is encrypted by this 
                   module.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.pass_decrypt.html" class="method">pass_decrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrDecryption.html" class="enum">ErrDecryption</a></span> error)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Decrypts the given data with the given passphrase.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.pass_encrypt.html" class="method">pass_encrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] plaintext, <span class="main_basic_type"><span class="struct">uint8</span></span>[]? passphrase, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrEncryption.html" class="enum">ErrEncryption</a></span> error)
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">Encrypts the given data with the given passphrase.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_encryption_extra_length.html" class="method">pass_encryption_extra_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The amount of additional data required to store any encrypted byte 
+                  array. Encrypting an array of N bytes requires N + <span class="method">pass_encryption_extra_length</span> bytes in the encrypted 
+                  byte array.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_key_length.html" class="method">pass_key_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of the key part of a pass-key.</span>
+              </div></li>
+            <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint32</span></span> <b><a href="ToxEncryptSave.pass_salt_length.html" class="method">pass_salt_length</a></b> ()
+              </span>
+              <div class="leaf_brief_description"><span class="brief_description">The size of the salt part of a pass-key.</span>
               </div></li>
           </ul>
         </ul>

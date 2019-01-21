@@ -37,10 +37,10 @@
         <h1 class="main_title">PassKey</h1>
         <hr class="main_hr"/>
         <h2 class="main_title">Object Hierarchy:</h2>
-        <img class="main_diagram" usemap="#ToxEncryptSave.PassKey" alt="Object hierarchy for PassKey" src="img/ToxEncryptSave.PassKey.png"/>
+        <img class="main_diagram" usemap="#ToxEncryptSave.PassKey" alt="Object hierarchy for PassKey" src="img/ToxEncryptSave.PassKey.svg"/>
 
       <map id="ToxEncryptSave.PassKey" name="ToxEncryptSave.PassKey">
-<area shape="rect" id="node1" href="ToxEncryptSave.PassKey.html" title="ToxEncryptSave.PassKey" alt="" coords="5,5,209,53"/>
+<area shape="rect" id="node1" href="ToxEncryptSave.PassKey.html" title="ToxEncryptSave.PassKey" alt="" coords="4,5,213,53"/>
 </map>
 
         <h2 class="main_title">Description:</h2>
@@ -70,16 +70,16 @@
         </ul>
         <h3 class="main_title">Methods:</h3>
         <ul class="navi_inline">
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.PassKey.encrypt.html" class="method">encrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] plaintext, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrEncryption.html" class="enum">ErrEncryption</a></span> error)
-            </span>
-            <div class="leaf_brief_description"><span class="brief_description">Encrypt a plain text with a key produced by 
-                <a href="ToxEncryptSave.PassKey.PassKey.derive.html" class="creation_method">PassKey.PassKey.derive</a> or 
-                <a href="ToxEncryptSave.PassKey.PassKey.derive_with_salt.html" class="creation_method">PassKey.PassKey.derive_with_salt</a>.</span>
-            </div></li>
           <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.PassKey.decrypt.html" class="method">decrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] ciphertext, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrDecryption.html" class="enum">ErrDecryption</a></span> error)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">This is the inverse of 
                 <a href="ToxEncryptSave.PassKey.encrypt.html" class="method">PassKey.encrypt</a>, also using only keys produced by 
+                <a href="ToxEncryptSave.PassKey.PassKey.derive.html" class="creation_method">PassKey.PassKey.derive</a> or 
+                <a href="ToxEncryptSave.PassKey.PassKey.derive_with_salt.html" class="creation_method">PassKey.PassKey.derive_with_salt</a>.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">uint8</span></span>[]? <b><a href="ToxEncryptSave.PassKey.encrypt.html" class="method">encrypt</a></b> (<span class="main_basic_type"><span class="struct">uint8</span></span>[] plaintext, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxEncryptSave.ErrEncryption.html" class="enum">ErrEncryption</a></span> error)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Encrypt a plain text with a key produced by 
                 <a href="ToxEncryptSave.PassKey.PassKey.derive.html" class="creation_method">PassKey.PassKey.derive</a> or 
                 <a href="ToxEncryptSave.PassKey.PassKey.derive_with_salt.html" class="creation_method">PassKey.PassKey.derive_with_salt</a>.</span>
             </div></li>

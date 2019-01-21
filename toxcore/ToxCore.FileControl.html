@@ -45,13 +45,15 @@
         <h2 class="main_title">Content:</h2>
         <h3 class="main_title">Enum values:</h3>
         <ul class="navi_inline">
-          <li class="enumvalue"><a href="ToxCore.FileControl.RESUME.html">RESUME</a></li>
+          <li class="enumvalue"><a href="ToxCore.FileControl.CANCEL.html">CANCEL</a> - <span class="brief_description">Sent by the receiving side to 
+              reject a file send request before any other commands are sent. Also sent by either side to terminate a file transfer.</span></li>
           <li class="enumvalue"><a href="ToxCore.FileControl.PAUSE.html">PAUSE</a> - <span class="brief_description">Sent by clients to pause the file
               transfer. The initial state of a file transfer is always paused on the receiving side and running on the sending side. If both the 
               sending and receiving side pause the transfer, then both need to send <a href="ToxCore.FileControl.RESUME.html" class="enumvalue">
                 FileControl.RESUME</a> for the transfer to resume.</span></li>
-          <li class="enumvalue"><a href="ToxCore.FileControl.CANCEL.html">CANCEL</a> - <span class="brief_description">Sent by the receiving side to 
-              reject a file send request before any other commands are sent. Also sent by either side to terminate a file transfer.</span></li>
+          <li class="enumvalue"><a href="ToxCore.FileControl.RESUME.html">RESUME</a> - <span class="brief_description">Sent by the receiving side to 
+              accept a file send request. Also sent after a <a href="ToxCore.FileControl.PAUSE.html" class="enumvalue">FileControl.PAUSE</a> command 
+              to continue sending or receiving.</span></li>
         </ul>
       </div>
     </div><br/>

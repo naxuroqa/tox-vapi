@@ -49,11 +49,14 @@
         <h1 class="main_title">Options</h1>
         <hr class="main_hr"/>
         <h2 class="main_title">Description:</h2>
-        <div class="main_code_definition"><span class="main_keyword">public</span> <b><span class="creation_method">Options</span></b> (<span class="main_keyword">out</span> <span class="main_type"><a href="ToxCore.ErrOptionsNew.html" class="enum">ErrOptionsNew</a></span> error)
+        <div class="main_code_definition"><span class="main_keyword">public</span> <b><span class="creation_method">Options</span></b> (<span class="main_keyword">out</span> <span class="main_type"><a href="ToxCore.ErrOptionsNew.html" class="enum">ErrOptionsNew</a></span> error = <span class="main_literal">null</span>)
         </div>
         <div class="description">
           <p>Allocates a new <span class="creation_method">Options</span> object and initialises it with the default options. This function can be 
             used to preserve long term ABI compatibility by giving the responsibility of allocation and deallocation to the Tox library.</p>
+          <p><b>Example:</b> <i>Create options</i></p>
+          <p><pre class="main_source"><code>  <span class="main_keyword">using</span> ToxCore;<br/>  <span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type">int</span> main (<span class="main_basic_type">string</span>[] args) {<br/>    ErrOptionsNew err_options;<br/>    <span class="main_keyword">var</span> options = <span class="main_keyword">new</span> ToxCore.Options(<span class="main_keyword">out</span> err_options);<br/>    <span class="main_keyword">assert</span>(err_options == ErrOptionsNew.OK);<br/><br/>    <span class="main_keyword">return</span> <span class="main_literal">0</span>;<br/>  }</code></pre>
+          </p>
           <h2 class="main_title">Returns:</h2>
           <table class="main_parameter_table">
             <tr>
