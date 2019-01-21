@@ -36,7 +36,7 @@ mockbot:
 		--debug \
 		examples/mockbot/MockBot.vala
 
-examples: bot echobot
+examples: bot echobot mockbot
 
 test-options-bin:
 	valac \
@@ -105,9 +105,7 @@ test-encrypt-bin:
 test: test-options-bin test-core-bin test-av-bin test-encrypt-bin
 	gtester --verbose ToxOptionsTest ToxCoreTest ToxAVTest ToxEncryptSaveTest
 
-debug: bot
-	gdb -ex run ./Bot
-
+.PHONY: clean
 clean:
 	rm -f Bot Echobot MockBot ToxOptionsTest ToxCoreTest ToxAVTest ToxEncryptSaveTest tests/*.c *.gcda *.gcno
 	rm -rf ./docs ./build
@@ -118,20 +116,13 @@ style:
 		-l VALA \
 		--replace \
 		--no-backup \
-		vapi/toxcore.vapi \
-		vapi/toxav.vapi \
-		vapi/toxencryptsave.vapi \
-		tests/ToxCoreTest.vala \
-		tests/ToxOptionsTest.vala \
-		tests/ToxAVTest.vala \
-		tests/ToxEncryptSaveTest.vala \
-		examples/Bot.vala \
-		examples/echobot/Echobot.vala
+		vapi/*.vapi tests/*.vala examples/*.vala
 
+.PHONY: docs
 docs:
+	rm -rf ./docs
 	valadoc \
 		--directory docs \
 		--package-name toxcore \
-		vapi/toxcore.vapi \
-		vapi/toxav.vapi \
-		vapi/toxencryptsave.vapi
+		--use-svg-images \
+		vapi/*.vapi

@@ -147,6 +147,7 @@ namespace Tests {
       assert(err_new == ErrNew.OK);
       var ret = ToxAV.ToxAV.add_av_groupchat(tox, audio_callback);
       assert(ret == 0);
+      assert(toxav != null);
     }
 
     private static void test_join_av_groupchat() {
@@ -159,6 +160,7 @@ namespace Tests {
       var data = new uint8[1];
       var ret = ToxAV.ToxAV.join_av_groupchat(tox, 0, data, audio_callback);
       assert(ret == -1);
+      assert(toxav != null);
     }
 
     private static void test_group_send_audio() {
@@ -171,6 +173,7 @@ namespace Tests {
       var data = new int16[1000];
       var ret = ToxAV.ToxAV.group_send_audio(tox, 0, data, 1, 1, 8000);
       assert(ret == -1);
+      assert(toxav != null);
     }
 
     private static void test_callbacks() {

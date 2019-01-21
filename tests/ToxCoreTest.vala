@@ -14,17 +14,35 @@ namespace Tests {
 
     private static void test_constants() {
       assert(public_key_size() != 0);
+      assert(public_key_size() == PUBLIC_KEY_SIZE);
       assert(secret_key_size() != 0);
+      assert(secret_key_size() == SECRET_KEY_SIZE);
+      assert(conference_uid_size() != 0);
+      assert(conference_uid_size() == CONFERENCE_UID_SIZE);
+      assert(conference_id_size() != 0);
+      assert(conference_id_size() == CONFERENCE_ID_SIZE);
       assert(nospam_size() != 0);
+      assert(nospam_size() == NOSPAM_SIZE);
       assert(address_size() != 0);
+      assert(address_size() == ADDRESS_SIZE);
       assert(max_name_length() != 0);
+      assert(max_name_length() == MAX_NAME_LENGTH);
       assert(max_status_message_length() != 0);
+      assert(max_status_message_length() == MAX_STATUS_MESSAGE_LENGTH);
       assert(max_friend_request_length() != 0);
+      assert(max_friend_request_length() == MAX_FRIEND_REQUEST_LENGTH);
       assert(max_message_length() != 0);
+      assert(max_message_length() == MAX_MESSAGE_LENGTH);
       assert(max_custom_packet_size() != 0);
+      assert(max_custom_packet_size() == MAX_CUSTOM_PACKET_SIZE);
       assert(hash_length() != 0);
+      assert(hash_length() == HASH_LENGTH);
       assert(file_id_length() != 0);
+      assert(file_id_length() == FILE_ID_LENGTH);
       assert(max_filename_length() != 0);
+      assert(max_filename_length() == MAX_FILENAME_LENGTH);
+      assert(max_hostname_length() != 0);
+      assert(max_hostname_length() == MAX_HOSTNAME_LENGTH);
     }
 
     private static void test_version() {
@@ -680,6 +698,74 @@ namespace Tests {
       assert(conference_number == ret);
     }
 
+    private static void test_conference_restore() {
+      uint8[] ? savedata = null;
+      uint8[] ? conference_id = null;
+      {
+        var tox = new Tox();
+        conference_id = tox.conference_get_id(tox.conference_new());
+        savedata = tox.get_savedata();
+      }
+
+      var options = new Options();
+      options.savedata_type = SaveDataType.TOX_SAVE;
+      options.set_savedata_data(savedata);
+      var tox = new Tox(options);
+
+      assert(conference_id != null);
+      assert(conference_id.length == conference_id_size());
+
+      var chatlist = tox.conference_get_chatlist();
+      assert(chatlist != null && chatlist.length == 1);
+
+      var conference_id_new = tox.conference_get_id(chatlist[0]);
+      assert(conference_id_new != null);
+      assert(conference_id_new.length == conference_id_size());
+      assert(Memory.cmp(conference_id, conference_id_new, conference_id.length) == 0);
+    }
+
+    private static void test_conference_offline_peer_count_when_nonexistent() {
+      var tox = new Tox();
+      var err_conference_peer_query = ErrConferencePeerQuery.OK;
+      tox.conference_offline_peer_count(0, out err_conference_peer_query);
+      assert(err_conference_peer_query == ErrConferencePeerQuery.CONFERENCE_NOT_FOUND);
+    }
+
+    private static void test_conference_offline_peer_count_when_not_connected() {
+      var tox = new Tox();
+      var conference_number = tox.conference_new();
+      var err_conference_peer_query = ErrConferencePeerQuery.OK;
+      var offline_peer_count = tox.conference_offline_peer_count(conference_number, out err_conference_peer_query);
+      assert(err_conference_peer_query == ErrConferencePeerQuery.OK);
+      assert(offline_peer_count == 0);
+    }
+
+    private static void test_conference_offline_peer_get_name() {
+      var tox = new Tox();
+      var conference_number = tox.conference_new();
+      var err_conference_peer_query = ErrConferencePeerQuery.OK;
+      var name = tox.conference_offline_peer_get_name(conference_number, 0, out err_conference_peer_query);
+      assert(err_conference_peer_query == ErrConferencePeerQuery.PEER_NOT_FOUND);
+      assert(name == null);
+    }
+
+    private static void test_conference_offline_peer_get_public_key() {
+      var tox = new Tox();
+      var conference_number = tox.conference_new();
+      var err_conference_peer_query = ErrConferencePeerQuery.OK;
+      var key = tox.conference_offline_peer_get_public_key(conference_number, 0, out err_conference_peer_query);
+      assert(err_conference_peer_query == ErrConferencePeerQuery.PEER_NOT_FOUND);
+      assert(key == null);
+    }
+
+    private static void test_conference_offline_peer_get_last_active() {
+      var tox = new Tox();
+      var conference_number = tox.conference_new();
+      var err_conference_peer_query = ErrConferencePeerQuery.OK;
+      var timestamp = tox.conference_offline_peer_get_last_active(conference_number, 0, out err_conference_peer_query);
+      assert(err_conference_peer_query == ErrConferencePeerQuery.PEER_NOT_FOUND);
+    }
+
     private static void test_hash() {
       var data1 = new uint8[] { 0, 1, 2, 3, 4 };
       var data2 = new uint8[] { 0, 1, 2, 3, 4 };
@@ -960,6 +1046,12 @@ namespace Tests {
       Test.add_func(PREFIX + "test_conference_get_id", test_conference_get_id);
       Test.add_func(PREFIX + "test_conference_get_by_id", test_conference_get_by_id);
       Test.add_func(PREFIX + "test_conference_get_id_matches_get_by_id", test_conference_get_id_matches_get_by_id);
+      Test.add_func(PREFIX + "test_conference_restore", test_conference_restore);
+      Test.add_func(PREFIX + "test_conference_offline_peer_count_when_nonexistent", test_conference_offline_peer_count_when_nonexistent);
+      Test.add_func(PREFIX + "test_conference_offline_peer_count_when_not_connected", test_conference_offline_peer_count_when_not_connected);
+      Test.add_func(PREFIX + "test_conference_offline_peer_get_name", test_conference_offline_peer_get_name);
+      Test.add_func(PREFIX + "test_conference_offline_peer_get_public_key", test_conference_offline_peer_get_public_key);
+      Test.add_func(PREFIX + "test_conference_offline_peer_get_last_active", test_conference_offline_peer_get_last_active);
       Test.add_func(PREFIX + "test_hash", test_hash);
       Test.add_func(PREFIX + "test_callbacks", test_callbacks);
       Test.add_func(PREFIX + "test_enums", test_enums);

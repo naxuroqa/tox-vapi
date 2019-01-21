@@ -1,28 +1,27 @@
 language: c
 
 before_install:
-    - sudo apt-add-repository --yes ppa:vala-team
-    - sudo add-apt-repository --yes ppa:chris-lea/libsodium
-    - sudo apt-get update --quiet
-    - sudo apt-get install --yes libsodium-dev libconfig-dev libopus-dev libvpx-dev cmake
-    - sudo apt-get install --yes valac valadoc libglib2.0-dev
-    - wget https://github.com/TokTok/c-toxcore/archive/v0.2.8.tar.gz
-    - tar -xzf v0.2.8.tar.gz && cd c-toxcore-0.2.8/build
-    - cmake -D BUILD_AV_TEST=OFF -D CMAKE_INSTALL_PREFIX=/usr -D DEBUG=ON ..
-    - make && sudo make install && cd ../..
+  - sudo apt-add-repository --yes ppa:vala-team
+  - sudo add-apt-repository --yes ppa:chris-lea/libsodium
+  - sudo apt-get update --quiet
+  - sudo apt-get install --yes libsodium-dev libconfig-dev libopus-dev libvpx-dev cmake valac valadoc libglib2.0-dev
+  - wget https://github.com/TokTok/c-toxcore/archive/v0.2.9.tar.gz
+  - tar -xzf v0.2.9.tar.gz && cd c-toxcore-0.2.9/build
+  - cmake -D BUILD_AV_TEST=OFF -D CMAKE_INSTALL_PREFIX=/usr -D DEBUG=ON ..
+  - make && sudo make install && cd ../..
 
 script:
-    - make test
-    - make docs
+  - make test
+  - make docs
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-# deploy:
-#   provider: pages
-#   local-dir: docs
-#   skip-cleanup: true
-#   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-#   keep-history: true
-#   on:
-#     branch: master
+deploy:
+  provider: pages
+  local-dir: docs
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: true
+  on:
+    branch: master
