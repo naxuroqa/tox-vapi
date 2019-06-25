@@ -30,6 +30,9 @@
           <li class="property"><a href="ToxAV.ToxAV.tox.html">tox</a></li>
           <li class="static_method"><a href="ToxAV.ToxAV.add_av_groupchat.html">add_av_groupchat</a></li>
           <li class="static_method"><a href="ToxAV.ToxAV.group_send_audio.html">group_send_audio</a></li>
+          <li class="static_method"><a href="ToxAV.ToxAV.groupchat_av_enabled.html">groupchat_av_enabled</a></li>
+          <li class="static_method"><a href="ToxAV.ToxAV.groupchat_disable_av.html">groupchat_disable_av</a></li>
+          <li class="static_method"><a href="ToxAV.ToxAV.groupchat_enable_av.html">groupchat_enable_av</a></li>
           <li class="static_method"><a href="ToxAV.ToxAV.join_av_groupchat.html">join_av_groupchat</a></li>
           <li class="creation_method"><a href="ToxAV.ToxAV.ToxAV.html">ToxAV</a></li>
           <li class="method"><a href="ToxAV.ToxAV.answer.html">answer</a></li>
@@ -56,7 +59,7 @@
         <img class="main_diagram" usemap="#ToxAV.ToxAV" alt="Object hierarchy for ToxAV" src="img/ToxAV.ToxAV.svg"/>
 
       <map id="ToxAV.ToxAV" name="ToxAV.ToxAV">
-<area shape="rect" id="node1" href="ToxAV.ToxAV.html" title="ToxAV.ToxAV" alt="" coords="5,5,131,53"/>
+<area shape="rect" id="node1" href="ToxAV.ToxAV.html" title="ToxAV.ToxAV" alt="" coords="5,5,141,53"/>
 </map>
 
         <h2 class="main_title">Description:</h2>
@@ -91,6 +94,18 @@
             <div class="leaf_brief_description"><span class="brief_description">Send audio to the group chat. Note that total size of pcm in bytes is 
                 equal to (samples * channels * sizeof(int16_t)).</span>
             </div></li>
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.groupchat_av_enabled.html" class="static_method">groupchat_av_enabled</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> groupnumber)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Return whether A/V is enabled in the groupchat.</span>
+            </div></li>
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.groupchat_disable_av.html" class="static_method">groupchat_disable_av</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> groupnumber)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Disable A/V in a groupchat.</span>
+            </div></li>
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.groupchat_enable_av.html" class="static_method">groupchat_enable_av</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> groupnumber, <span class="main_type"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></span> callback)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Enable A/V in a groupchat.</span>
+            </div></li>
           <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="ToxAV.ToxAV.join_av_groupchat.html" class="static_method">join_av_groupchat</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint8</span></span>[] data, <span class="main_type"><a href="ToxAV.GroupchatAudioReceiveFrameCallback.html" class="delegate">GroupchatAudioReceiveFrameCallback</a></span> callback)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Join a AV group (you need to have been invited first.)</span>
@@ -98,7 +113,7 @@
         </ul>
         <h3 class="main_title">Creation methods:</h3>
         <ul class="navi_inline">
-          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="ToxAV.ToxAV.ToxAV.html" class="creation_method">ToxAV</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrNew.html" class="enum">ErrNew</a></span> e)
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="ToxAV.ToxAV.ToxAV.html" class="creation_method">ToxAV</a></b> (<span class="main_type"><a href="ToxCore.Tox.html" class="class">Tox</a></span> tox, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrNew.html" class="enum">ErrNew</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Start new A/V session. There can only be only one session per Tox 
                 instance.</span>
@@ -106,23 +121,23 @@
         </ul>
         <h3 class="main_title">Methods:</h3>
         <ul class="navi_inline">
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.answer.html" class="method">answer</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrAnswer.html" class="enum">ErrAnswer</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.answer.html" class="method">answer</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrAnswer.html" class="enum">ErrAnswer</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Accept an incoming call.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.audio_send_frame.html" class="method">audio_send_frame</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">size_t</span></span> sample_count, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrSendFrame.html" class="enum">ErrSendFrame</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.audio_send_frame.html" class="method">audio_send_frame</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">int16</span></span>[] pcm, <span class="main_basic_type"><span class="struct">size_t</span></span> sample_count, <span class="main_basic_type"><span class="struct">uint8</span></span> channels, <span class="main_basic_type"><span class="struct">uint32</span></span> sampling_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrSendFrame.html" class="enum">ErrSendFrame</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Send an audio frame to a friend.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.audio_set_bit_rate.html" class="method">audio_set_bit_rate</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrBitRateSet.html" class="enum">ErrBitRateSet</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.audio_set_bit_rate.html" class="method">audio_set_bit_rate</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrBitRateSet.html" class="enum">ErrBitRateSet</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Set the bit rate to be used in subsequent video frames.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.call.html" class="method">call</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrCall.html" class="enum">ErrCall</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.call.html" class="method">call</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> audio_bit_rate, <span class="main_basic_type"><span class="struct">uint32</span></span> video_bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrCall.html" class="enum">ErrCall</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Call a friend. This will start ringing the friend.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.call_control.html" class="method">call_control</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxAV.CallControl.html" class="enum">CallControl</a></span> control, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrCallControl.html" class="enum">ErrCallControl</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.call_control.html" class="method">call_control</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_type"><a href="ToxAV.CallControl.html" class="enum">CallControl</a></span> control, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrCallControl.html" class="enum">ErrCallControl</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Sends a call control command to a friend.</span>
             </div></li>
@@ -167,11 +182,11 @@
                 <a href="ToxAV.ToxAV.iterate.html" class="method">ToxAV.iterate</a> call should be. If no call is active at the moment, this function 
                 returns 200.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.video_send_frame.html" class="method">video_send_frame</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint16</span></span> width, <span class="main_basic_type"><span class="struct">uint16</span></span> height, <span class="main_basic_type"><span class="struct">uint8</span></span>[] y, <span class="main_basic_type"><span class="struct">uint8</span></span>[] u, <span class="main_basic_type"><span class="struct">uint8</span></span>[] v, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrSendFrame.html" class="enum">ErrSendFrame</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.video_send_frame.html" class="method">video_send_frame</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint16</span></span> width, <span class="main_basic_type"><span class="struct">uint16</span></span> height, <span class="main_basic_type"><span class="struct">uint8</span></span>[] y, <span class="main_basic_type"><span class="struct">uint8</span></span>[] u, <span class="main_basic_type"><span class="struct">uint8</span></span>[] v, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrSendFrame.html" class="enum">ErrSendFrame</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Send a video frame to a friend.</span>
             </div></li>
-          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.video_set_bit_rate.html" class="method">video_set_bit_rate</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrBitRateSet.html" class="enum">ErrBitRateSet</a></span> error)
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="ToxAV.ToxAV.video_set_bit_rate.html" class="method">video_set_bit_rate</a></b> (<span class="main_basic_type"><span class="struct">uint32</span></span> friend_number, <span class="main_basic_type"><span class="struct">uint32</span></span> bit_rate, <span class="main_keyword">out</span> <span class="main_type"><a href="ToxAV.ErrBitRateSet.html" class="enum">ErrBitRateSet</a></span> error = <span class="main_literal">null</span>)
             </span>
             <div class="leaf_brief_description"><span class="brief_description">Set the bit rate to be used in subsequent video frames.</span>
             </div></li>

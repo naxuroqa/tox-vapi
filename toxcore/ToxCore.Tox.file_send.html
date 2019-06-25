@@ -96,6 +96,7 @@
           <li class="method"><a href="ToxCore.Tox.conference_peer_get_public_key.html">conference_peer_get_public_key</a></li>
           <li class="method"><a href="ToxCore.Tox.conference_peer_number_is_ours.html">conference_peer_number_is_ours</a></li>
           <li class="method"><a href="ToxCore.Tox.conference_send_message.html">conference_send_message</a></li>
+          <li class="method"><a href="ToxCore.Tox.conference_set_max_offline.html">conference_set_max_offline</a></li>
           <li class="method"><a href="ToxCore.Tox.conference_set_title.html">conference_set_title</a></li>
           <li class="method"><a href="ToxCore.Tox.file_control.html">file_control</a></li>
           <li class="method"><a href="ToxCore.Tox.file_get_file_id.html">file_get_file_id</a></li>
@@ -156,41 +157,29 @@
             <li>If the file size was increased
               <ul>
                 <li>and sending mode was streaming (file_size = UINT64_MAX), the behaviour
-                  <ul class="no_bullet">
-                    <li>will be as expected.</li>
-                  </ul></li>
+                  <p>will be as expected.</p></li>
                 <li>and sending mode was file (file_size != UINT64_MAX), the
-                  <ul class="no_bullet">
-                    <li>file_chunk_request callback will receive length = 0 when Core thinks    
-                      <p>the file transfer has finished. If the client remembers the file size as</p>
-                      <p>it was when sending the request, it will terminate the transfer normally.</p>
-                      <p>If the client re-reads the size, it will think the friend cancelled the</p>
-                      <p>transfer.</p></li>
-                  </ul></li>
+                  <p>file_chunk_request callback will receive length = 0 when Core thinks</p>
+                  <p>the file transfer has finished. If the client remembers the file size as</p>
+                  <p>it was when sending the request, it will terminate the transfer normally.</p>
+                  <p>If the client re-reads the size, it will think the friend cancelled the</p>
+                  <p>transfer.</p></li>
               </ul></li>
             <li>If the file size was decreased
               <ul>
                 <li>and sending mode was streaming, the behaviour is as expected.</li>
                 <li>and sending mode was file, the callback will return 0 at the new
-                  <ul class="no_bullet">
-                    <li>(earlier) end-of-file, signalling to the friend that the transfer was 
-                      <p>cancelled.</p></li>
-                  </ul></li>
+                  <p>(earlier) end-of-file, signalling to the friend that the transfer was</p>
+                  <p>cancelled.</p></li>
               </ul></li>
             <li>If the file contents were modified
               <ul>
                 <li>at a position before the current read, the two files (local and remote)
-                  <ul class="no_bullet">
-                    <li>will differ after the transfer terminates.</li>
-                  </ul></li>
+                  <p>will differ after the transfer terminates.</p></li>
                 <li>at a position after the current read, the file transfer will succeed as
-                  <ul class="no_bullet">
-                    <li>expected.</li>
-                  </ul></li>
+                  <p>expected.</p></li>
                 <li>In either case, both sides will regard the transfer as complete and
-                  <ul class="no_bullet">
-                    <li>successful.</li>
-                  </ul></li>
+                  <p>successful.</p></li>
               </ul></li>
           </ul>
           <h2 class="main_title">Parameters:</h2>
