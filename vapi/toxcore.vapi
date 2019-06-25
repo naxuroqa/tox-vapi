@@ -1241,6 +1241,22 @@ namespace ToxCore {
     NO_CONNECTION
   }
 
+
+  [Version(since = "0.2.10")]
+  [CCode(cname = "Tox_Err_Conference_Set_Max_Offline", cprefix = "TOX_ERR_CONFERENCE_SET_MAX_OFFLINE_", has_type_id = false)]
+  public enum ErrConferenceSetMaxOffline {
+    /**
+     * The function returned successfully.
+     */
+    [Version(since = "0.2.10")]
+    OK,
+    /**
+     * The conference number passed did not designate a valid conference.
+     */
+    [Version(since = "0.2.10")]
+    CONFERENCE_NOT_FOUND,
+  }
+
   [CCode(cname = "Tox_Err_Conference_Join", cprefix = "TOX_ERR_CONFERENCE_JOIN_", has_type_id = false)]
   public enum ErrConferenceJoin {
     /**
@@ -2493,12 +2509,17 @@ namespace ToxCore {
       return _conference_offline_peer_get_public_key(conference_number, offline_peer_number, t, out error) ? t : null;
     }
 
-
     /**
      * Return a unix-time timestamp of the last time offline_peer_number was seen to be active.
      */
     [Version(since = "0.2.9")]
     public uint64 conference_offline_peer_get_last_active(uint32 conference_number, uint32 offline_peer_number, out ErrConferencePeerQuery error = null);
+
+    /**
+     * Set maximum number of offline peers to store, overriding the default.
+     */
+    [Version(since = "0.2.10")]
+    public bool conference_set_max_offline(uint32 conference_number, uint32 max_offline_peers, out ErrConferenceSetMaxOffline error = null);
 
     /**
      * Invites a friend to a conference.
