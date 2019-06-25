@@ -766,6 +766,15 @@ namespace Tests {
       assert(err_conference_peer_query == ErrConferencePeerQuery.PEER_NOT_FOUND);
     }
 
+    private static void test_conference_set_max_offline() {
+      var tox = new Tox();
+      var conference_number = tox.conference_new();
+      var err = ErrConferenceSetMaxOffline.OK;
+      var ret = tox.conference_set_max_offline(conference_number, 5, out err);
+      assert(err == ErrConferenceSetMaxOffline.OK);
+      assert(ret == true);
+    }
+
     private static void test_hash() {
       var data1 = new uint8[] { 0, 1, 2, 3, 4 };
       var data2 = new uint8[] { 0, 1, 2, 3, 4 };
@@ -849,6 +858,8 @@ namespace Tests {
 
       assert(ErrConferenceInvite.OK != ErrConferenceInvite.CONFERENCE_NOT_FOUND);
       assert(ErrConferenceInvite.OK != ErrConferenceInvite.FAIL_SEND);
+
+      assert(ErrConferenceSetMaxOffline.OK != ErrConferenceSetMaxOffline.CONFERENCE_NOT_FOUND);
 
       assert(ErrConferenceJoin.OK != ErrConferenceJoin.INVALID_LENGTH);
       assert(ErrConferenceJoin.OK != ErrConferenceJoin.WRONG_TYPE);
@@ -1052,6 +1063,7 @@ namespace Tests {
       Test.add_func(PREFIX + "test_conference_offline_peer_get_name", test_conference_offline_peer_get_name);
       Test.add_func(PREFIX + "test_conference_offline_peer_get_public_key", test_conference_offline_peer_get_public_key);
       Test.add_func(PREFIX + "test_conference_offline_peer_get_last_active", test_conference_offline_peer_get_last_active);
+      Test.add_func(PREFIX + "test_conference_set_max_offline", test_conference_set_max_offline);
       Test.add_func(PREFIX + "test_hash", test_hash);
       Test.add_func(PREFIX + "test_callbacks", test_callbacks);
       Test.add_func(PREFIX + "test_enums", test_enums);

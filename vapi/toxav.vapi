@@ -418,7 +418,7 @@ namespace ToxAV {
      * Start new A/V session. There can only be only one session per Tox instance.
      */
     [CCode(cname = "toxav_new")]
-    public ToxAV(ToxCore.Tox tox, out ErrNew e);
+    public ToxAV(ToxCore.Tox tox, out ErrNew error = null);
 
     /**
      * Returns the {@link ToxCore.Tox} instance the A/V object was created for.
@@ -454,7 +454,7 @@ namespace ToxAV {
      * @param video_bit_rate Video bit rate in Kb/sec. Set this to 0 to disable
      * video sending.
      */
-    public bool call(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, out ErrCall error);
+    public bool call(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, out ErrCall error = null);
 
     /**
      * Set the callback for the `call` event. Pass NULL to unset.
@@ -475,7 +475,7 @@ namespace ToxAV {
      * @param video_bit_rate Video bit rate in Kb/sec. Set this to 0 to disable
      * video sending.
      */
-    public bool answer(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, out ErrAnswer error);
+    public bool answer(uint32 friend_number, uint32 audio_bit_rate, uint32 video_bit_rate, out ErrAnswer error = null);
 
     /**
      * Set the callback for the `call_state` event. Pass NULL to unset.
@@ -492,7 +492,7 @@ namespace ToxAV {
      *
      * @return true on success.
      */
-    public bool call_control(uint32 friend_number, CallControl control, out ErrCallControl error);
+    public bool call_control(uint32 friend_number, CallControl control, out ErrCallControl error = null);
 
     /**
      * Send an audio frame to a friend.
@@ -514,7 +514,7 @@ namespace ToxAV {
      * @param sampling_rate Audio sampling rate used in this frame. Valid sampling
      * rates are 8000, 12000, 16000, 24000, or 48000.
      */
-    public bool audio_send_frame(uint32 friend_number, [CCode(array_length = false)] int16[] pcm, size_t sample_count, uint8 channels, uint32 sampling_rate, out ErrSendFrame error);
+    public bool audio_send_frame(uint32 friend_number, [CCode(array_length = false)] int16[] pcm, size_t sample_count, uint8 channels, uint32 sampling_rate, out ErrSendFrame error = null);
 
     /**
      * Set the bit rate to be used in subsequent video frames.
@@ -528,7 +528,7 @@ namespace ToxAV {
      * @return true on success.
      */
     [Version(since = "0.2.0")]
-    public bool audio_set_bit_rate(uint32 friend_number, uint32 bit_rate, out ErrBitRateSet error);
+    public bool audio_set_bit_rate(uint32 friend_number, uint32 bit_rate, out ErrBitRateSet error = null);
 
     /**
      * Set the callback for the `audio_bit_rate` event. Pass NULL to unset.
@@ -553,7 +553,7 @@ namespace ToxAV {
      * @param v V (Chroma) plane data.
      */
     public bool video_send_frame(uint32 friend_number, uint16 width, uint16 height, [CCode(array_length = false)] uint8[] y,
-                                 [CCode(array_length = false)] uint8[] u, [CCode(array_length = false)] uint8[] v, out ErrSendFrame error);
+                                 [CCode(array_length = false)] uint8[] u, [CCode(array_length = false)] uint8[] v, out ErrSendFrame error = null);
 
     /**
      * Set the bit rate to be used in subsequent video frames.
@@ -567,7 +567,7 @@ namespace ToxAV {
      * @return true on success.
      */
     [Version(since = "0.2.0")]
-    public bool video_set_bit_rate(uint32 friend_number, uint32 bit_rate, out ErrBitRateSet error);
+    public bool video_set_bit_rate(uint32 friend_number, uint32 bit_rate, out ErrBitRateSet error = null);
 
     /**
      * Set the callback for the `video_bit_rate` event. Pass NULL to unset.
@@ -628,5 +628,42 @@ namespace ToxAV {
      *
      */
     public static int group_send_audio(ToxCore.Tox tox, uint32 group_number, [CCode(array_length = false)] int16[] pcm, uint samples, uint8 channels, uint32 sample_rate);
+
+    /**
+     * Enable A/V in a groupchat.
+     *
+     * A/V must be enabled on a groupchat for audio to be sent to it and for
+     * received audio to be handled.
+     *
+     * An A/V group created with toxav_add_av_groupchat or toxav_join_av_groupchat
+     * will start with A/V enabled.
+     *
+     * An A/V group loaded from a savefile will start with A/V disabled.
+     *
+     * Audio data callback format (same as the one for toxav_add_av_groupchat()):
+     * audio_callback(Tox *tox, uint32_t groupnumber, uint32_t peernumber, const int16_t *pcm, unsigned int samples, uint8_t channels, uint32_t sample_rate, void *userdata)
+     *
+     * Note that total size of pcm in bytes is equal to (samples * channels * sizeof(int16_t)).
+     *
+     * @return 0 on success.
+     * @return -1 on failure.
+     */
+    [Version(since = "0.2.10")]
+    public static int groupchat_enable_av(ToxCore.Tox tox, uint32 groupnumber, GroupchatAudioReceiveFrameCallback callback);
+
+    /**
+     * Disable A/V in a groupchat.
+     *
+     * @return 0 on success.
+     * @return -1 on failure.
+     */
+    [Version(since = "0.2.10")]
+    public static int groupchat_disable_av(ToxCore.Tox tox, uint32 groupnumber);
+
+    /**
+     * Return whether A/V is enabled in the groupchat.
+     */
+    [Version(since = "0.2.10")]
+    public static bool groupchat_av_enabled(ToxCore.Tox tox, uint32 groupnumber);
   }
 }

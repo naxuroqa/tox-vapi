@@ -147,6 +147,7 @@ namespace Tests {
       assert(err_new == ErrNew.OK);
       var ret = ToxAV.ToxAV.add_av_groupchat(tox, audio_callback);
       assert(ret == 0);
+      assert(ToxAV.ToxAV.groupchat_av_enabled(tox, 0) == true);
       assert(toxav != null);
     }
 
@@ -174,6 +175,20 @@ namespace Tests {
       var ret = ToxAV.ToxAV.group_send_audio(tox, 0, data, 1, 1, 8000);
       assert(ret == -1);
       assert(toxav != null);
+    }
+
+    private static void test_groupchat_audio_toggle() {
+      var tox = new ToxCore.Tox(null);
+      var toxav = new ToxAV.ToxAV(tox);
+
+      var conference_number = tox.conference_new();
+      assert(ToxAV.ToxAV.groupchat_av_enabled(tox, conference_number) == false);
+
+      var ret_enable = ToxAV.ToxAV.groupchat_enable_av(tox, conference_number, () => {});
+      assert(ret_enable == -1);
+
+      var ret_disable = ToxAV.ToxAV.groupchat_disable_av(tox, conference_number);
+      assert(ret_disable == -1);
     }
 
     private static void test_callbacks() {
@@ -251,6 +266,7 @@ namespace Tests {
       Test.add_func(PREFIX + "test_add_av_groupchat", test_add_av_groupchat);
       Test.add_func(PREFIX + "test_join_av_groupchat", test_join_av_groupchat);
       Test.add_func(PREFIX + "test_group_send_audio", test_group_send_audio);
+      Test.add_func(PREFIX + "test_groupchat_audio_toggle", test_groupchat_audio_toggle);
       Test.add_func(PREFIX + "test_callbacks", test_callbacks);
       Test.add_func(PREFIX + "test_enums", test_enums);
 
